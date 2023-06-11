@@ -540,6 +540,7 @@ namespace Inventory_System02
                 sql = $"Select * from Stocks where {search_for} like '%{txt_Search.Text}%' ORDER BY `Entry Date` DESC ";
                 config.Load_DTG(sql, dtg_Items);
                 DTG_Property();
+                Calculator_Timer.Start();
 
                 if (!isWorkerBusy)
                 {
