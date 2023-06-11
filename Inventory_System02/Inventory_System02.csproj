@@ -1,0 +1,626 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props" Condition="Exists('..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B3339EBD-D2AE-4C4E-9789-62DE7C13479B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Inventory_System02</RootNamespace>
+    <AssemblyName>Inventory MS</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>C:\Users\eugen\source\repos\InventoryProduction\publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Hours</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>https://raw.githubusercontent.com/codefilterPH/InventoryProduction/main/publish/</InstallUrl>
+    <UpdateUrl>https://raw.githubusercontent.com/codefilterPH/Inventory/main/publish/</UpdateUrl>
+    <ProductName>Inventory MS</ProductName>
+    <PublisherName>Codefilter Technology</PublisherName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationVersion>1.0.0.6</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>InventoryMS.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>FCF539029EF8D8A89AEDDACFE5D99A39C05AFA26</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.7.0.0\lib\net462\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.7.0.0\lib\net462\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.7.0.0\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1004\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1537.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1537.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1537.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1537.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1537.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.160.1000.6\lib\net462\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.117.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="zxing, Version=0.16.8.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.8\lib\net47\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.8.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.8\lib\net47\zxing.presentation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Inbound\AddStock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inbound\AddStock.Designer.cs">
+      <DependentUpon>AddStock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Verify.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\Verify.Designer.cs">
+      <DependentUpon>Verify.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Analytics\dashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Analytics\dashboard.Designer.cs">
+      <DependentUpon>dashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Includes\CreateRegistry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Includes\RDLCSupportingClass.cs" />
+    <Compile Include="MyDocuments\Batch_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MyDocuments\Batch_Form.designer.cs">
+      <DependentUpon>Batch_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommonSql\Invoice\Invoice_Silent.cs" />
+    <Compile Include="CommonSql\Reports Dir\Item_Division\ItemByDivision_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommonSql\Reports Dir\Item_Division\ItemByDivision_Form.Designer.cs">
+      <DependentUpon>ItemByDivision_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommonSql\Reports Dir\Item_Qty\Edit_QTY.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommonSql\Reports Dir\Item_Qty\Edit_QTY.Designer.cs">
+      <DependentUpon>Edit_QTY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommonSql\Reports Dir\Item_Qty\Item_by_Quantity.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommonSql\Reports Dir\Item_Qty\Item_by_Quantity.Designer.cs">
+      <DependentUpon>Item_by_Quantity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustSupplier\CustSupp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustSupplier\CustSupp.Designer.cs">
+      <DependentUpon>CustSupp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustSupplier\CustModels.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustSupplier\CustModels.Designer.cs">
+      <DependentUpon>CustModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Edit_Form\Edit_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Edit_Form\Edit_Form.Designer.cs">
+      <DependentUpon>Edit_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Includes\App_Settings.cs" />
+    <Compile Include="Includes\Calculations.cs" />
+    <Compile Include="Includes\Load_DTG_VBPrint.cs" />
+    <Compile Include="Includes\Print_To_The_Printer.cs" />
+    <Compile Include="Includes\ID_Generator.cs" />
+    <Compile Include="Includes\StringBuilder12.cs" />
+    <Compile Include="CommonSql\Invoice\Invoice_Code.cs" />
+    <Compile Include="Outbound\OutEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Outbound\OutEditForm.Designer.cs">
+      <DependentUpon>OutEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Previewing_Forms\Outbound_Preview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Previewing_Forms\Outbound_Preview.Designer.cs">
+      <DependentUpon>Outbound_Preview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Previewing_Forms\Item_Preview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Previewing_Forms\Item_Preview.Designer.cs">
+      <DependentUpon>Item_Preview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Previewing_Forms\Return_Preview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Previewing_Forms\Return_Preview.Designer.cs">
+      <DependentUpon>Return_Preview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Login1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\Login1.Designer.cs">
+      <DependentUpon>Login1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommonSql\Reports Dir\Customer_Report.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommonSql\Reports Dir\Customer_Report.Designer.cs">
+      <DependentUpon>Customer_Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommonSql\Reports Dir\Employee_Report.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommonSql\Reports Dir\Employee_Report.Designer.cs">
+      <DependentUpon>Employee_Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommonSql\Reports Dir\Item_Report.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommonSql\Reports Dir\Item_Report.Designer.cs">
+      <DependentUpon>Item_Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommonSql\Reports Dir\Report Viewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommonSql\Reports Dir\Report Viewer.Designer.cs">
+      <DependentUpon>Report Viewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommonSql\Reports Dir\Supplier_Report.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommonSql\Reports Dir\Supplier_Report.Designer.cs">
+      <DependentUpon>Supplier_Report.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports_MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports_MainForm.Designer.cs">
+      <DependentUpon>Reports_MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Return\Investigated_Return_Records.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Return\Investigated_Return_Records.Designer.cs">
+      <DependentUpon>Investigated_Return_Records.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Return\ReturnToStocks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Return\ReturnToStocks.Designer.cs">
+      <DependentUpon>ReturnToStocks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Return\Stock Returned List.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Return\Stock Returned List.Designer.cs">
+      <DependentUpon>Stock Returned List.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Outbound\StockOutList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Outbound\StockOutList.Designer.cs">
+      <DependentUpon>StockOutList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Employees\Employee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Employees\Employee.Designer.cs">
+      <DependentUpon>Employee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Admin\Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Includes\SQLConfig.cs" />
+    <Compile Include="Outbound\StockOut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Outbound\StockOut.Designer.cs">
+      <DependentUpon>StockOut.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Return\StockReturned.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Return\StockReturned.Designer.cs">
+      <DependentUpon>StockReturned.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Includes\usableFunction.cs" />
+    <EmbeddedResource Include="Inbound\AddStock.resx">
+      <DependentUpon>AddStock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\Verify.resx">
+      <DependentUpon>Verify.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Analytics\dashboard.resx">
+      <DependentUpon>dashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyDocuments\Batch_Form.resx">
+      <DependentUpon>Batch_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="CommonSql\Invoice\Invoice_In_Item.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CommonSql\Invoice\Invoice_In.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CommonSql\Reports Dir\Item_Division\Item_Divisup_Report.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="CommonSql\Reports Dir\Item_Division\ItemByDivision_Form.resx">
+      <DependentUpon>ItemByDivision_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommonSql\Reports Dir\Item_Qty\Edit_QTY.resx">
+      <DependentUpon>Edit_QTY.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="CommonSql\Reports Dir\Item_Qty\ItemQTY_Report.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="CommonSql\Reports Dir\Item_Qty\Item_by_Quantity.resx">
+      <DependentUpon>Item_by_Quantity.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="CommonSql\Reports Dir\Search DTG\Search_DTG.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CommonSql\Reports Dir\Supplier_Report.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="CustSupplier\CustSupp.resx">
+      <DependentUpon>CustSupp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustSupplier\CustModels.resx">
+      <DependentUpon>CustModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="CommonSql\Invoice\Invoice_return.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CommonSql\Invoice\Invoice_out.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Edit_Form\Edit_Form.resx">
+      <DependentUpon>Edit_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Outbound\OutEditForm.resx">
+      <DependentUpon>OutEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Previewing_Forms\Item_Preview.resx">
+      <DependentUpon>Item_Preview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Previewing_Forms\Outbound_Preview.resx">
+      <DependentUpon>Outbound_Preview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Previewing_Forms\Return_Preview.resx">
+      <DependentUpon>Return_Preview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\Login1.resx">
+      <DependentUpon>Login1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommonSql\Reports Dir\Customer_Report.resx">
+      <DependentUpon>Customer_Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommonSql\Reports Dir\Employee_Report.resx">
+      <DependentUpon>Employee_Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommonSql\Reports Dir\Item_Report.resx">
+      <DependentUpon>Item_Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommonSql\Reports Dir\Report Viewer.resx">
+      <DependentUpon>Report Viewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="CommonSql\Reports Dir\Employee_Report.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CommonSql\Reports Dir\Customer_Report.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="CommonSql\Reports Dir\Supplier_Report.resx">
+      <DependentUpon>Supplier_Report.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="CommonSql\Reports Dir\Item Report.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Reports_MainForm.resx">
+      <DependentUpon>Reports_MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Return\Investigated_Return_Records.resx">
+      <DependentUpon>Investigated_Return_Records.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Return\ReturnToStocks.resx">
+      <DependentUpon>ReturnToStocks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Return\Stock Returned List.resx">
+      <DependentUpon>Stock Returned List.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Outbound\StockOutList.resx">
+      <DependentUpon>StockOutList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Employees\Employee.resx">
+      <DependentUpon>Employee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Admin\Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Outbound\StockOut.resx">
+      <DependentUpon>StockOut.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Return\StockReturned.resx">
+      <DependentUpon>StockReturned.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="CommonSql\Document Center Files\Outbound Report 015335.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\DataSources\Inventory_System02.Includes.Load_DTG_VBPrint+SearchBy_Data.datasource" />
+    <None Include="Properties\DataSources\Inventory_System02.Includes.Load_DTG_VBPrint.datasource" />
+    <None Include="Properties\DataSources\Inventory_System02.Invoice.Invoice_Code.datasource" />
+    <None Include="Properties\DataSources\Inventory_System02.Invoice.Items_DataSet.datasource" />
+    <None Include="Properties\DataSources\Inventory_System02.Reports_Dir.Class_Customer_Var.datasource" />
+    <None Include="Properties\DataSources\Inventory_System02.Reports_Dir.Class_Employee_Var.datasource" />
+    <None Include="Properties\DataSources\Inventory_System02.Reports_Dir.Class_Item_Var.datasource" />
+    <None Include="Properties\DataSources\Inventory_System02.Reports_Dir.Class_Supplier_Var.datasource" />
+    <None Include="Properties\DataSources\Inventory_System02.Reports_Dir.Customer_Report.datasource" />
+    <None Include="Properties\DataSources\Inventory_System02.Reports_Dir.Employee_Report.datasource" />
+    <None Include="Properties\DataSources\Inventory_System02.Reports_Dir.Item_Report.datasource" />
+    <None Include="Properties\DataSources\Inventory_System02.Reports_Dir.JobRoles.datasource" />
+    <None Include="Properties\DataSources\Inventory_System02.Reports_Dir.Report_Viewer.datasource" />
+    <None Include="Properties\DataSources\Inventory_System02.Reports_Dir.Supplier_Report.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="box.ico" />
+    <Content Include="CommonSql\Pictures\Company\DONOTDELETE_SUBIMAGE.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CommonSql\Pictures\Customers\DONOTDELETE_SUBIMAGE.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CommonSql\Pictures\Employee\admin.JPG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CommonSql\Pictures\Employee\DONOTDELETE_SUBIMAGE.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CommonSql\Pictures\Item\Image\DONOTDELETE_SUBIMAGE.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CommonSql\Pictures\Suppliers\DONOTDELETE_SUBIMAGE.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CommonSql\Tools\SQLite.Interop.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CommonSql\Tools\tools.dll" />
+    <Content Include="development.txt" />
+    <Content Include="InventoryMS.ico" />
+    <None Include="Resources\Flaticon\expand.png" />
+    <None Include="Resources\Flaticon\nav.png" />
+    <None Include="Resources\resize.png" />
+    <None Include="Resources\expand.png" />
+    <None Include="Resources\expand1.png" />
+    <Content Include="production.txt" />
+    <Content Include="SQLite.Interop.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AxAcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="Inventory MS.pdb">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props'))" />
+    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.117.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
+</Project>
