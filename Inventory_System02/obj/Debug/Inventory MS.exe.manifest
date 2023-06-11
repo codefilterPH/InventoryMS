@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="Inventory MS.exe" version="1.0.0.7" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="Inventory MS.exe" version="1.0.0.6" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="InventoryMS.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
@@ -50,7 +50,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Sc9WVbf1Th5dcCChNPxCs1qobFosVNiX2LRYzZkk4xc=</dsig:DigestValue>
+        <dsig:DigestValue>6XMi/uxsIomtElON9UdKF1xDh8KAcKCzR36QOReDNkM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -79,14 +79,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="EnvDTE.dll" size="255888">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="EnvDTE.dll" size="255936">
       <assemblyIdentity name="EnvDTE" version="8.0.0.0" publicKeyToken="B03F5F7F11D50A3A" language="neutral" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>KzkictevMW2f3nPh7x4zucJbG44tusMtmKvMnh1fmYo=</dsig:DigestValue>
+        <dsig:DigestValue>xCABtLjGyhP9QBgltb3rGN+fq7Zow2UugKe99fd1k18=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -98,7 +98,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>jU4o0SrQVDqoX4WCRa1ZKDa5W5xF1Y9ZZ5IqayrnirA=</dsig:DigestValue>
+        <dsig:DigestValue>TQyqffjsTazT48oE0pF9IILovo+u2gBQFn+vNT/TDFs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -110,7 +110,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Pji/pZvy33DbC8p5nNScWSYi/L0hqsvZc+pnooeKp3E=</dsig:DigestValue>
+        <dsig:DigestValue>VQHmJWokkUHra526i9tt/NQMLU6yDevj03TgmENCx9Q=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -936,40 +936,40 @@
       <dsig:DigestValue>v2OWVvHLdU3OSa0fc46Vgx2W+Yx+qpeyepY/UnjhKVs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="CommonSql\Invoice\Invoice_In.rdlc" size="45939">
+  <file name="CommonSql\Invoice\Invoice_In.rdlc" size="44797">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>46Q0IByob9HCSC++xwvKlN5iglCRvtENrFn9ymP81v4=</dsig:DigestValue>
+      <dsig:DigestValue>Js1Hscf8/07GvfrC0pIAxTSId+OO7OShQ14iVS1j660=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="CommonSql\Invoice\Invoice_In_Item.rdlc" size="45925">
+  <file name="CommonSql\Invoice\Invoice_In_Item.rdlc" size="44783">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>jeHPLaSka5+5i0uM9xzHqtlT96a80+eNvqlF9NLmwpU=</dsig:DigestValue>
+      <dsig:DigestValue>sxYVqdu7LQOI3GkUsft1NLrCmREEhNnt4t+lCLQ/XPo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="CommonSql\Invoice\Invoice_out.rdlc" size="51747">
+  <file name="CommonSql\Invoice\Invoice_out.rdlc" size="50443">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>MYwHcqr+5RzF3C4/hxsxYD4JSnC3ATaERz1dLIPBNcQ=</dsig:DigestValue>
+      <dsig:DigestValue>c+J/junqDPck3H4ytZnxxE57ZVCKYTCGw0FDDtX9VMQ=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="CommonSql\Invoice\Invoice_return.rdlc" size="45947">
+  <file name="CommonSql\Invoice\Invoice_return.rdlc" size="44805">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>1EWTihgIY8m+KWInb+Apai2565kJLXSKW7KbAacXHys=</dsig:DigestValue>
+      <dsig:DigestValue>i2sd6wwJIi2k404b0jtRYm552a5FB13fDnVyFzSphMM=</dsig:DigestValue>
     </hash>
   </file>
   <file name="CommonSql\Pictures\Company\DONOTDELETE_SUBIMAGE.PNG" size="520371">
@@ -1026,67 +1026,67 @@
       <dsig:DigestValue>b+8xrJvzXyLd8hw6uNg6tY/bsDFHIMqOmzpQb5/LnPw=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="CommonSql\Reports Dir\Customer_Report.rdlc" size="42977">
+  <file name="CommonSql\Reports Dir\Customer_Report.rdlc" size="41937">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>oRCN/LUnG9eO7xpIb+vwbhb57eOtUTpxYgi9tbcByW8=</dsig:DigestValue>
+      <dsig:DigestValue>uTs1/zif9PRqUO1RyuzEiGnBVpw8CWwM3o7RB96Dkno=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="CommonSql\Reports Dir\Employee_Report.rdlc" size="52457">
+  <file name="CommonSql\Reports Dir\Employee_Report.rdlc" size="51222">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Zrr3tSHCDDU+W5FPFEXEXtEJXvkI2SDxJ8w8NKDaaz0=</dsig:DigestValue>
+      <dsig:DigestValue>mcefQwJ3Xd6F7XCsMbTqZGM0s5ezKDnpqnFXhDwayqA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="CommonSql\Reports Dir\Item Report.rdlc" size="105022">
+  <file name="CommonSql\Reports Dir\Item Report.rdlc" size="102621">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>+WC5hzbDv81V+RZluBN2ctL1ZobfQAi09crJTRQTrrM=</dsig:DigestValue>
+      <dsig:DigestValue>9SKzA4g0iW80NAjLRvIWmuu3ju4ENSAPDz5/Jf6x+eA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="CommonSql\Reports Dir\Item_Division\Item_Divisup_Report.rdlc" size="104198">
+  <file name="CommonSql\Reports Dir\Item_Division\Item_Divisup_Report.rdlc" size="101811">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>YSxn6lk4N2qwP9kyUv9b37CFOA67d6cTF5dvzPM5m/o=</dsig:DigestValue>
+      <dsig:DigestValue>W9t22clUIRvZT9+8yduyzl7lwEtUsawi1zvfOkkBuuc=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="CommonSql\Reports Dir\Item_Qty\ItemQTY_Report.rdlc" size="104621">
+  <file name="CommonSql\Reports Dir\Item_Qty\ItemQTY_Report.rdlc" size="102226">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>tvzLnFQgmfxrzzarfddcJZE99WGh8I6wgHUucSkVW64=</dsig:DigestValue>
+      <dsig:DigestValue>YuJptlLiC2ivIVQM2WtZ64jQ3aQS+IOFFmMIWaqoDvQ=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="CommonSql\Reports Dir\Search DTG\Search_DTG.rdlc" size="46060">
+  <file name="CommonSql\Reports Dir\Search DTG\Search_DTG.rdlc" size="44959">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>WKXop4Eey07Sh3BgKoAnXxLiv8qZMiYvkbrahS2iF+M=</dsig:DigestValue>
+      <dsig:DigestValue>cJBtWUMbwCPw4Uqs4yeuFkwLgY1Til9lwvo2pHPKTs4=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="CommonSql\Reports Dir\Supplier_Report.rdlc" size="43963">
+  <file name="CommonSql\Reports Dir\Supplier_Report.rdlc" size="42902">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>MMpAS1bzP9z+A+qpL/ckCqiTFJZCNxjJ05RsD2AMbSs=</dsig:DigestValue>
+      <dsig:DigestValue>wPQY296kZVXYoAJPOk3y3jDinuXxO7L0XUTXkAnl29c=</dsig:DigestValue>
     </hash>
   </file>
   <file name="CommonSql\Tools\SQLite.Interop.dll" size="1421496">
@@ -1107,31 +1107,31 @@
       <dsig:DigestValue>YMT/tkbxb5e94ruFFSQUkIpe0d86ry6+PePpRrBkvGw=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="development.txt" size="118">
+  <file name="development.txt" size="117">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>oWUoblo/gNnG7sqXNQoH/l7vJTO4WRxvrqsTY4qvUec=</dsig:DigestValue>
+      <dsig:DigestValue>b3irY3dMpIqxakyfvXA0kx47Llt0d3s9jrrTX+muXaM=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Inventory MS.exe.config" size="1548">
+  <file name="Inventory MS.exe.config" size="1520">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>PgHQcqCT5POPpk1xvQKCSWHmj9YtFDTyu6N/7yw+qF0=</dsig:DigestValue>
+      <dsig:DigestValue>WgbpgA7IEC95AdMnKer7gyTe9XUc9l03obB00/p5Je4=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Inventory MS.pdb" size="855552">
+  <file name="Inventory MS.pdb" size="849408">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>eCCDcooZffTNTqkSdGp5ruPDj+9F885b7ISNAOOkCvY=</dsig:DigestValue>
+      <dsig:DigestValue>ASQ53eopPS/BzSM2MU+3iVlSZtSVepYzyjZFLHUTXCg=</dsig:DigestValue>
     </hash>
   </file>
   <file name="InventoryMS.ico" size="175923">
@@ -1143,13 +1143,13 @@
       <dsig:DigestValue>ns4vYz5mULSSRwsMXDN7tZ04E0LizcrX+pKquruBC00=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="production.txt" size="138">
+  <file name="production.txt" size="137">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>8FbDRn2pk0ZSrxIyjfzWFBQbyaiwyJIw9EWDOglTROU=</dsig:DigestValue>
+      <dsig:DigestValue>rqT5cMNhYPWgZ7lvXjShSUF698tVJolpHRkftZKu9Tc=</dsig:DigestValue>
     </hash>
   </file>
   <file name="SQLite.Interop.dll" size="1421496">

@@ -479,6 +479,10 @@ namespace Inventory_System02
         {
             try
             {
+                if ( dtg_Items.Columns.Count >= 1 )
+                {
+                    dtg_Items.Columns.Clear();
+                }
                 if (cbo_srch_type.Text == "DATE")
                 {
                     search_for = "`Entry Date`";
