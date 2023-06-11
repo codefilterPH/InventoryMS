@@ -479,10 +479,6 @@ namespace Inventory_System02
         {
             try
             {
-                if (dtg_Items.Columns.Count >= 1) {
-                    dtg_Items.Columns.Clear();
-                }
-
                 if (cbo_srch_type.Text == "DATE")
                 {
                     search_for = "`Entry Date`";
@@ -538,7 +534,8 @@ namespace Inventory_System02
                 sql = "";
                 config = new SQLConfig();
                 sql = $"Select * from Stocks where {search_for} like '%{txt_Search.Text}%' ORDER BY `Entry Date` DESC ";
-                Load_Items(sql);
+                config.Load_DTG(sql, dtg_Items);
+                DTG_Property();
 
                 if (!isWorkerBusy)
                 {
