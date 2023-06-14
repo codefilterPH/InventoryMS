@@ -50,7 +50,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>+z42PO6A83V/zwF3IB3d9vxMMHROQf9jzVnzwDydHX8=</dsig:DigestValue>
+        <dsig:DigestValue>NMRHzaPR1HgJWkDx7O3wjm8wWrAeVhPd3qe8yhiXROU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -98,7 +98,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>kMRbjSw0ecaPh9pMjwAhzTYO0FldeWNLp8GfOp6NMk0=</dsig:DigestValue>
+        <dsig:DigestValue>QeJPrLKoe+dLffnbbuzL3su2U+lrud/iKfz17QaG/28=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -110,7 +110,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>1IDQLUy68IsCQjXtvwSfDk7CVbbPIA+o0o7hb0FrB9Y=</dsig:DigestValue>
+        <dsig:DigestValue>uTgwHnXrpAV2yNfiUyW2BrajlYoQ80zsYYWZrQXkgeU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -1131,7 +1131,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>zeN4Nr8r2DG34ZqLf3B/7/6wCiSmrMUbSJGkTJNPNHE=</dsig:DigestValue>
+      <dsig:DigestValue>DyBTrMrUilgV2wknKsM2cDN029jmKNH2A8VuEWBLcuA=</dsig:DigestValue>
     </hash>
   </file>
   <file name="InventoryMS.ico" size="175923">

@@ -206,6 +206,7 @@ namespace Inventory_System02
                     lbl_TotalAmt.Text = my_total.ToString();
 
                     lbl_items_count.Text = dtg_Items.Rows.Count.ToString();
+                    return;
                 }
             }
             catch (Exception ex)
