@@ -85,6 +85,7 @@ namespace Inventory_System02.Profiles
                     ", '" + txt_Address.Text + "' " +
                     ", '" + txt_Job_role.Text + "' ) ";
                     config.Execute_CUD(sql, "Unsuccessful to Record " + txt_Job_role.Text, "Successfully recorded " + txt_Job_role.Text);
+                    reloadTableToolStripMenuItem_Click(sender, e);
                     return;
                 }
                 else

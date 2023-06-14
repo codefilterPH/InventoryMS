@@ -64,18 +64,35 @@ namespace Inventory_System02
         }
         public static void ShowFormInContainerControl(Control ctl, Form frm)
         {
-            frm.TopLevel = false;
-            frm.FormBorderStyle = FormBorderStyle.None;
-            frm.Dock = DockStyle.Fill;
-            frm.Visible = true;
-            ctl.Controls.Add(frm);
+            try
+            {
+                frm.TopLevel = false;
+                frm.FormBorderStyle = FormBorderStyle.None;
+                frm.Dock = DockStyle.Fill;
+                frm.Visible = true;
+                ctl.Controls.Add(frm);
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception here, or display an error message
+                // You can also log the exception for debugging purposes
+                Console.WriteLine("An error occurred: " + ex.Message);
+            }
         }
+
         public void Panel_content_remove()
         {
-            foreach (Control item in show_panel.Controls.OfType<Form>())
+            try
             {
-                item.Dispose();
-                show_panel.Controls.Remove(item);
+                foreach (Control item in show_panel.Controls.OfType<Form>())
+                {
+                    item.Dispose();
+                    show_panel.Controls.Remove(item);
+                }
+            }
+            catch (Exception ex)
+            { 
+                Console.WriteLine("An error occurred: " + ex.Message);
             }
         }
 

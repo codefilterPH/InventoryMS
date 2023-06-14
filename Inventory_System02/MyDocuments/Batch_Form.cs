@@ -27,29 +27,43 @@ namespace Inventory_System02
 
         public void PATH()
         {
-            if (this.InvokeRequired)
+            try
             {
-                this.Invoke(new MethodInvoker(PATH));
-                return;
-            }
-            System.Data.DataTable dt = new System.Data.DataTable();
-            dt.Columns.Add("Date");
-            dt.Columns.Add("File Name");
-            //dt.Columns.Add("Type");
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new MethodInvoker(PATH));
+                    return;
+                }
 
-            for (int i = 0; i < files.Length; i++)
+                if (!dtg_batch_form.IsDisposed)
+                {
+                    System.Data.DataTable dt = new System.Data.DataTable();
+                    dt.Columns.Add("Date");
+                    dt.Columns.Add("File Name");
+
+                    for (int i = 0; i < files.Length; i++)
+                    {
+                        FileInfo file = new FileInfo(files[i]);
+                        dt.Rows.Add(file.CreationTime, file.Name);
+                    }
+
+                    dt.DefaultView.Sort = "Date DESC";
+                    dt = dt.DefaultView.ToTable();
+
+                    if (!dtg_batch_form.IsDisposed)
+                    {
+                        dtg_batch_form.DataSource = dt;
+                        lbl_current.Text = "All Documents";
+                    }
+                }
+            }
+            catch (Exception ex)
             {
-                FileInfo file = new FileInfo(files[i]);
-                //dt.Rows.Add(file.CreationTime, file.Name, file.Extension);
-                dt.Rows.Add(file.CreationTime, file.Name);
+                // Handle the exception here, or display an error message
+                // You can also log the exception for debugging purposes
+                Console.WriteLine("An error occurred: " + ex.Message);
             }
-            // Sort the DataTable by the "Date" column in descending order
-            dt.DefaultView.Sort = "Date DESC";
-            dt = dt.DefaultView.ToTable();
 
-            // Bind the sorted DataTable to the DataGridView
-            dtg_batch_form.DataSource = dt;
-            lbl_current.Text = "All Documents";
         }
         string what_to_del = string.Empty;
         private void chk_Select_all_CheckedChanged(object sender, EventArgs e)
