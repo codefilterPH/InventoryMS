@@ -282,38 +282,46 @@ namespace Inventory_System02
 
         private void btn_view_Click(object sender, EventArgs e)
         {
-            if (dtg_return_list.Rows.Count >= 1)
+            try
             {
-                if (dtg_return_list.SelectedRows.Count <= 0)
+                if (dtg_return_list.Rows.Count >= 1)
                 {
-                    dtg_return_list.CurrentRow.Selected = true;
-                }
-                else if (dtg_return_list.SelectedRows.Count == 1 && txt_Trans_number.Text != "Empty Field!"
-                    && !string.IsNullOrWhiteSpace(txt_Trans_number.Text))
-                {
-                    Items.Return_Preview frm = new Items.Return_Preview(
-                    dtg_return_list.CurrentRow.Cells[1].Value.ToString(),
-                    dtg_return_list.CurrentRow.Cells[5].Value.ToString(),
-                    txt_Trans_number.Text,
-                    dtg_return_list.CurrentRow.Cells[3].Value.ToString(),
-                    dtg_return_list.CurrentRow.Cells[4].Value.ToString(),
-                    dtg_return_list.CurrentRow.Cells[6].Value.ToString(),
-                    dtg_return_list.CurrentRow.Cells[7].Value.ToString(),
-                    dtg_return_list.CurrentRow.Cells[8].Value.ToString(),
-                    dtg_return_list.CurrentRow.Cells[9].Value.ToString(),
-                    dtg_return_list.CurrentRow.Cells[10].Value.ToString(),
-                    dtg_return_list.CurrentRow.Cells[11].Value.ToString(),
-                    dtg_return_list.CurrentRow.Cells[14].Value.ToString());
+                    if (dtg_return_list.SelectedRows.Count <= 0)
+                    {
+                        dtg_return_list.CurrentRow.Selected = true;
+                    }
+                    else if (dtg_return_list.SelectedRows.Count == 1 && txt_Trans_number.Text != "Empty Field!"
+                        && !string.IsNullOrWhiteSpace(txt_Trans_number.Text))
+                    {
+                        Items.Return_Preview frm = new Items.Return_Preview(
+                        dtg_return_list.CurrentRow.Cells[1].Value.ToString(),
+                        dtg_return_list.CurrentRow.Cells[5].Value.ToString(),
+                        txt_Trans_number.Text,
+                        dtg_return_list.CurrentRow.Cells[3].Value.ToString(),
+                        dtg_return_list.CurrentRow.Cells[4].Value.ToString(),
+                        dtg_return_list.CurrentRow.Cells[6].Value.ToString(),
+                        dtg_return_list.CurrentRow.Cells[7].Value.ToString(),
+                        dtg_return_list.CurrentRow.Cells[8].Value.ToString(),
+                        dtg_return_list.CurrentRow.Cells[9].Value.ToString(),
+                        dtg_return_list.CurrentRow.Cells[10].Value.ToString(),
+                        dtg_return_list.CurrentRow.Cells[11].Value.ToString(),
+                        dtg_return_list.CurrentRow.Cells[14].Value.ToString());
 
-                    frm.ShowDialog();
-                }
-                else
-                {
-                    txt_Trans_number.Text = "Empty Field!";
-                    txt_Trans_number.Focus();
-                }
+                        frm.ShowDialog();
+                    }
+                    else
+                    {
+                        txt_Trans_number.Text = "Empty Field!";
+                        txt_Trans_number.Focus();
+                    }
 
+                }
             }
+            catch (Exception ex) 
+            {
+                lbl_exception.Text = ex.Message;
+            }
+            
         }
 
         private void cbo_srch_type_SelectedIndexChanged(object sender, EventArgs e)
