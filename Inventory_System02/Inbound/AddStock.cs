@@ -4,8 +4,10 @@ using System;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 using ZXing;
 using ToolTip = System.Windows.Forms.ToolTip;
@@ -22,6 +24,7 @@ namespace Inventory_System02
         string sql, Item_ID1, Global_ID, Fullname, JobRole, item_image_location = string.Empty, img_loc = string.Empty;
         int quantity;
         bool isWorkerBusy = false;
+        bool isWarrantyBusy = false;
         int rowcounter = 0;
         public AddStock(string global_id, string fullname, string jobrole)
         {
@@ -61,6 +64,12 @@ namespace Inventory_System02
                 progressBar1.Visible = true;
                 rowcounter = config.dt.Rows.Count;
                 backgroundWorker1.RunWorkerAsync();
+            }
+
+            if (!isWarrantyBusy)
+            {
+                isWarrantyBusy = true;
+                dtp_warranty_worker.RunWorkerAsync();
             }
 
             LoadImageWorker.RunWorkerAsync();
@@ -253,10 +262,45 @@ namespace Inventory_System02
 
             }
         }
+        private void WarrantySelection()
+        {
+            ///This method is for getting the warranty date by id and transaction reference.
+            bool success;
+            success = config.CreateOrUpdateInboundWarranty(dtp_warranty.Value, txt_Barcode.Text, txt_TransRef.Text, "select");
+            if (success)
+            {
+                string barcodeId = txt_Barcode.Text;
+                string transRef = txt_TransRef.Text;
+
+                // Construct the SQL query
+                string sql = $"SELECT warranty FROM Inbound_Warranty WHERE barcode_id = '"+barcodeId+"' AND trans_ref = '"+transRef+"'";
+                config.singleResult(sql);
+                if (config.dt.Rows.Count == 1)
+                {
+                    dtp_warranty.Value = Convert.ToDateTime(config.dt.Rows[0]["warranty"].ToString());
+                    DateTime selectedDate = dtp_warranty.Value;
+                    DateTime currentDate = DateTime.Now;
+
+                    if (selectedDate <= currentDate)
+                    {
+                        lbl_error_message.Text = "Warranty has already expired!";
+                        lbl_error_message.ForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        lbl_error_message.Text = "Warranty is still valid.";
+                        lbl_error_message.ForeColor = Color.Blue;
+
+                    }
+                }
+            }
+
+        }
 
         bool dtg_was_clicked = false;
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            ///Clicking the Table will populate the data to the fields.
             try
             {
                 if (enable_them == true)
@@ -286,6 +330,13 @@ namespace Inventory_System02
 
                         func.Change_Font_DTG(sender, e, dtg_Items);
                         txt_Qty_ValueChanged(sender, e);
+                        bool success;
+                        success = config.CreateOrUpdateInboundWarranty(dtp_warranty.Value, txt_Barcode.Text, txt_TransRef.Text, "select");
+                        if (success)
+                        {
+                            WarrantySelection();
+                        }
+                        
 
 
                     }
@@ -375,8 +426,13 @@ namespace Inventory_System02
                         ", `Image Path` = '" + img_loc + "' " +
                         ", `Supplier ID` = '" + txt_SupID.Text + "' " +
                         ", `Supplier Name` = '" + txt_Sup_Name.Text + "' " +
+                        ", `User ID` = '"+ Global_ID +"' " +
+                        ", `Warehouse Staff Name` = '"+ Fullname +"' " +
+                        ", `Job Role` = '"+ JobRole +"' " +
                         " where `Stock ID` = '" + txt_Barcode.Text + "' ";
                     config.Execute_CUD(sql, "Unsuccessful to update item information", "Item information successfully updated!");
+                    bool success;
+                    success = config.CreateOrUpdateInboundWarranty(dtp_warranty.Value, txt_Barcode.Text, txt_TransRef.Text, "update");
                     refreshToolStripMenuItem_Click(sender, e);
 
                 }
@@ -983,6 +1039,9 @@ namespace Inventory_System02
                             {
                                 string sql = "DELETE FROM `Stocks` WHERE count = '1' ";
                                 config.Execute_CUD(sql, "Unable to delete all items. Please try again!", "Successfully deleted all items!");
+                                config.DeleteAllRowsFromTable("Inbound_Warranty");
+
+
                                 chk_select_all.Checked = false;
                                 refreshToolStripMenuItem_Click(sender, e);
                                 return;
@@ -991,7 +1050,14 @@ namespace Inventory_System02
                             {
                                 foreach (DataGridViewRow rw in dtg_Items.SelectedRows)
                                 {
-                                    sql = "DELETE FROM Stocks WHERE `Stock ID` = '" + rw.Cells[2].Value.ToString() + "'";
+                                    string barcode_id = rw.Cells[2].Value.ToString();
+                                    string trans_ref = rw.Cells[0].Value.ToString();
+
+                                    // Call the method to delete the warranty based on barcode_id and trans_ref
+                                    config.CreateOrUpdateInboundWarranty(DateTime.Now, barcode_id, trans_ref, "delete");
+
+                                    // Delete the row from Stocks table
+                                    sql = "DELETE FROM Stocks WHERE `Stock ID` = '" + barcode_id + "'";
                                     config.Execute_Query(sql);
                                 }
                                 MessageBox.Show("Deleted from inbound stocks!", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1413,6 +1479,21 @@ namespace Inventory_System02
             current_page_val_ValueChanged(sender, e);
         }
 
+        private void dtp_warranty_worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            /// Use for loading the current date with for formatting for warranty
+            dtp_warranty.Invoke(new Action(() =>
+            {
+                dtp_warranty.Text = DateTime.Now.ToString(Includes.AppSettings.DateFormatRetrieve);
+            }));
+        }
+
+        private void dtp_warranty_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            /// Use for the warranty box
+            isWarrantyBusy = false;
+        }
+
         private void txt_Price_Click(object sender, EventArgs e)
         {
             txt_Price.SelectionStart = 0;
@@ -1583,6 +1664,10 @@ namespace Inventory_System02
                     ",'" + txt_TransRef.Text + "'" +
                     ",'" + stat_info + "' )";
                 config.Execute_CUD(sql, "Unable to Record Item!", "Item successfully added to record!");
+
+                bool success;
+                success = config.CreateOrUpdateInboundWarranty(dtp_warranty.Value, txt_Barcode.Text, txt_TransRef.Text, "insert");
+
                 save_Ref = txt_TransRef.Text;
                 newItemToolStripMenuItem_Click(sender, e);
                 txt_ItemName.Focus();

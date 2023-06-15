@@ -320,6 +320,7 @@ namespace Inventory_System02.Profiles
             // 
             // txt_ID
             // 
+            this.txt_ID.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txt_ID.Location = new System.Drawing.Point(85, 47);
             this.txt_ID.Name = "txt_ID";
             this.txt_ID.Size = new System.Drawing.Size(152, 25);

@@ -116,6 +116,9 @@ namespace Inventory_System02.CustSupplier
                     ", '" + sup_Phone.Text + "' " +
                     ", '" + sup_Address.Text + "'  ) ";
                     config.Execute_CUD(sql, "Unsuccessful to Record " + sup_CName.Text, "Successfully recorded " + sup_CName.Text);
+
+                    bool success = config.CreateOrUpdateTermsTable(Sup_ID.Text, txt_Terms.Text, "insert");
+
                     tabControl1.SelectedTab = tabPage2;
                     supplier_refresh_Click(sender, e);
 
@@ -175,6 +178,22 @@ namespace Inventory_System02.CustSupplier
                 func.Reload_Images(Sup_Image, Sup_ID.Text, Includes.AppSettings.Supplier_DIR);
                 func.Change_Font_DTG(sender, e, dtg_Supplier);
                 Sup_ID.Focus();
+
+                bool success = config.CreateOrUpdateTermsTable(Sup_ID.Text, txt_Terms.Text, "select");
+                if (success)
+                {
+                    sql = "Select terms from Terms where supplier_id = '" + Sup_ID.Text + "'";
+                    config.singleResult(sql);
+                    if ( config.dt.Rows.Count == 1 )
+                    {
+                        txt_Terms.Text = config.dt.Rows[0]["terms"].ToString();
+                    }
+                    else
+                    {
+                        txt_Terms.Text = "";
+                    }
+                }
+
             }
         }
 
@@ -355,6 +374,7 @@ namespace Inventory_System02.CustSupplier
                 ", Address = '" + sup_Address.Text + "'" +
                 "where `Company ID` ='" + Sup_ID.Text + "' ";
                 config.Execute_CUD(sql, "Unable to update supplier\'s profile!", "Supplier\'s Profile successfully updated");
+                bool success = config.CreateOrUpdateTermsTable(Sup_ID.Text, txt_Terms.Text, "update");
                 supplier_refresh_Click(sender, e);
             }
         }

@@ -74,6 +74,8 @@ namespace Inventory_System02
             this.btn_AddStock = new System.Windows.Forms.Button();
             this.txt_Price = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dtp_warranty = new System.Windows.Forms.DateTimePicker();
+            this.label22 = new System.Windows.Forms.Label();
             this.btn_preview = new System.Windows.Forms.Button();
             this.cbo_desc = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -123,6 +125,7 @@ namespace Inventory_System02
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.LoadImageWorker = new System.ComponentModel.BackgroundWorker();
+            this.dtp_warranty_worker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.dtg_Items)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -222,7 +225,7 @@ namespace Inventory_System02
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label3.Location = new System.Drawing.Point(361, 42);
+            this.label3.Location = new System.Drawing.Point(355, 44);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(56, 17);
             this.label3.TabIndex = 6;
@@ -251,7 +254,7 @@ namespace Inventory_System02
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label5.Location = new System.Drawing.Point(361, 73);
+            this.label5.Location = new System.Drawing.Point(355, 75);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(36, 17);
             this.label5.TabIndex = 10;
@@ -616,6 +619,8 @@ namespace Inventory_System02
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.dtp_warranty);
+            this.panel1.Controls.Add(this.label22);
             this.panel1.Controls.Add(this.btn_preview);
             this.panel1.Controls.Add(this.cbo_desc);
             this.panel1.Controls.Add(this.label16);
@@ -655,6 +660,27 @@ namespace Inventory_System02
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(856, 214);
             this.panel1.TabIndex = 20;
+            // 
+            // dtp_warranty
+            // 
+            this.dtp_warranty.CalendarFont = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtp_warranty.CustomFormat = "yyyy-MM-dd";
+            this.dtp_warranty.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.dtp_warranty.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtp_warranty.Location = new System.Drawing.Point(421, 101);
+            this.dtp_warranty.Name = "dtp_warranty";
+            this.dtp_warranty.Size = new System.Drawing.Size(127, 25);
+            this.dtp_warranty.TabIndex = 75;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label22.Location = new System.Drawing.Point(355, 104);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(60, 17);
+            this.label22.TabIndex = 74;
+            this.label22.Text = "Warranty";
             // 
             // btn_preview
             // 
@@ -1286,6 +1312,11 @@ namespace Inventory_System02
             this.LoadImageWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.LoadImageWorker_ProgressChanged);
             this.LoadImageWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.LoadImageWorker_RunWorkerCompleted);
             // 
+            // dtp_warranty_worker
+            // 
+            this.dtp_warranty_worker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.dtp_warranty_worker_DoWork);
+            this.dtp_warranty_worker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.dtp_warranty_worker_RunWorkerCompleted);
+            // 
             // AddStock
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1420,6 +1451,9 @@ namespace Inventory_System02
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ComboBox cbo_num_records;
         private System.Windows.Forms.Button btn_load;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.DateTimePicker dtp_warranty;
+        private System.ComponentModel.BackgroundWorker dtp_warranty_worker;
     }
 }
 

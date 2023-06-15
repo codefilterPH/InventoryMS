@@ -8,10 +8,17 @@ namespace Inventory_System02.Outbound
     public partial class OutEditForm : Form
     {
         string trans_reference = string.Empty;
-        public OutEditForm(string TransRef)
+        string Global_id = string.Empty;
+        string Fullname = string.Empty;
+        string JobRole = string.Empty;
+        public OutEditForm(string TransRef, string Global_ID, string Name, string Role)
         {
             InitializeComponent();
             trans_reference = TransRef;
+            Global_id = Global_ID;
+            Fullname = Name;
+            JobRole = Role;
+
         }
 
         private void OutEditForm_Load(object sender, EventArgs e)
@@ -97,6 +104,9 @@ namespace Inventory_System02.Outbound
                 {
                     sql = "Update StockOutStatus set Status = '" + lbl_status.Text + "', Remarks = '" + txt_remarks.Text + "' where TransRef = '" + trans_reference + "' ";
                     config.Execute_CUD(sql, "Unable to update transaction! Please contact administrator. Thank you", "Successfully updated transaction " + trans_reference + "' ");
+
+                    sql = "Update `Stock Out` set `User ID` = '" + Global_id + "', `Warehouse Staff Name` = '" + Fullname + "', `Job Role` = '" + JobRole + "' where `Transaction Reference` = '" + trans_reference + "' ";
+                    config.Execute_Query(sql);
                 }
                 else
                 {

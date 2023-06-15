@@ -468,5 +468,186 @@ namespace Inventory_System02.Includes
             }
         }
 
+        public bool CreateOrUpdateInboundWarranty(DateTime warranty, string barcode_id, string trans_ref, string todo)
+        {
+            ConnectionString();
+            try
+            {
+                con.Open();
+                cmd = new SQLiteCommand(con);
+
+                // Verify if the table exists
+                cmd.CommandText = "SELECT name FROM sqlite_master WHERE type='table' AND name='Inbound_Warranty'";
+                var tableExists = cmd.ExecuteScalar() != null;
+
+                if (!tableExists)
+                {
+                    // Create the table if it doesn't exist
+                    cmd.CommandText = "CREATE TABLE Inbound_Warranty (id INTEGER PRIMARY KEY AUTOINCREMENT, warranty TEXT, barcode_id TEXT, trans_ref TEXT)";
+                    cmd.ExecuteNonQuery();
+                }
+
+                if (todo == "delete")
+                {
+                    if (tableExists)
+                    {
+                        // Delete the warranty record based on barcode_id and trans_ref
+                        cmd.CommandText = "DELETE FROM Inbound_Warranty WHERE barcode_id=@barcode_id AND trans_ref=@trans_ref";
+                        cmd.Parameters.AddWithValue("@barcode_id", barcode_id);
+                        cmd.Parameters.AddWithValue("@trans_ref", trans_ref);
+                        cmd.ExecuteNonQuery();
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Table 'Inbound_Warranty' does not exist.");
+                        return false;
+                    }
+                }
+                else if (todo == "update" || todo == "insert")
+                {
+                    // Verify if the record exists based on barcode_id and trans_ref
+                    cmd.CommandText = "SELECT COUNT(*) FROM Inbound_Warranty WHERE barcode_id=@barcode_id AND trans_ref=@trans_ref";
+                    cmd.Parameters.AddWithValue("@barcode_id", barcode_id);
+                    cmd.Parameters.AddWithValue("@trans_ref", trans_ref);
+                    var recordExists = Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+
+                    if (recordExists)
+                    {
+                        // Update the existing record
+                        cmd.CommandText = "UPDATE Inbound_Warranty SET warranty=@warranty WHERE barcode_id=@barcode_id AND trans_ref=@trans_ref";
+                    }
+                    else
+                    {
+                        // Insert a new record
+                        cmd.CommandText = "INSERT INTO Inbound_Warranty (warranty, barcode_id, trans_ref) VALUES (@warranty, @barcode_id, @trans_ref)";
+                    }
+
+                    // Set the parameter values
+                    cmd.Parameters.AddWithValue("@warranty", warranty.ToString("yyyy-MM-dd HH:mm:ss"));
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+                else if (todo == "select")
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return false; // Return false if an exception occurred or the operation was not executed
+        }
+
+
+        public void DeleteAllRowsFromTable(string tableName)
+        {
+            ConnectionString();
+            try
+            {
+                con.Open();
+                cmd = new SQLiteCommand(con);
+
+                // Verify if the table exists
+                cmd.CommandText = "SELECT name FROM sqlite_master WHERE type='table' AND name=@tableName";
+                cmd.Parameters.AddWithValue("@tableName", tableName);
+                var tableExists = cmd.ExecuteScalar() != null;
+
+                if (tableExists)
+                {
+                    // Delete all rows from the table
+                    cmd.CommandText = "DELETE FROM " + tableName;
+                    cmd.ExecuteNonQuery();
+                }
+                else
+                {
+                    // Create the table if it doesn't exist
+                    cmd.CommandText = "CREATE TABLE " + tableName + " (id INTEGER PRIMARY KEY AUTOINCREMENT, warranty TEXT, barcode_id TEXT, trans_ref TEXT)";
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+        public bool CreateOrUpdateTermsTable(string supplierId, string terms, string todo)
+        {
+            ConnectionString();
+            try
+            {
+                con.Open();
+                cmd = new SQLiteCommand(con);
+
+                // Verify if the table exists
+                cmd.CommandText = "SELECT name FROM sqlite_master WHERE type='table' AND name='Terms'";
+                var tableExists = cmd.ExecuteScalar() != null;
+
+                if (!tableExists)
+                {
+                    // Create the table if it doesn't exist
+                    cmd.CommandText = "CREATE TABLE Terms (entry_date TEXT, terms TEXT, supplier_id TEXT, last_modified TEXT)";
+                    cmd.ExecuteNonQuery();
+                }
+
+                // Check if the terms already exist for the supplier
+                cmd.CommandText = "SELECT COUNT(*) FROM Terms WHERE supplier_id=@supplier_id";
+                cmd.Parameters.AddWithValue("@supplier_id", supplierId);
+                var recordExists = Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+
+                if (todo == "insert")
+                {
+                    if (!recordExists)
+                    {
+                        // Insert a new record
+                        cmd.CommandText = "INSERT INTO Terms (entry_date, terms, supplier_id, last_modified) VALUES (@entry_date, @terms, @supplier_id, @last_modified)";
+                        cmd.Parameters.AddWithValue("@entry_date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    }
+                }
+                else if (todo == "update")
+                {
+                    if (recordExists)
+                    {
+                        // Update the existing terms and last_modified
+                        cmd.CommandText = "UPDATE Terms SET terms=@terms, last_modified=@last_modified WHERE supplier_id=@supplier_id";
+                    }
+                    else
+                    {
+                        // Insert a new record
+                        cmd.CommandText = "INSERT INTO Terms (entry_date, terms, supplier_id, last_modified) VALUES (@entry_date, @terms, @supplier_id, @last_modified)";
+                        cmd.Parameters.AddWithValue("@entry_date", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    }
+                }
+
+                // Set the parameter values
+                cmd.Parameters.AddWithValue("@terms", terms);
+                cmd.Parameters.AddWithValue("@last_modified", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                cmd.ExecuteNonQuery();
+                // MessageBox.Show("Terms updated/inserted successfully.");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
+
+
     }
 }

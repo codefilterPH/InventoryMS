@@ -567,7 +567,7 @@ namespace Inventory_System02
         {
             if (!string.IsNullOrWhiteSpace(txt_Trans_number.Text))
             {
-                OutEditForm frm = new OutEditForm(txt_Trans_number.Text);
+                OutEditForm frm = new OutEditForm(txt_Trans_number.Text, Global_ID, Fullname, JobRole);
                 frm.ShowDialog();
             }
         }
