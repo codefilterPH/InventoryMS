@@ -516,20 +516,26 @@ namespace Inventory_System02
 
         private void Item_Image_DoubleClick(object sender, EventArgs e)
         {
-            if (dtg_Items.SelectedRows.Count == 1)
+            try
             {
-                chk_select_all.Checked = false;
-                func.DoubleClick_Picture_Then_Replace_Existing(Item_Image, txt_Barcode.Text, item_image_location);
-                func.Reload_Images(Item_Image, txt_Barcode.Text, item_image_location);
-                btn_edit_Click(sender, e);
-                refreshToolStripMenuItem_Click(sender, e);
+                if (dtg_Items.SelectedRows.Count == 1)
+                {
+                    chk_select_all.Checked = false;
+                    func.DoubleClick_Picture_Then_Replace_Existing(Item_Image, txt_Barcode.Text, item_image_location);
+                    func.Reload_Images(Item_Image, txt_Barcode.Text, item_image_location);
+                    btn_edit_Click(sender, e);
+                    refreshToolStripMenuItem_Click(sender, e);
+                }
+                else
+                {
+                    MessageBox.Show("Please click again the item from the table. Thank you.", "Data Inconsistent", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please click again the item from the table. Thank you.", "Data Inconsistent", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                lbl_error_message.Text = ex.Message;
             }
-
         }
         string search_for = string.Empty;
         private void txt_Search_TextChanged(object sender, EventArgs e)
@@ -622,6 +628,7 @@ namespace Inventory_System02
 
         private void btn_upload_Click(object sender, EventArgs e)
         {
+
             Item_Image_DoubleClick(sender, e);
 
         }
@@ -1421,30 +1428,38 @@ namespace Inventory_System02
         }
         private void Load_Items(string sql)
         {
-            // calculate the total number of records and pages
-            int totalRecords = config.GetTotalRecords(sql);
+            try
+            {
+                dtg_Items.Columns.Clear();
+                // calculate the total number of records and pages
+                int totalRecords = config.GetTotalRecords(sql);
 
-            double num_records = 0;
-            double.TryParse(cbo_num_records.Text, out num_records);
+                double num_records = 0;
+                double.TryParse(cbo_num_records.Text, out num_records);
 
-            double totalPages = (int)Math.Ceiling((double)totalRecords / num_records);
+                double totalPages = (int)Math.Ceiling((double)totalRecords / num_records);
 
-            // update the maximum number
-            num_max_pages.Maximum = Convert.ToDecimal(totalPages);
-            num_max_pages.Value = Convert.ToDecimal(totalPages);
+                // update the maximum number
+                num_max_pages.Maximum = Convert.ToDecimal(totalPages);
+                num_max_pages.Value = Convert.ToDecimal(totalPages);
 
-            // get the current page number and records per page from the paginator control
+                // get the current page number and records per page from the paginator control
 
-            int currentpage = (int)current_page_val.Value;
-            int recordsperpage = (int)num_records;
+                int currentpage = (int)current_page_val.Value;
+                int recordsperpage = (int)num_records;
 
-            // build the sql query based on the search criteria
+                // build the sql query based on the search criteria
 
-            // load the data into the datagridview with pagination
-            config = new SQLConfig();
-            config.Load_DTG_Paginator(sql, dtg_Items, currentpage, recordsperpage);
+                // load the data into the datagridview with pagination
+                config = new SQLConfig();
+                config.Load_DTG_Paginator(sql, dtg_Items, currentpage, recordsperpage);
 
-            DTG_Property();
+                DTG_Property();
+            }
+            catch (Exception ex)
+            {
+                lbl_error_message.Text = ex.Message;
+            } 
         }
 
         private void cbo_num_records_KeyPress(object sender, KeyPressEventArgs e)
