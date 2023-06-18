@@ -221,10 +221,10 @@ namespace Inventory_System02.Reports_Dir
             // 
             // lbl_total_value
             // 
-            this.lbl_total_value.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_total_value.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbl_total_value.AutoSize = true;
             this.lbl_total_value.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_total_value.Location = new System.Drawing.Point(670, 336);
+            this.lbl_total_value.Location = new System.Drawing.Point(670, 401);
             this.lbl_total_value.Name = "lbl_total_value";
             this.lbl_total_value.Size = new System.Drawing.Size(17, 17);
             this.lbl_total_value.TabIndex = 34;
@@ -233,10 +233,10 @@ namespace Inventory_System02.Reports_Dir
             // 
             // lbl_total_quantity
             // 
-            this.lbl_total_quantity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_total_quantity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbl_total_quantity.AutoSize = true;
             this.lbl_total_quantity.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_total_quantity.Location = new System.Drawing.Point(670, 310);
+            this.lbl_total_quantity.Location = new System.Drawing.Point(670, 375);
             this.lbl_total_quantity.Name = "lbl_total_quantity";
             this.lbl_total_quantity.Size = new System.Drawing.Size(17, 17);
             this.lbl_total_quantity.TabIndex = 33;
@@ -244,10 +244,10 @@ namespace Inventory_System02.Reports_Dir
             // 
             // lbl_total_items
             // 
-            this.lbl_total_items.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_total_items.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbl_total_items.AutoSize = true;
             this.lbl_total_items.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_total_items.Location = new System.Drawing.Point(669, 283);
+            this.lbl_total_items.Location = new System.Drawing.Point(669, 348);
             this.lbl_total_items.Name = "lbl_total_items";
             this.lbl_total_items.Size = new System.Drawing.Size(17, 17);
             this.lbl_total_items.TabIndex = 32;
@@ -255,10 +255,10 @@ namespace Inventory_System02.Reports_Dir
             // 
             // label8
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(593, 336);
+            this.label8.Location = new System.Drawing.Point(593, 401);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(71, 17);
             this.label8.TabIndex = 31;
@@ -266,10 +266,10 @@ namespace Inventory_System02.Reports_Dir
             // 
             // label7
             // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(575, 310);
+            this.label7.Location = new System.Drawing.Point(575, 375);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(89, 17);
             this.label7.TabIndex = 30;
@@ -277,10 +277,10 @@ namespace Inventory_System02.Reports_Dir
             // 
             // label6
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(601, 283);
+            this.label6.Location = new System.Drawing.Point(601, 348);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(62, 17);
             this.label6.TabIndex = 29;
@@ -300,7 +300,7 @@ namespace Inventory_System02.Reports_Dir
             this.dtg_PreviewPage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dtg_PreviewPage.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.dtg_PreviewPage.BackgroundColor = System.Drawing.Color.Gainsboro;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -319,7 +319,7 @@ namespace Inventory_System02.Reports_Dir
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.MediumSpringGreen;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
             this.dtg_PreviewPage.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.dtg_PreviewPage.Size = new System.Drawing.Size(796, 217);
+            this.dtg_PreviewPage.Size = new System.Drawing.Size(796, 282);
             this.dtg_PreviewPage.TabIndex = 22;
             // 
             // cbo_report_type
@@ -340,8 +340,7 @@ namespace Inventory_System02.Reports_Dir
             // 
             // grp_filters
             // 
-            this.grp_filters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grp_filters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.grp_filters.Controls.Add(this.chk_total);
             this.grp_filters.Controls.Add(this.chk_Quantity);
             this.grp_filters.Controls.Add(this.chk_Cust_Name);
@@ -359,7 +358,7 @@ namespace Inventory_System02.Reports_Dir
             this.grp_filters.Controls.Add(this.chk_Brand);
             this.grp_filters.Controls.Add(this.chk_Item_Name);
             this.grp_filters.Controls.Add(this.chk_Item_ID);
-            this.grp_filters.Location = new System.Drawing.Point(9, 266);
+            this.grp_filters.Location = new System.Drawing.Point(9, 331);
             this.grp_filters.Name = "grp_filters";
             this.grp_filters.Size = new System.Drawing.Size(560, 137);
             this.grp_filters.TabIndex = 20;

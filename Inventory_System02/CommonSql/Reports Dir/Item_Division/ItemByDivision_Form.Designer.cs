@@ -180,10 +180,10 @@
             // 
             // lbl_total_value
             // 
-            this.lbl_total_value.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_total_value.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbl_total_value.AutoSize = true;
             this.lbl_total_value.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_total_value.Location = new System.Drawing.Point(673, 320);
+            this.lbl_total_value.Location = new System.Drawing.Point(673, 386);
             this.lbl_total_value.Name = "lbl_total_value";
             this.lbl_total_value.Size = new System.Drawing.Size(17, 17);
             this.lbl_total_value.TabIndex = 34;
@@ -192,10 +192,10 @@
             // 
             // lbl_total_quantity
             // 
-            this.lbl_total_quantity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_total_quantity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbl_total_quantity.AutoSize = true;
             this.lbl_total_quantity.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_total_quantity.Location = new System.Drawing.Point(673, 294);
+            this.lbl_total_quantity.Location = new System.Drawing.Point(673, 360);
             this.lbl_total_quantity.Name = "lbl_total_quantity";
             this.lbl_total_quantity.Size = new System.Drawing.Size(17, 17);
             this.lbl_total_quantity.TabIndex = 33;
@@ -225,10 +225,10 @@
             // 
             // lbl_total_items
             // 
-            this.lbl_total_items.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_total_items.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbl_total_items.AutoSize = true;
             this.lbl_total_items.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_total_items.Location = new System.Drawing.Point(672, 267);
+            this.lbl_total_items.Location = new System.Drawing.Point(672, 333);
             this.lbl_total_items.Name = "lbl_total_items";
             this.lbl_total_items.Size = new System.Drawing.Size(17, 17);
             this.lbl_total_items.TabIndex = 32;
@@ -236,10 +236,10 @@
             // 
             // label8
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(596, 320);
+            this.label8.Location = new System.Drawing.Point(596, 386);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(71, 17);
             this.label8.TabIndex = 31;
@@ -247,10 +247,10 @@
             // 
             // label7
             // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(578, 294);
+            this.label7.Location = new System.Drawing.Point(578, 360);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(89, 17);
             this.label7.TabIndex = 30;
@@ -258,10 +258,10 @@
             // 
             // label6
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Courier New", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(604, 267);
+            this.label6.Location = new System.Drawing.Point(604, 333);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(62, 17);
             this.label6.TabIndex = 29;
@@ -300,7 +300,7 @@
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.MediumSpringGreen;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
             this.dtg_PreviewPage.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.dtg_PreviewPage.Size = new System.Drawing.Size(799, 180);
+            this.dtg_PreviewPage.Size = new System.Drawing.Size(799, 267);
             this.dtg_PreviewPage.TabIndex = 22;
             // 
             // cbo_report_type
@@ -365,8 +365,7 @@
             // 
             // grp_filters
             // 
-            this.grp_filters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grp_filters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.grp_filters.Controls.Add(this.chk_total);
             this.grp_filters.Controls.Add(this.chk_Quantity);
             this.grp_filters.Controls.Add(this.chk_Cust_Name);
@@ -384,7 +383,7 @@
             this.grp_filters.Controls.Add(this.chk_Brand);
             this.grp_filters.Controls.Add(this.chk_Item_Name);
             this.grp_filters.Controls.Add(this.chk_Item_ID);
-            this.grp_filters.Location = new System.Drawing.Point(9, 250);
+            this.grp_filters.Location = new System.Drawing.Point(9, 316);
             this.grp_filters.Name = "grp_filters";
             this.grp_filters.Size = new System.Drawing.Size(552, 137);
             this.grp_filters.TabIndex = 20;
@@ -500,7 +499,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.lbl_exception);
             this.panel2.Controls.Add(this.lbl_error_message);
-            this.panel2.Location = new System.Drawing.Point(9, 453);
+            this.panel2.Location = new System.Drawing.Point(9, 461);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(685, 19);
             this.panel2.TabIndex = 104;
@@ -530,7 +529,7 @@
             // 
             this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.progressBar1.Location = new System.Drawing.Point(700, 456);
+            this.progressBar1.Location = new System.Drawing.Point(700, 464);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(113, 10);
             this.progressBar1.TabIndex = 96;
