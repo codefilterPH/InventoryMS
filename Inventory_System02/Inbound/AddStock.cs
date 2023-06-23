@@ -77,6 +77,7 @@ namespace Inventory_System02
             func.Reload_Images(Item_Image, txt_Barcode.Text, item_image_location);
             cbo_srch_type.DropDownStyle = ComboBoxStyle.DropDownList;
             enable_them = true;
+            Calculator_Timer.Start();
         }
         double totalrows = 0;
         private void DTG_Property()
@@ -91,21 +92,21 @@ namespace Inventory_System02
                     if (dtg_Items.Columns.Count > 1)
                     {
                         // Format to add comma separator and two decimal places in dtg
-                        dtg_Items.Columns[7].DefaultCellStyle.Format = "#,##0.00";
-                        dtg_Items.Columns[8].DefaultCellStyle.Format = "#,##0.00";
+                        dtg_Items.Columns["Price"].DefaultCellStyle.Format = "#,##0.00";
+                        dtg_Items.Columns["Total"].DefaultCellStyle.Format = "#,##0.00";
                         // Hide some columns
-                        dtg_Items.Columns[0].Visible = false;
-                        dtg_Items.Columns[2].Visible = false;
-                        dtg_Items.Columns[9].Visible = false;
+                        dtg_Items.Columns["count"].Visible = false;
+                        dtg_Items.Columns["Stock ID"].Visible = false;
+                        dtg_Items.Columns["Image Path"].Visible = false;
 
-                        dtg_Items.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                        dtg_Items.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                        dtg_Items.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                        dtg_Items.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                        dtg_Items.Columns["Entry Date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                        dtg_Items.Columns["Item Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                        dtg_Items.Columns["Brand"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                        dtg_Items.Columns["Description"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
-                        dtg_Items.Columns[6].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                        dtg_Items.Columns[7].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                        dtg_Items.Columns[8].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                        dtg_Items.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                        dtg_Items.Columns["Price"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                        dtg_Items.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
                         for (int i = 0; i < dtg_Items.Rows.Count; i++)
                         {
@@ -150,12 +151,11 @@ namespace Inventory_System02
                     {
                         int.TryParse(Convert.ToString(config.dt.Rows[0]["Low_Detection"]), out quantity);
                         int cellValue;
-                        if (int.TryParse(Convert.ToString(rw.Cells[6].Value), out cellValue) && cellValue <= quantity)
+                        if (int.TryParse(Convert.ToString(rw.Cells["Quantity"].Value), out cellValue) && cellValue <= quantity)
                         {
                             //STOCK LOW DETECT CHANGE FONT COLOR
                             rw.DefaultCellStyle.ForeColor = Color.Red;
                         }
-                        DTG_Property();
                     }
                     catch (Exception ex)
                     {
@@ -173,46 +173,15 @@ namespace Inventory_System02
             ProcessStockLow();
             Calculator_Timer.Stop();
         }
-        int my_qty;
-        decimal my_total;
+
         public void Calculations()
         {
             try
             {
                 if (dtg_Items.Rows.Count > 0)
                 {
-                    my_qty = 0;
-                    my_total = 0;
-
-                    foreach (DataGridViewRow rw in dtg_Items.Rows)
-                    {
-                        if (Convert.ToDateTime(rw.Cells[1].Value.ToString()).ToString(Includes.AppSettings.DateFormatRetrieve) == DateTime.Now.ToString(Includes.AppSettings.DateFormatRetrieve))
-                        {
-
-                            int qty = 0;
-                            decimal total = 0;
-                            int.TryParse(rw.Cells[6].Value.ToString(), out qty);
-                            decimal.TryParse(rw.Cells[8].Value.ToString(), out total);
-                            my_qty += qty;
-                            my_total += total;
-                        }
-                        lbl_Today_Qty.Text = my_qty.ToString();
-                        lbl_Today_Amt.Text = my_total.ToString();
-                    }
-
-                    my_qty = 0;
-                    my_total = 0;
-                    foreach (DataGridViewRow rw in dtg_Items.Rows)
-                    {
-                        int qty = 0;
-                        decimal total = 0;
-                        int.TryParse(rw.Cells[6].Value.ToString(), out qty);
-                        decimal.TryParse(rw.Cells[8].Value.ToString(), out total);
-                        my_qty += qty;
-                        my_total += total;
-                    }
-                    lbl_TotalQty.Text = my_qty.ToString();
-                    lbl_TotalAmt.Text = my_total.ToString();
+                    CalculateTodayTotals();
+                    CalculateOverallTotals();
 
                     lbl_items_count.Text = dtg_Items.Rows.Count.ToString();
                     return;
@@ -223,6 +192,91 @@ namespace Inventory_System02
                 lbl_error_message.Text = ex.Message;
             }
         }
+
+        private void CalculateTodayTotals()
+        {
+            try
+            {
+                int todayQty = 0;
+                decimal todayAmt = 0;
+
+                sql = "Select Quantity, Total, `Entry Date` from stocks";
+                config.singleResult(sql);
+                if (config.dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in config.dt.Rows)
+                    {
+                        DateTime entryDate;
+                        if (DateTime.TryParse(row["Entry Date"].ToString(), out entryDate) && entryDate.Date == DateTime.Now.Date)
+                        {
+                            int qty = 0;
+                            decimal total = 0;
+                            int.TryParse(row["Quantity"].ToString(), out qty);
+                            decimal.TryParse(row["Total"].ToString(), out total);
+                            todayQty += qty;
+                            todayAmt += total;
+                        }
+                    }
+                }
+
+                lbl_Today_Qty.Text = todayQty.ToString();
+                lbl_Today_Amt.Text = todayAmt.ToString();
+            }
+            catch(Exception ex)
+            {
+                lbl_error_message.Text = ex.Message;
+            }
+        }
+
+        private void CalculateOverallTotals()
+        {
+            try
+            {
+                int totalQty = 0;
+                decimal totalAmt = 0;
+
+                // fetch data from the database
+                string sql = "Select Quantity, Total from stocks";
+                config.singleResult(sql);
+
+                // check if data exists
+                if (config.dt.Rows.Count > 0)
+                {
+                    // iterate over each row in the data
+                    foreach (DataRow row in config.dt.Rows)
+                    {
+                        try
+                        {
+                            int qty = 0;
+                            decimal total = 0;
+                            if (!int.TryParse(row["Quantity"].ToString(), out qty))
+                            {
+                                throw new Exception("Failed to parse Quantity for row " + row["Quantity"].ToString());
+                            }
+                            if (!decimal.TryParse(row["Total"].ToString(), out total))
+                            {
+                                throw new Exception("Failed to parse Total for row " + row["Total"].ToString());
+                            }
+                            totalQty += qty;
+                            totalAmt += total;
+                        }
+                        catch (Exception ex)
+                        {
+                            // You can log this exception or display it, here we just display a message
+                            MessageBox.Show($"An error occurred while processing a row: {ex.Message}");
+                        }
+                    }
+                }
+
+                lbl_TotalQty.Text = totalQty.ToString();
+                lbl_TotalAmt.Text = totalAmt.ToString();
+            }
+            catch (Exception ex)
+            {
+                lbl_error_message.Text = $"An error occurred while fetching or processing the data: {ex.Message}";
+            }
+        }
+
 
         private void txt_Price_Leave(object sender, EventArgs e)
         {
@@ -307,7 +361,6 @@ namespace Inventory_System02
                 {
                     if (dtg_Items.Rows.Count > 0)
                     {
-                        DTG_Property();
                         txt_Barcode.Text = dtg_Items.CurrentRow.Cells[2].Value.ToString();
                         txt_ItemName.Text = dtg_Items.CurrentRow.Cells[3].Value.ToString();
                         cbo_brand.Text = dtg_Items.CurrentRow.Cells[4].Value.ToString();
@@ -336,8 +389,8 @@ namespace Inventory_System02
                         {
                             WarrantySelection();
                         }
-                        
 
+                        Calculator_Timer.Start();
 
                     }
 
@@ -1127,15 +1180,18 @@ namespace Inventory_System02
                     sql = "Select `Transaction Reference` from `Stocks` where `Transaction Reference` like '%" + txt_TransRef.Text + "%'  order by `Entry Date` limit 10";
                     config.New_Autocomplete(sql, txt_TransRef);
 
-                    if (!string.IsNullOrWhiteSpace(txt_TransRef.Text))
+                    if (!string.IsNullOrWhiteSpace(txt_TransRef?.Text))
                     {
                         sql = "Select `Supplier ID` from Stocks where `Transaction Reference` = '" + txt_TransRef.Text + "' ";
                         config.singleResult(sql);
                         if (config.dt.Rows.Count >= 1)
                         {
-                            txt_SupID.Text = config.dt.Rows[0]["Supplier ID"].ToString();
+                            txt_SupID.Text = config.dt.Rows[0]["Supplier ID"]?.ToString() ?? string.Empty;
                             cbo_srch_type.Text = "TRANS REF";
-                            txt_TransRef.TextChanged += txt_TransRef_SelectedIndexChanged;
+                            if (txt_TransRef != null)
+                            {
+                                txt_TransRef.TextChanged += txt_TransRef_SelectedIndexChanged;
+                            }
                         }
                         else
                         {
@@ -1149,7 +1205,10 @@ namespace Inventory_System02
                         txt_Search_TextChanged(sender, e);
                     }
                 }
-                else { txt_SupID.Text = ""; txt_Sup_Name.Text = ""; }
+                else
+                {
+                    txt_SupID.Text = ""; txt_Sup_Name.Text = "";
+                }
             }
             catch (SqlException ex)
             {
@@ -1162,6 +1221,7 @@ namespace Inventory_System02
                 lbl_error_message.Text = ex.Message;
                 timer_Error_message.Enabled = true;
             }
+
         }
 
         private void timer_Error_message_Tick(object sender, EventArgs e)
@@ -1248,20 +1308,20 @@ namespace Inventory_System02
             {
                 try
                 {
-                    //Format to date dtg cell
-                    dtg_Items.Columns["Entry Date"].DefaultCellStyle.Format = Includes.AppSettings.DateFormatRetrieve;
-                    //sorting
-                    dtg_Items.Sort(dtg_Items.Columns["Entry Date"], ListSortDirection.Descending);
+                    if (dtg_Items.Columns.Contains("Entry Date"))
+                    {
+                        dtg_Items.Columns["Entry Date"].DefaultCellStyle.Format = Includes.AppSettings.DateFormatRetrieve;
+                        dtg_Items.Sort(dtg_Items.Columns["Entry Date"], ListSortDirection.Descending);
+                    }
 
                     if (!dtg_Items.Columns.Contains("Image"))
                     {
                         dtg_Items.Columns.Add(new DataGridViewImageColumn() { Name = "Image", DataPropertyName = "Image", ImageLayout = DataGridViewImageCellLayout.Zoom });
                     }
 
-                    //Load image
                     foreach (DataGridViewRow row in dtg_Items.Rows)
                     {
-                        if (File.Exists(row.Cells["Image Path"].Value.ToString()))
+                        if (row.Cells["Image Path"].Value != null && File.Exists(row.Cells["Image Path"].Value.ToString()))
                         {
                             row.Cells["Image"].Value = File.ReadAllBytes(row.Cells["Image Path"].Value.ToString());
                         }
@@ -1277,16 +1337,18 @@ namespace Inventory_System02
                                     break;
                                 }
                             }
-                            // If none of the image files exist, set the image to null or an empty byte array
+
                             if (row.Cells["Image"].Value == null || ((byte[])row.Cells["Image"].Value).Length == 0)
                             {
                                 row.Cells["Image"].Value = null;
-                                // row.Cells["Image"].Value = new byte[0];
                             }
                         }
                     }
-                    dtg_Items.Columns["Image"].DisplayIndex = 0;
 
+                    if (dtg_Items.Columns.Contains("Image"))
+                    {
+                        dtg_Items.Columns["Image"].DisplayIndex = 0;
+                    }
 
                     for (int i = 0; i < dtg_Items.Columns.Count; i++)
                     {
@@ -1295,12 +1357,13 @@ namespace Inventory_System02
                             ((DataGridViewImageColumn)dtg_Items.Columns[i]).ImageLayout = DataGridViewImageCellLayout.Zoom;
                             break;
                         }
-
                     }
+
                     for (int i = 0; i < dtg_Items.Rows.Count; i++)
                     {
                         totalrows = i;
                     }
+
                     totalrows += 1;
                     lbl_items_count.Text = totalrows.ToString();
 
@@ -1311,6 +1374,7 @@ namespace Inventory_System02
                     e.Result = ex.Message;
                 }
             }
+
         }
 
         private void LoadImageWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

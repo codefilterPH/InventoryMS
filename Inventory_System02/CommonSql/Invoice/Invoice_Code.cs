@@ -9,7 +9,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
 namespace Inventory_System02.Invoice_Code
 {
     class Invoice_Code
@@ -189,8 +188,22 @@ namespace Inventory_System02.Invoice_Code
                     reportParameters.Add(new ReportParameter("Company", ""));
                 }
 
+
+                //string imagePath = Includes.AppSettings.Company_DIR + "Company_Logo1.jpg";
+                ////string imagePath = @"\\SERVER\CommonSql\Pictures\Company\Company_Logo1.jpg";
+                //byte[] imageData;
+
+                //using (FileStream fs = new FileStream(imagePath, FileMode.Open, FileAccess.Read))
+                //{
+                //    imageData = new byte[fs.Length];
+                //    fs.Read(imageData, 0, (int)fs.Length);
+                //}
+
+                //reportParameters.Add(new ReportParameter("Logo", Convert.ToBase64String(imageData)));
+
                 frm.reportViewer1.LocalReport.SetParameters(reportParameters);
                 frm.reportViewer1.RefreshReport();
+
 
                 if (what_to_do == "preview" || what_to_do == "single-item-view")
                 {
