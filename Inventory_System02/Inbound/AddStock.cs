@@ -1573,6 +1573,59 @@ namespace Inventory_System02
             isWarrantyBusy = false;
         }
 
+        private void itemByWarrantyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dtg_Items.Columns.Clear();
+            SQLConfig sqlConfig = new SQLConfig();
+            DataTable warrantyReport = sqlConfig.GetItemWarrantyReport("item_warranty_report");
+            dtg_Items.DataSource = warrantyReport;
+            // Adjust column widths
+            dtg_Items.Columns["Item Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dtg_Items.Columns["Sales Invoice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            enable_them = false;
+            SpecialFilterDisabler();
+        }
+
+        private void eXPIREDWarrantyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dtg_Items.Columns.Clear();
+            SQLConfig sqlConfig = new SQLConfig();
+            DataTable warrantyReport = sqlConfig.GetItemWarrantyReport("expired_warranty_report");
+            dtg_Items.DataSource = warrantyReport;
+            // Adjust column widths
+            dtg_Items.Columns["Item Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dtg_Items.Columns["Sales Invoice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            enable_them = false;
+            SpecialFilterDisabler();
+        }
+
+        private void fUTUREWarrantyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dtg_Items.Columns.Clear();
+            SQLConfig sqlConfig = new SQLConfig();
+            DataTable warrantyReport = sqlConfig.GetItemWarrantyReport("future_warranty_report");
+            dtg_Items.DataSource = warrantyReport;
+            // Adjust column widths
+            dtg_Items.Columns["Item Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dtg_Items.Columns["Sales Invoice"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            enable_them = false;
+            SpecialFilterDisabler();
+        }
+
+        private void nOWarrantyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            dtg_Items.Columns.Clear();
+            SQLConfig sqlConfig = new SQLConfig();
+            DataTable warrantyReport = sqlConfig.GetItemWarrantyReport("item_without_warranty_report");
+            dtg_Items.DataSource = warrantyReport;
+            // Adjust column widths
+            dtg_Items.Columns["Item Name"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dtg_Items.Columns["Barcode ID"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dtg_Items.Columns["Transaction Reference"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            enable_them = false;
+            SpecialFilterDisabler();
+        }
+
         private void txt_Price_Click(object sender, EventArgs e)
         {
             txt_Price.SelectionStart = 0;
@@ -1757,6 +1810,7 @@ namespace Inventory_System02
                 {
                     dtg_Items.Rows[0].Selected = true;
                 }
+                Calculator_Timer.Start();
                 return;
             }
         }

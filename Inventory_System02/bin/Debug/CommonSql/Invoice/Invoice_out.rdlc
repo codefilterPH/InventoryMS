@@ -122,10 +122,10 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>8.86072cm</Top>
+            <Top>10.19499cm</Top>
             <Left>0.55245cm</Left>
-            <Height>2.01083cm</Height>
-            <Width>6.12951cm</Width>
+            <Height>1.5525cm</Height>
+            <Width>7.99041cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -778,7 +778,7 @@
             </Style>
           </Textbox>
           <Line Name="Line1">
-            <Top>8.2931cm</Top>
+            <Top>7.3406cm</Top>
             <Left>6.91662cm</Left>
             <Height>0cm</Height>
             <Width>9.69604cm</Width>
@@ -790,7 +790,7 @@
             </Style>
           </Line>
           <Line Name="Line2">
-            <Top>11.04794cm</Top>
+            <Top>10.09544cm</Top>
             <Left>6.91662cm</Left>
             <Height>0cm</Height>
             <Width>9.69604cm</Width>
@@ -823,7 +823,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox7</rd:DefaultName>
-            <Top>8.40127cm</Top>
+            <Top>7.44877cm</Top>
             <Left>7.06715cm</Left>
             <Height>0.6cm</Height>
             <Width>4.00812cm</Width>
@@ -856,7 +856,7 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>8.40127cm</Top>
+            <Top>7.44877cm</Top>
             <Left>11.35217cm</Left>
             <Height>0.6cm</Height>
             <Width>5.14111cm</Width>
@@ -893,7 +893,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>9.17766cm</Top>
+            <Top>8.22516cm</Top>
             <Left>7.06715cm</Left>
             <Height>0.6cm</Height>
             <Width>4.00812cm</Width>
@@ -926,7 +926,7 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>9.17766cm</Top>
+            <Top>8.22516cm</Top>
             <Left>11.35217cm</Left>
             <Height>0.6cm</Height>
             <Width>5.14111cm</Width>
@@ -963,7 +963,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>9.95405cm</Top>
+            <Top>9.00155cm</Top>
             <Left>7.06715cm</Left>
             <Height>0.9175cm</Height>
             <Width>4.00812cm</Width>
@@ -1009,7 +1009,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox13</rd:DefaultName>
-            <Top>9.95405cm</Top>
+            <Top>9.00155cm</Top>
             <Left>11.35217cm</Left>
             <Height>0.9175cm</Height>
             <Width>5.14111cm</Width>
@@ -1084,7 +1084,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox7</rd:DefaultName>
-            <Top>8.36655cm</Top>
+            <Top>9.70082cm</Top>
             <Left>0.55245cm</Left>
             <Height>0.6cm</Height>
             <Width>3.0027cm</Width>
@@ -1122,6 +1122,43 @@
             <Height>0.6cm</Height>
             <Width>5.14111cm</Width>
             <ZIndex>16</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox12">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>APPROVED BY</Value>
+                    <Style>
+                      <FontFamily>Courier New</FontFamily>
+                      <FontSize>8pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <Color>DimGray</Color>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox7</rd:DefaultName>
+            <Top>8.33127cm</Top>
+            <Left>0.55245cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.0027cm</Width>
+            <ZIndex>17</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>

@@ -30,10 +30,10 @@ namespace Inventory_System02
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddStock));
             this.dtg_Items = new System.Windows.Forms.DataGridView();
             this.txt_Search = new System.Windows.Forms.TextBox();
@@ -68,6 +68,9 @@ namespace Inventory_System02
             this.divisionWithTheLeastPurchasesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.todayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stockLowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.warrantyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemByWarrantyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.eXPIREDWarrantyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label7 = new System.Windows.Forms.Label();
             this.btn_delete = new System.Windows.Forms.Button();
             this.btn_edit = new System.Windows.Forms.Button();
@@ -126,6 +129,8 @@ namespace Inventory_System02
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.LoadImageWorker = new System.ComponentModel.BackgroundWorker();
             this.dtp_warranty_worker = new System.ComponentModel.BackgroundWorker();
+            this.fUTUREWarrantyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nOWarrantyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dtg_Items)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -142,24 +147,24 @@ namespace Inventory_System02
             // 
             this.dtg_Items.AllowUserToAddRows = false;
             this.dtg_Items.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle17.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.DimGray;
-            this.dtg_Items.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.DimGray;
+            this.dtg_Items.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dtg_Items.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dtg_Items.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.dtg_Items.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtg_Items.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtg_Items.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dtg_Items.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtg_Items.EnableHeadersVisualStyles = false;
             this.dtg_Items.GridColor = System.Drawing.Color.WhiteSmoke;
@@ -167,21 +172,21 @@ namespace Inventory_System02
             this.dtg_Items.Name = "dtg_Items";
             this.dtg_Items.ReadOnly = true;
             this.dtg_Items.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtg_Items.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
-            dataGridViewCellStyle20.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtg_Items.RowsDefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtg_Items.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtg_Items.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dtg_Items.RowTemplate.Height = 40;
             this.dtg_Items.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtg_Items.Size = new System.Drawing.Size(850, 240);
@@ -458,7 +463,8 @@ namespace Inventory_System02
             this.mosToolStripMenuItem,
             this.divisionWithTheLeastPurchasesToolStripMenuItem,
             this.todayToolStripMenuItem,
-            this.stockLowToolStripMenuItem});
+            this.stockLowToolStripMenuItem,
+            this.warrantyToolStripMenuItem});
             this.filtersToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.filtersToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("filtersToolStripMenuItem.Image")));
             this.filtersToolStripMenuItem.Name = "filtersToolStripMenuItem";
@@ -536,6 +542,37 @@ namespace Inventory_System02
             this.stockLowToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
             this.stockLowToolStripMenuItem.Text = "Stock Low";
             this.stockLowToolStripMenuItem.Click += new System.EventHandler(this.stockLowToolStripMenuItem_Click);
+            // 
+            // warrantyToolStripMenuItem
+            // 
+            this.warrantyToolStripMenuItem.BackColor = System.Drawing.Color.SteelBlue;
+            this.warrantyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.itemByWarrantyToolStripMenuItem,
+            this.eXPIREDWarrantyToolStripMenuItem,
+            this.fUTUREWarrantyToolStripMenuItem,
+            this.nOWarrantyToolStripMenuItem});
+            this.warrantyToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.warrantyToolStripMenuItem.Name = "warrantyToolStripMenuItem";
+            this.warrantyToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.warrantyToolStripMenuItem.Text = "Warranty Report";
+            // 
+            // itemByWarrantyToolStripMenuItem
+            // 
+            this.itemByWarrantyToolStripMenuItem.BackColor = System.Drawing.Color.SteelBlue;
+            this.itemByWarrantyToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.itemByWarrantyToolStripMenuItem.Name = "itemByWarrantyToolStripMenuItem";
+            this.itemByWarrantyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.itemByWarrantyToolStripMenuItem.Text = "ITEM by Warranty";
+            this.itemByWarrantyToolStripMenuItem.Click += new System.EventHandler(this.itemByWarrantyToolStripMenuItem_Click);
+            // 
+            // eXPIREDWarrantyToolStripMenuItem
+            // 
+            this.eXPIREDWarrantyToolStripMenuItem.BackColor = System.Drawing.Color.SteelBlue;
+            this.eXPIREDWarrantyToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.eXPIREDWarrantyToolStripMenuItem.Name = "eXPIREDWarrantyToolStripMenuItem";
+            this.eXPIREDWarrantyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.eXPIREDWarrantyToolStripMenuItem.Text = "EXPIRED Warranty";
+            this.eXPIREDWarrantyToolStripMenuItem.Click += new System.EventHandler(this.eXPIREDWarrantyToolStripMenuItem_Click);
             // 
             // label7
             // 
@@ -1017,7 +1054,7 @@ namespace Inventory_System02
             "20",
             "50",
             "100"});
-            this.cbo_num_records.Location = new System.Drawing.Point(792, 26);
+            this.cbo_num_records.Location = new System.Drawing.Point(792, 27);
             this.cbo_num_records.Name = "cbo_num_records";
             this.cbo_num_records.Size = new System.Drawing.Size(60, 25);
             this.cbo_num_records.TabIndex = 130;
@@ -1320,6 +1357,24 @@ namespace Inventory_System02
             this.dtp_warranty_worker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.dtp_warranty_worker_DoWork);
             this.dtp_warranty_worker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.dtp_warranty_worker_RunWorkerCompleted);
             // 
+            // fUTUREWarrantyToolStripMenuItem
+            // 
+            this.fUTUREWarrantyToolStripMenuItem.BackColor = System.Drawing.Color.SteelBlue;
+            this.fUTUREWarrantyToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.fUTUREWarrantyToolStripMenuItem.Name = "fUTUREWarrantyToolStripMenuItem";
+            this.fUTUREWarrantyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.fUTUREWarrantyToolStripMenuItem.Text = "FUTURE Warranty";
+            this.fUTUREWarrantyToolStripMenuItem.Click += new System.EventHandler(this.fUTUREWarrantyToolStripMenuItem_Click);
+            // 
+            // nOWarrantyToolStripMenuItem
+            // 
+            this.nOWarrantyToolStripMenuItem.BackColor = System.Drawing.Color.SteelBlue;
+            this.nOWarrantyToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.nOWarrantyToolStripMenuItem.Name = "nOWarrantyToolStripMenuItem";
+            this.nOWarrantyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.nOWarrantyToolStripMenuItem.Text = "NO Warranty";
+            this.nOWarrantyToolStripMenuItem.Click += new System.EventHandler(this.nOWarrantyToolStripMenuItem_Click);
+            // 
             // AddStock
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1457,6 +1512,11 @@ namespace Inventory_System02
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.DateTimePicker dtp_warranty;
         private System.ComponentModel.BackgroundWorker dtp_warranty_worker;
+        private System.Windows.Forms.ToolStripMenuItem warrantyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem itemByWarrantyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem eXPIREDWarrantyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fUTUREWarrantyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nOWarrantyToolStripMenuItem;
     }
 }
 

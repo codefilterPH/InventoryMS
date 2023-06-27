@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="Inventory MS.exe" version="1.0.0.13" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="Inventory MS.exe" version="1.0.0.14" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
   <description asmv2:iconFile="InventoryMS.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
@@ -50,7 +50,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>rDnjWmrS37vUb70fTnPEBPcCwuqTWDhlOqa0ccbIqHg=</dsig:DigestValue>
+        <dsig:DigestValue>kf6ojngVyhNrnygVI84InceXzIP+QLKCYresGd+mijY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -98,19 +98,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ZEr3Riag1CAB43Yk0TtxqF1PcQl/EXdzeKotGdUIo08=</dsig:DigestValue>
+        <dsig:DigestValue>vtR8lu9YLi/JxrAOF9mL1R/+fNiKOKbxMEogJ5J4DUQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Inventory MS.exe" size="2316256">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Inventory MS.exe" size="2321888">
       <assemblyIdentity name="Inventory MS" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>8tEn/ZQE/7/VAj+3fkMvPBoA/hmOQiBgmmlm6aXEPT8=</dsig:DigestValue>
+        <dsig:DigestValue>kXrAQeK++UvXm98Hug6xz2V5ms41OGZrImcAvQe9mV8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -954,22 +954,22 @@
       <dsig:DigestValue>NFydbuJwXTVhUccBZ8EXYOP2uiBNTN8frjz3KzLbcoQ=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="CommonSql\Invoice\Invoice_out.rdlc" size="134719">
+  <file name="CommonSql\Invoice\Invoice_out.rdlc" size="136047">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Prc8onjUD/PBEXuf97AGTM4dqfGTGIW+7QwlA7taiMA=</dsig:DigestValue>
+      <dsig:DigestValue>5l9QyIZg8BNH42FJ6VEUD8ZO96CsUsjzVpKHsb2A6KM=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="CommonSql\Invoice\Invoice_return.rdlc" size="128507">
+  <file name="CommonSql\Invoice\Invoice_return.rdlc" size="129835">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>wAuC1z3ujKrnz10pqkjLyRkK5nbtpjrLan5kUbfQvvU=</dsig:DigestValue>
+      <dsig:DigestValue>Ko78VnyBfjQ/ahd+1Ox1ms7cX/A0ZSMUJNOLXwOsMhA=</dsig:DigestValue>
     </hash>
   </file>
   <file name="CommonSql\Pictures\Company\DONOTDELETE_SUBIMAGE.PNG" size="520371">

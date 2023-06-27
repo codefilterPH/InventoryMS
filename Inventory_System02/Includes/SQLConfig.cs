@@ -647,6 +647,74 @@ namespace Inventory_System02.Includes
                 con.Close();
             }
         }
+        //NEW WARRANTY REPORTS
+        public DataTable GetItemWarrantyReport(string need)
+        {
+            ConnectionString();
+            dt = new DataTable();
+            string sql = string.Empty;
+
+
+            if (need == "item_warranty_report")
+            {
+                sql = @"SELECT s.`Item Name`, iw.warranty  as Warranty, iw.trans_ref as `Sales Invoice`
+                   FROM Inbound_Warranty iw 
+                   JOIN stocks s 
+                   ON iw.barcode_id = s.`Stock ID` AND iw.trans_ref = s.`Transaction Reference`
+                   ORDER BY iw.warranty DESC";
+            }
+            else if (need == "expired_warranty_report")
+            {
+                sql = @"SELECT s.`Item Name`, iw.warranty as Warranty, iw.trans_ref as `Sales Invoice`
+                    FROM Inbound_Warranty iw 
+                    JOIN stocks s 
+                    ON iw.barcode_id = s.`Stock ID` AND iw.trans_ref = s.`Transaction Reference`
+                    WHERE datetime('now') > date(iw.warranty)
+                    ORDER BY iw.warranty DESC";
+            }
+            else if (need == "future_warranty_report")
+            {
+                sql = @"SELECT s.`Item Name`, iw.warranty as Warranty, iw.trans_ref as `Sales Invoice`
+                    FROM Inbound_Warranty iw 
+                    JOIN stocks s 
+                    ON iw.barcode_id = s.`Stock ID` AND iw.trans_ref = s.`Transaction Reference`
+                    WHERE datetime('now') < date(iw.warranty)
+                    ORDER BY iw.warranty DESC";
+            }
+            else if (need == "item_without_warranty_report")
+            {
+                sql = @"SELECT s.`Stock ID` as `Barcode ID`, s.`Item Name`, s.`Transaction Reference`
+                    FROM stocks s 
+                    LEFT JOIN Inbound_Warranty iw 
+                    ON iw.barcode_id = s.`Stock ID` AND iw.trans_ref = s.`Transaction Reference`
+                    WHERE iw.warranty IS NULL";
+            }
+
+
+            try
+            {
+                con.Open();
+                cmd = new SQLiteCommand();
+                cmd.Connection = con;
+                cmd.CommandText = sql;
+                da = new SQLiteDataAdapter(cmd);
+                da.Fill(dt);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                da.Dispose();
+                con.Close();
+            }
+
+            return dt;
+        }
+
+
 
 
     }
