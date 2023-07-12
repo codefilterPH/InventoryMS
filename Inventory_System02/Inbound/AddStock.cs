@@ -372,7 +372,7 @@ namespace Inventory_System02
                         txt_SupID.Text = dtg_Items.CurrentRow.Cells[10].Value.ToString();
                         txt_Sup_Name.Text = dtg_Items.CurrentRow.Cells[11].Value.ToString();
                         // Unsubscribe the event temporarily
-                        txt_TransRef.TextChanged -= txt_TransRef_SelectedIndexChanged;
+                        //txt_TransRef.TextChanged -= txt_TransRef_SelectedIndexChanged;
 
                         // Assign the selected value to the combo box
                         txt_TransRef.Text = dtg_Items.CurrentRow.Cells[15].Value.ToString();
@@ -1166,6 +1166,11 @@ namespace Inventory_System02
         private void txt_TransRef_SelectedIndexChanged(object sender, EventArgs e)
         {
             txt_Search.Text = txt_TransRef.Text;
+            //if ( dtg_Items.Rows.Count == 0)
+            //{
+            //    btn_searchSup.Enabled = true;
+            //    txt_SupID.Enabled = true;
+            //}
         }
         private void txt_TransRef_TextChanged(object sender, EventArgs e)
         {
@@ -1177,8 +1182,8 @@ namespace Inventory_System02
                 config.singleResult(sql);
                 if (config.dt.Rows.Count >= 1)
                 {
-                    sql = "Select `Transaction Reference` from `Stocks` where `Transaction Reference` like '%" + txt_TransRef.Text + "%'  order by `Entry Date` limit 10";
-                    config.New_Autocomplete(sql, txt_TransRef);
+                    //sql = "Select `Transaction Reference` from `Stocks` where `Transaction Reference` like '%" + txt_TransRef.Text + "%'  order by `Entry Date` limit 10";
+                    //config.New_Autocomplete(sql, txt_TransRef);
 
                     if (!string.IsNullOrWhiteSpace(txt_TransRef?.Text))
                     {
@@ -1188,10 +1193,10 @@ namespace Inventory_System02
                         {
                             txt_SupID.Text = config.dt.Rows[0]["Supplier ID"]?.ToString() ?? string.Empty;
                             cbo_srch_type.Text = "TRANS REF";
-                            if (txt_TransRef != null)
-                            {
-                                txt_TransRef.TextChanged += txt_TransRef_SelectedIndexChanged;
-                            }
+                            //if (txt_TransRef != null)
+                            //{
+                                //txt_TransRef.TextChanged += txt_TransRef_SelectedIndexChanged;
+                            //}
                         }
                         else
                         {

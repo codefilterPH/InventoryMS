@@ -71,6 +71,8 @@ namespace Inventory_System02
             this.warrantyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.itemByWarrantyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.eXPIREDWarrantyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fUTUREWarrantyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nOWarrantyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label7 = new System.Windows.Forms.Label();
             this.btn_delete = new System.Windows.Forms.Button();
             this.btn_edit = new System.Windows.Forms.Button();
@@ -129,8 +131,6 @@ namespace Inventory_System02
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.LoadImageWorker = new System.ComponentModel.BackgroundWorker();
             this.dtp_warranty_worker = new System.ComponentModel.BackgroundWorker();
-            this.fUTUREWarrantyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nOWarrantyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dtg_Items)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -561,7 +561,7 @@ namespace Inventory_System02
             this.itemByWarrantyToolStripMenuItem.BackColor = System.Drawing.Color.SteelBlue;
             this.itemByWarrantyToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.itemByWarrantyToolStripMenuItem.Name = "itemByWarrantyToolStripMenuItem";
-            this.itemByWarrantyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.itemByWarrantyToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.itemByWarrantyToolStripMenuItem.Text = "ITEM by Warranty";
             this.itemByWarrantyToolStripMenuItem.Click += new System.EventHandler(this.itemByWarrantyToolStripMenuItem_Click);
             // 
@@ -570,9 +570,27 @@ namespace Inventory_System02
             this.eXPIREDWarrantyToolStripMenuItem.BackColor = System.Drawing.Color.SteelBlue;
             this.eXPIREDWarrantyToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.eXPIREDWarrantyToolStripMenuItem.Name = "eXPIREDWarrantyToolStripMenuItem";
-            this.eXPIREDWarrantyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.eXPIREDWarrantyToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.eXPIREDWarrantyToolStripMenuItem.Text = "EXPIRED Warranty";
             this.eXPIREDWarrantyToolStripMenuItem.Click += new System.EventHandler(this.eXPIREDWarrantyToolStripMenuItem_Click);
+            // 
+            // fUTUREWarrantyToolStripMenuItem
+            // 
+            this.fUTUREWarrantyToolStripMenuItem.BackColor = System.Drawing.Color.SteelBlue;
+            this.fUTUREWarrantyToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.fUTUREWarrantyToolStripMenuItem.Name = "fUTUREWarrantyToolStripMenuItem";
+            this.fUTUREWarrantyToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.fUTUREWarrantyToolStripMenuItem.Text = "FUTURE Warranty";
+            this.fUTUREWarrantyToolStripMenuItem.Click += new System.EventHandler(this.fUTUREWarrantyToolStripMenuItem_Click);
+            // 
+            // nOWarrantyToolStripMenuItem
+            // 
+            this.nOWarrantyToolStripMenuItem.BackColor = System.Drawing.Color.SteelBlue;
+            this.nOWarrantyToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.nOWarrantyToolStripMenuItem.Name = "nOWarrantyToolStripMenuItem";
+            this.nOWarrantyToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.nOWarrantyToolStripMenuItem.Text = "NO Warranty";
+            this.nOWarrantyToolStripMenuItem.Click += new System.EventHandler(this.nOWarrantyToolStripMenuItem_Click);
             // 
             // label7
             // 
@@ -915,8 +933,6 @@ namespace Inventory_System02
             // 
             // txt_TransRef
             // 
-            this.txt_TransRef.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.txt_TransRef.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txt_TransRef.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txt_TransRef.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_TransRef.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -1356,24 +1372,6 @@ namespace Inventory_System02
             // 
             this.dtp_warranty_worker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.dtp_warranty_worker_DoWork);
             this.dtp_warranty_worker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.dtp_warranty_worker_RunWorkerCompleted);
-            // 
-            // fUTUREWarrantyToolStripMenuItem
-            // 
-            this.fUTUREWarrantyToolStripMenuItem.BackColor = System.Drawing.Color.SteelBlue;
-            this.fUTUREWarrantyToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.fUTUREWarrantyToolStripMenuItem.Name = "fUTUREWarrantyToolStripMenuItem";
-            this.fUTUREWarrantyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.fUTUREWarrantyToolStripMenuItem.Text = "FUTURE Warranty";
-            this.fUTUREWarrantyToolStripMenuItem.Click += new System.EventHandler(this.fUTUREWarrantyToolStripMenuItem_Click);
-            // 
-            // nOWarrantyToolStripMenuItem
-            // 
-            this.nOWarrantyToolStripMenuItem.BackColor = System.Drawing.Color.SteelBlue;
-            this.nOWarrantyToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.nOWarrantyToolStripMenuItem.Name = "nOWarrantyToolStripMenuItem";
-            this.nOWarrantyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.nOWarrantyToolStripMenuItem.Text = "NO Warranty";
-            this.nOWarrantyToolStripMenuItem.Click += new System.EventHandler(this.nOWarrantyToolStripMenuItem_Click);
             // 
             // AddStock
             // 
