@@ -1,6 +1,7 @@
 ﻿using Inventory_System02.Includes;
 using Inventory_System02.Items;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
@@ -1393,69 +1394,46 @@ namespace Inventory_System02
                 {
                     dtg_Items.Columns.Clear();
                 }
-                if (cbo_srch_type.Text == "DATE")
-                {
-                    search_for = "Entry Date";
-                }
-                if (cbo_srch_type.Text == "ID")
-                {
-                    search_for = "Stock ID";
-                }
-                if (cbo_srch_type.Text == "NAME")
-                {
-                    search_for = "Item Name";
-                }
-                if (cbo_srch_type.Text == "BRAND")
-                {
-                    search_for = "Brand";
-                }
-                if (cbo_srch_type.Text == "DESCRIPTION")
-                {
-                    search_for = "Description";
-                }
-                if (cbo_srch_type.Text == "QUANTITY")
-                {
-                    search_for = "QUANTITY";
-                }
-                if (cbo_srch_type.Text == "PRICE")
-                {
-                    search_for = "Price";
-                }
-                if (cbo_srch_type.Text == "SUPPLIER")
-                {
-                    search_for = "Supplier Name";
-                }
-                if (cbo_srch_type.Text == "JOB")
-                {
-                    search_for = "Job Role";
-                }
-                if (cbo_srch_type.Text == "TRANS REF")
-                {
-                    search_for = "Transaction Reference";
-                }
 
-                if (txtSearch.Text == "")
+                var searchMapping = new Dictionary<string, string>
+                {
+                    {"DATE", "Entry Date"},
+                    {"ID", "Stock ID"},
+                    {"NAME", "Item Name"},
+                    {"BRAND", "Brand"},
+                    {"DESCRIPTION", "Description"},
+                    {"QUANTITY", "QUANTITY"},
+                    {"PRICE", "Price"},
+                    {"SUPPLIER", "Supplier Name"},
+                    {"JOB", "Job Role"},
+                    {"TRANS REF", "Transaction Reference"}
+                };
+
+                search_for = searchMapping.ContainsKey(cbo_srch_type.Text) ? searchMapping[cbo_srch_type.Text] : "";
+
+                if (string.IsNullOrEmpty(txtSearch.Text))
                 {
                     refreshToolStripMenuItem1_Click(sender, e);
                     return;
                 }
-                config = new SQLConfig();
-                Console.WriteLine(search_for);
-                sql = "Select * from Stocks where `" + search_for + "` = '" + txtSearch.Text + "' OR `" + search_for + "` LIKE '%" + txtSearch.Text + "%' ORDER BY `Entry Date` DESC ";
-                config.Load_DTG(sql, dtg_Items);
 
+                config = new SQLConfig();
+                sql = $"Select * from Stocks where `{search_for}` = '{txtSearch.Text}' OR `{search_for}` LIKE '%{txtSearch.Text}%' ORDER BY `Entry Date` DESC ";
+                config.Load_DTG(sql, dtg_Items);
 
                 Calculator_Timer.Start();
                 DTG_Property();
-            }
-            catch (InvalidOperationException ex)
-            {
-                lbl_error_message.Text = ex.Message;
             }
             catch (Exception ex)
             {
                 lbl_error_message.Text = ex.Message;
             }
+
+        }
+
+        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            func.Make_Alphanumeric_TextBox(sender, e);
         }
 
         private void txt_Price_Click(object sender, EventArgs e)
