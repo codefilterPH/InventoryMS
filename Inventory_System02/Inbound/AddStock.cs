@@ -575,13 +575,14 @@ namespace Inventory_System02
                     refreshToolStripMenuItem1_Click(sender, e);
                     return;
                 }
-        
-                sql = "";
                 config = new SQLConfig();
+                sql = "";
+                Console.WriteLine(search_for);
                 sql = "Select * from Stocks where '"+search_for+"' like '%"+txt_Search.Text+"%' ORDER BY `Entry Date` DESC ";
                 config.Load_DTG(sql, dtg_Items);
-                DTG_Property();
+     
                 Calculator_Timer.Start();
+                DTG_Property();
             }
             catch (Exception ex)
             {
@@ -1090,7 +1091,7 @@ namespace Inventory_System02
             {
                 SQLConfig config = new SQLConfig();
                 sql = string.Empty;
-                sql = "SELECT `Transaction Reference` FROM `Stocks` WHERE `Transaction Reference` like '%" + txt_TransRef.Text + "%' ";
+                sql = "SELECT `Transaction Reference` FROM `Stocks` WHERE `Transaction Reference` = '%" + txt_TransRef.Text + "%' ";
                 config.singleResult(sql);
                 if (config.dt.Rows.Count >= 1)
                 {
