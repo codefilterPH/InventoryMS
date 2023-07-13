@@ -42,9 +42,8 @@ namespace Inventory_System02.CustSupplier
             }
         }
 
-        private async void CustSupp_Load(object sender, EventArgs e)
+        private void CustSupp_Load(object sender, EventArgs e)
         {
-            await Task.Delay(2000);
             supplier_refresh_Click(sender, e);
             refreshToolStripMenuItem_Click(sender, e);
             if (CustSup == "Sup")
@@ -62,9 +61,6 @@ namespace Inventory_System02.CustSupplier
             }
             timer1.Start();
             UnlockModels();
-
-
-
         }
         private void UnlockModels()
         {

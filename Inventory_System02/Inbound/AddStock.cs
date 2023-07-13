@@ -516,81 +516,6 @@ namespace Inventory_System02
             }
         }
         string search_for = string.Empty;
-        private void txt_Search_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if ( dtg_Items.Columns.Count >= 1 )
-                {
-                    dtg_Items.Columns.Clear();
-                }
-                if (cbo_srch_type.Text == "DATE")
-                {
-                    search_for = "`Entry Date`";
-                }
-                else if (cbo_srch_type.Text == "ID")
-                {
-                    search_for = "`Stock ID`";
-                }
-                else if (cbo_srch_type.Text == "NAME")
-                {
-                    search_for = "`Item Name`";
-                }
-                else if (cbo_srch_type.Text == "BRAND")
-                {
-                    search_for = "`Brand`";
-                }
-                else if (cbo_srch_type.Text == "DESCRIPTION")
-                {
-                    search_for = "`Description`";
-                }
-                else if (cbo_srch_type.Text == "QUANTITY")
-                {
-                    search_for = "`QUANTITY`";
-                }
-                else if (cbo_srch_type.Text == "PRICE")
-                {
-                    search_for = "`Price`";
-                }
-                else if (cbo_srch_type.Text == "SUPPLIER")
-                {
-                    search_for = "`Supplier Name`";
-                }
-                else if (cbo_srch_type.Text == "JOB")
-                {
-                    search_for = "`Job Role`";
-                }
-                else if (cbo_srch_type.Text == "TRANS REF")
-                {
-                    search_for = "`Transaction Reference`";
-                }
-                else
-                {
-                    search_for = "`Transaction Reference`";
-                }
-
-
-                if (txt_Search.Text == "")
-                {
-                    refreshToolStripMenuItem1_Click(sender, e);
-                    return;
-                }
-                config = new SQLConfig();
-                sql = "";
-                Console.WriteLine(search_for);
-                sql = "Select * from Stocks where '"+search_for+"' like '%"+txt_Search.Text+"%' ORDER BY `Entry Date` DESC ";
-                config.Load_DTG(sql, dtg_Items);
-     
-                Calculator_Timer.Start();
-                DTG_Property();
-            }
-            catch (Exception ex)
-            {
-                lbl_error_message.Text = ex.Message;
-                return;
-            }
-
-        }
 
         private void btn_searchSup_Click(object sender, EventArgs e)
         {
@@ -655,7 +580,7 @@ namespace Inventory_System02
 
         private void cbo_srch_type_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txt_Search_TextChanged(sender, e);
+            txtSearch_TextChanged(sender, e);
         }
         private ToolTip toolTip;
         private void btn_searchSup_MouseHover(object sender, EventArgs e)
@@ -822,7 +747,7 @@ namespace Inventory_System02
             {
                 chk_select_all.Checked = false;
                 Load_DTG_VBPrint frm = new Load_DTG_VBPrint();
-                frm.Search_Result("INBOUND SUMMARY", "preview", dtg_Items, lbl_items_count.Text, lbl_TotalQty.Text, lbl_TotalAmt.Text, cbo_srch_type.Text, txt_Search.Text);
+                frm.Search_Result("INBOUND SUMMARY", "preview", dtg_Items, lbl_items_count.Text, lbl_TotalQty.Text, lbl_TotalAmt.Text, cbo_srch_type.Text, txtSearch.Text);
             }
             else
             {
@@ -836,7 +761,7 @@ namespace Inventory_System02
             {
                 chk_select_all.Checked = false;
                 Load_DTG_VBPrint frm = new Load_DTG_VBPrint();
-                frm.Search_Result("INBOUND SUMMARY", "batch", dtg_Items, lbl_items_count.Text, lbl_TotalQty.Text, lbl_TotalAmt.Text, cbo_srch_type.Text, txt_Search.Text);
+                frm.Search_Result("INBOUND SUMMARY", "batch", dtg_Items, lbl_items_count.Text, lbl_TotalQty.Text, lbl_TotalAmt.Text, cbo_srch_type.Text, txtSearch.Text);
                 MessageBox.Show("Sent to My Documents!");
             }
             else
@@ -851,7 +776,7 @@ namespace Inventory_System02
             {
                 chk_select_all.Checked = false;
                 Load_DTG_VBPrint frm = new Load_DTG_VBPrint();
-                frm.Search_Result("INBOUND SUMMARY", "print", dtg_Items, lbl_items_count.Text, lbl_TotalQty.Text, lbl_TotalAmt.Text, cbo_srch_type.Text, txt_Search.Text);
+                frm.Search_Result("INBOUND SUMMARY", "print", dtg_Items, lbl_items_count.Text, lbl_TotalQty.Text, lbl_TotalAmt.Text, cbo_srch_type.Text, txtSearch.Text);
             }
             else
             {
@@ -887,7 +812,7 @@ namespace Inventory_System02
                 btn_upload.Enabled = false;
                 btn_preview.Enabled = false;
 
-                txt_Search.Enabled = false;
+                txtSearch.Enabled = false;
                 btn_Clear_Text.Enabled = false;
 
 
@@ -924,7 +849,7 @@ namespace Inventory_System02
                 btn_upload.Enabled = true;
                 btn_preview.Enabled = true;
 
-                txt_Search.Enabled = true;
+                txtSearch.Enabled = true;
                 btn_Clear_Text.Enabled = true;
             }
 
@@ -1083,7 +1008,7 @@ namespace Inventory_System02
         }
         private void txt_TransRef_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txt_Search.Text = txt_TransRef.Text;
+            txtSearch.Text = txt_TransRef.Text;
         }
         private void txt_TransRef_TextChanged(object sender, EventArgs e)
         {
@@ -1114,8 +1039,8 @@ namespace Inventory_System02
                     else
                     {
                         btn_Clear_Text_Click(sender, e);
-                        txt_Search.Text = "";
-                        txt_Search_TextChanged(sender, e);
+                        txtSearch.Text = "";
+                        txtSearch_TextChanged(sender, e);
                     }
                 }
             }
@@ -1357,50 +1282,7 @@ namespace Inventory_System02
                 lbl_error_message.Text = "An error occurred: " + ex.Message;
             }
         }
-        //private void Load_Items(string sql)
-        //{
-        //    try
-        //    {
-        //        if (dtg_Items.Rows.Count == 0)
-        //        {
-        //            // Handle the null case, such as initializing the DataGridView or displaying an error message
-        //            return;
-        //        }
-        //        else
-        //        {
-        //            dtg_Items.Columns.Clear();
-        //            // calculate the total number of records and pages
-        //            int totalRecords = config.GetTotalRecords(sql);
 
-        //            double num_records = 0;
-        //            double.TryParse(cbo_num_records.Text, out num_records);
-
-        //            double totalPages = (int)Math.Ceiling((double)totalRecords / num_records);
-
-        //            // update the maximum number
-        //            num_max_pages.Maximum = Convert.ToDecimal(totalPages);
-        //            num_max_pages.Value = Convert.ToDecimal(totalPages);
-
-        //            // get the current page number and records per page from the paginator control
-
-        //            int currentpage = (int)current_page_val.Value;
-        //            int recordsperpage = (int)num_records;
-
-        //            // build the sql query based on the search criteria
-
-        //            // load the data into the datagridview with pagination
-        //            config = new SQLConfig();
-        //            config.Load_DTG_Paginator(sql, dtg_Items, currentpage, recordsperpage);
-
-        //            DTG_Property();
-        //        }
-            
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        lbl_error_message.Text = ex.Message;
-        //    } 
-        //}
 
         private void cbo_num_records_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -1501,6 +1383,79 @@ namespace Inventory_System02
             config.Load_DTG(sql, dtg_Items);
             DTG_Property();
             Calculator_Timer.Start();
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dtg_Items.Columns.Count >= 1)
+                {
+                    dtg_Items.Columns.Clear();
+                }
+                if (cbo_srch_type.Text == "DATE")
+                {
+                    search_for = "Entry Date";
+                }
+                if (cbo_srch_type.Text == "ID")
+                {
+                    search_for = "Stock ID";
+                }
+                if (cbo_srch_type.Text == "NAME")
+                {
+                    search_for = "Item Name";
+                }
+                if (cbo_srch_type.Text == "BRAND")
+                {
+                    search_for = "Brand";
+                }
+                if (cbo_srch_type.Text == "DESCRIPTION")
+                {
+                    search_for = "Description";
+                }
+                if (cbo_srch_type.Text == "QUANTITY")
+                {
+                    search_for = "QUANTITY";
+                }
+                if (cbo_srch_type.Text == "PRICE")
+                {
+                    search_for = "Price";
+                }
+                if (cbo_srch_type.Text == "SUPPLIER")
+                {
+                    search_for = "Supplier Name";
+                }
+                if (cbo_srch_type.Text == "JOB")
+                {
+                    search_for = "Job Role";
+                }
+                if (cbo_srch_type.Text == "TRANS REF")
+                {
+                    search_for = "Transaction Reference";
+                }
+
+                if (txtSearch.Text == "")
+                {
+                    refreshToolStripMenuItem1_Click(sender, e);
+                    return;
+                }
+                config = new SQLConfig();
+                Console.WriteLine(search_for);
+                sql = "Select * from Stocks where `" + search_for + "` = '" + txtSearch.Text + "' OR `" + search_for + "` LIKE '%" + txtSearch.Text + "%' ORDER BY `Entry Date` DESC ";
+                config.Load_DTG(sql, dtg_Items);
+
+
+                Calculator_Timer.Start();
+                DTG_Property();
+            }
+            catch (InvalidOperationException ex)
+            {
+                lbl_error_message.Text = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                lbl_error_message.Text = ex.Message;
+            }
         }
 
         private void txt_Price_Click(object sender, EventArgs e)
@@ -1680,7 +1635,7 @@ namespace Inventory_System02
                 save_Ref = txt_TransRef.Text;
                 newItemToolStripMenuItem_Click(sender, e);
                 txt_ItemName.Focus();
-                txt_Search_TextChanged(sender, e);
+                txtSearch_TextChanged(sender, e);
                 DTG_Property();
                 txt_TransRef.Text = save_Ref;
                 if (dtg_Items.Rows.Count > 0)
