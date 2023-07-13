@@ -55,13 +55,22 @@ namespace Inventory_System02
             // You can also update any UI components if needed after the form has finished loading asynchronously
             // For example:
             // lbl_Status.Text = "Form loaded successfully!";
-            await LoadResources();
         }
 
         private async void AddStock_Load(object sender, EventArgs e)
         {
-            await Task.Delay(1000);
-            await LoadResources();
+            try
+            {
+                await Task.Delay(1000);
+                await LoadResources();
+
+                button1_Click(sender, e);
+            }
+            catch ( Exception ex)
+            {
+                lbl_error_message.Text = ex.Message;
+            }
+           
         }
         double totalrows = 0;
         private void DTG_Property()
@@ -153,7 +162,7 @@ namespace Inventory_System02
         private void Calculator_Timer_Tick(object sender, EventArgs e)
         {
             config = new SQLConfig();
-            LoadResources();
+            
             Calculations();
             ProcessStockLow();
             Calculator_Timer.Stop();
@@ -263,7 +272,7 @@ namespace Inventory_System02
                 {
                     if (dtg_Items.Rows.Count > 0)
                     {
-                        txt_Barcode.Text = dtg_Items.CurrentRow.Cells[2].Value.ToString();
+                        txt_Barcode.Text = dtg_Items.CurrentRow.Cells["Stock ID"].Value.ToString();
                         txt_ItemName.Text = dtg_Items.CurrentRow.Cells[3].Value.ToString();
                         cbo_brand.Text = dtg_Items.CurrentRow.Cells[4].Value.ToString();
                         cbo_desc.Text = dtg_Items.CurrentRow.Cells[5].Value.ToString();
@@ -283,7 +292,7 @@ namespace Inventory_System02
                         //txt_TransRef.TextChanged += txt_TransRef_SelectedIndexChanged;
 
 
-                        func.Change_Font_DTG(sender, e, dtg_Items);
+                        //func.Change_Font_DTG(sender, e, dtg_Items);
                         txt_Qty_ValueChanged(sender, e);
                         bool success;
                         success = config.CreateOrUpdateInboundWarranty(dtp_warranty.Value, txt_Barcode.Text, txt_TransRef.Text, "select");
@@ -291,8 +300,6 @@ namespace Inventory_System02
                         {
                             WarrantySelection();
                         }
-
-                        Calculator_Timer.Start();
 
                     }
 
@@ -409,8 +416,6 @@ namespace Inventory_System02
             sql = "Select Name from Brand";
             config.fiil_CBO(sql, cbo_brand);
 
-            sql = $"Select * from Stocks ORDER BY `Entry Date` DESC ";
-            Load_Items(sql);
 
             if (!isWarrantyBusy)
             {
@@ -433,17 +438,17 @@ namespace Inventory_System02
 
         private void EnablePaginatorControl()
         {
-            num_max_pages.Enabled = true;
-            current_page_val.Enabled = true;
-            cbo_num_records.Enabled = true;
-            btn_load.Enabled = true;
+            //num_max_pages.Enabled = true;
+            //current_page_val.Enabled = true;
+            //cbo_num_records.Enabled = true;
+            //btn_load.Enabled = true;
         }
         private void DisablePaginatorControl()
         {
-            num_max_pages.Enabled = false;
-            current_page_val.Enabled = false;
-            cbo_num_records.Enabled = false;
-            btn_load.Enabled = false;
+            //num_max_pages.Enabled = false;
+            //current_page_val.Enabled = false;
+            //cbo_num_records.Enabled = false;
+            //btn_load.Enabled = false;
         }
 
         private void btn_Clear_Text_Click(object sender, EventArgs e)
@@ -573,7 +578,7 @@ namespace Inventory_System02
         
                 sql = "";
                 config = new SQLConfig();
-                sql = $"Select * from Stocks where {search_for} like '%{txt_Search.Text}%' ORDER BY `Entry Date` DESC ";
+                sql = "Select * from Stocks where '"+search_for+"' like '%"+txt_Search.Text+"%' ORDER BY `Entry Date` DESC ";
                 config.Load_DTG(sql, dtg_Items);
                 DTG_Property();
                 Calculator_Timer.Start();
@@ -581,6 +586,7 @@ namespace Inventory_System02
             catch (Exception ex)
             {
                 lbl_error_message.Text = ex.Message;
+                return;
             }
 
         }
@@ -1141,11 +1147,11 @@ namespace Inventory_System02
                 TableRefresher();
                 sql = "Select * from Stocks where DATE(`Entry Date`) = '" + DateTime.Now.ToString(Includes.AppSettings.DateFormatRetrieve) + "' order by `Entry Date` desc";
                 //config.Load_DTG(sql, dtg_Items);
-                Load_Items(sql);
-
+                Calculator_Timer.Start();
+                DTG_Property();
                 enable_them = true;
                 SpecialFilterDisabler();
-                current_page_val.Text = "0";
+                //current_page_val.Text = "0";
 
             }
             catch (SqlException ex)
@@ -1340,56 +1346,60 @@ namespace Inventory_System02
             try
             {
                 sql = "Select * from Stocks where Quantity <= '" + quantity + "' order by `Entry Date` desc";
-                Load_Items(sql);
+                config.Load_DTG(sql, dtg_Items);
                 Calculator_Timer.Start();
                 lbl_stock_low.Text = "Stock Low Detected!";
-                current_page_val.Text = "0";
+                //current_page_val.Text = "0";
             }
             catch (Exception ex)
             {
                 lbl_error_message.Text = "An error occurred: " + ex.Message;
             }
         }
-        private void Load_Items(string sql)
-        {
-            try
-            {
-                if (dtg_Items == null)
-                {
-                    // Handle the null case, such as initializing the DataGridView or displaying an error message
-                    return;
-                }
-                dtg_Items.Columns.Clear();
-                // calculate the total number of records and pages
-                int totalRecords = config.GetTotalRecords(sql);
+        //private void Load_Items(string sql)
+        //{
+        //    try
+        //    {
+        //        if (dtg_Items.Rows.Count == 0)
+        //        {
+        //            // Handle the null case, such as initializing the DataGridView or displaying an error message
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            dtg_Items.Columns.Clear();
+        //            // calculate the total number of records and pages
+        //            int totalRecords = config.GetTotalRecords(sql);
 
-                double num_records = 0;
-                double.TryParse(cbo_num_records.Text, out num_records);
+        //            double num_records = 0;
+        //            double.TryParse(cbo_num_records.Text, out num_records);
 
-                double totalPages = (int)Math.Ceiling((double)totalRecords / num_records);
+        //            double totalPages = (int)Math.Ceiling((double)totalRecords / num_records);
 
-                // update the maximum number
-                num_max_pages.Maximum = Convert.ToDecimal(totalPages);
-                num_max_pages.Value = Convert.ToDecimal(totalPages);
+        //            // update the maximum number
+        //            num_max_pages.Maximum = Convert.ToDecimal(totalPages);
+        //            num_max_pages.Value = Convert.ToDecimal(totalPages);
 
-                // get the current page number and records per page from the paginator control
+        //            // get the current page number and records per page from the paginator control
 
-                int currentpage = (int)current_page_val.Value;
-                int recordsperpage = (int)num_records;
+        //            int currentpage = (int)current_page_val.Value;
+        //            int recordsperpage = (int)num_records;
 
-                // build the sql query based on the search criteria
+        //            // build the sql query based on the search criteria
 
-                // load the data into the datagridview with pagination
-                config = new SQLConfig();
-                config.Load_DTG_Paginator(sql, dtg_Items, currentpage, recordsperpage);
+        //            // load the data into the datagridview with pagination
+        //            config = new SQLConfig();
+        //            config.Load_DTG_Paginator(sql, dtg_Items, currentpage, recordsperpage);
 
-                DTG_Property();
-            }
-            catch (Exception ex)
-            {
-                lbl_error_message.Text = ex.Message;
-            } 
-        }
+        //            DTG_Property();
+        //        }
+            
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        lbl_error_message.Text = ex.Message;
+        //    } 
+        //}
 
         private void cbo_num_records_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -1397,31 +1407,7 @@ namespace Inventory_System02
             func.combobox_numbers_only(sender, e);
         }
 
-        private void current_page_val_ValueChanged(object sender, EventArgs e)
-        {
-            ToolTip tooltip = new ToolTip();
-            if (current_page_val.Value <= num_max_pages.Value)
-            {
-                tooltip.SetToolTip(current_page_val, "Hit \'ENTER\' key to apply changes.");
-                sql = $"Select * from Stocks ORDER BY `Entry Date` DESC ";
-                Load_Items(sql);
-            }
-            else
-            {
-                current_page_val.Text = "0";
-            }
-
-        }
-
-        private void cbo_num_records_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            current_page_val_ValueChanged(sender, e);
-        }
-
-        private void btn_load_Click(object sender, EventArgs e)
-        {
-            current_page_val_ValueChanged(sender, e);
-        }
+     
 
         private void dtp_warranty_worker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -1498,13 +1484,22 @@ namespace Inventory_System02
                 dtg_Items.Columns.Clear();
             }
 
-            LoadResources();
+            button1_Click(sender, e);
             SupplierChangeDisabler();
             enable_them = true;
             SpecialFilterDisabler();
             chk_select_all.Checked = false;
             EnablePaginatorControl();
             this.Refresh();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+            sql = "Select * from Stocks ORDER BY `Entry Date` DESC ";
+            config.Load_DTG(sql, dtg_Items);
+            DTG_Property();
+            Calculator_Timer.Start();
         }
 
         private void txt_Price_Click(object sender, EventArgs e)

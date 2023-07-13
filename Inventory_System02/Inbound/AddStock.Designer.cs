@@ -105,17 +105,11 @@ namespace Inventory_System02
             this.label8 = new System.Windows.Forms.Label();
             this.txt_Qty = new System.Windows.Forms.NumericUpDown();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btn_load = new System.Windows.Forms.Button();
-            this.cbo_num_records = new System.Windows.Forms.ComboBox();
-            this.num_max_pages = new System.Windows.Forms.NumericUpDown();
-            this.label19 = new System.Windows.Forms.Label();
-            this.current_page_val = new System.Windows.Forms.NumericUpDown();
+            this.button1 = new System.Windows.Forms.Button();
             this.lbl_error_message = new System.Windows.Forms.Label();
             this.chk_select_all = new System.Windows.Forms.CheckBox();
             this.label17 = new System.Windows.Forms.Label();
             this.lbl_ProductValue = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.lbl_items_count = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -138,8 +132,6 @@ namespace Inventory_System02
             ((System.ComponentModel.ISupportInitialize)(this.pic_BarCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_Qty)).BeginInit();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.num_max_pages)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.current_page_val)).BeginInit();
             this.SuspendLayout();
             // 
             // dtg_Items
@@ -342,7 +334,7 @@ namespace Inventory_System02
             this.refreshToolStripMenuItem1.BackColor = System.Drawing.Color.SteelBlue;
             this.refreshToolStripMenuItem1.ForeColor = System.Drawing.Color.White;
             this.refreshToolStripMenuItem1.Name = "refreshToolStripMenuItem1";
-            this.refreshToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
+            this.refreshToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.refreshToolStripMenuItem1.Text = "Refresh";
             this.refreshToolStripMenuItem1.Click += new System.EventHandler(this.refreshToolStripMenuItem1_Click);
             // 
@@ -351,7 +343,7 @@ namespace Inventory_System02
             this.loadImagesToolStripMenuItem.BackColor = System.Drawing.Color.SteelBlue;
             this.loadImagesToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.loadImagesToolStripMenuItem.Name = "loadImagesToolStripMenuItem";
-            this.loadImagesToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.loadImagesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadImagesToolStripMenuItem.Text = "Load Images";
             this.loadImagesToolStripMenuItem.Click += new System.EventHandler(this.loadImagesToolStripMenuItem_Click);
             // 
@@ -1034,120 +1026,31 @@ namespace Inventory_System02
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.Controls.Add(this.btn_load);
-            this.panel2.Controls.Add(this.cbo_num_records);
-            this.panel2.Controls.Add(this.num_max_pages);
-            this.panel2.Controls.Add(this.label19);
-            this.panel2.Controls.Add(this.current_page_val);
+            this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.lbl_error_message);
             this.panel2.Controls.Add(this.chk_select_all);
             this.panel2.Controls.Add(this.label17);
             this.panel2.Controls.Add(this.lbl_ProductValue);
             this.panel2.Controls.Add(this.dtg_Items);
-            this.panel2.Controls.Add(this.label21);
-            this.panel2.Controls.Add(this.label20);
             this.panel2.Location = new System.Drawing.Point(6, 242);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(856, 299);
             this.panel2.TabIndex = 21;
             // 
-            // btn_load
+            // button1
             // 
-            this.btn_load.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_load.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.btn_load.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btn_load.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_load.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_load.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.btn_load.Location = new System.Drawing.Point(486, 26);
-            this.btn_load.Name = "btn_load";
-            this.btn_load.Size = new System.Drawing.Size(52, 25);
-            this.btn_load.TabIndex = 132;
-            this.btn_load.Text = "Load";
-            this.btn_load.UseVisualStyleBackColor = false;
-            this.btn_load.Click += new System.EventHandler(this.btn_load_Click);
-            // 
-            // cbo_num_records
-            // 
-            this.cbo_num_records.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbo_num_records.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.cbo_num_records.FormattingEnabled = true;
-            this.cbo_num_records.Items.AddRange(new object[] {
-            "5",
-            "10",
-            "20",
-            "50",
-            "100"});
-            this.cbo_num_records.Location = new System.Drawing.Point(792, 27);
-            this.cbo_num_records.Name = "cbo_num_records";
-            this.cbo_num_records.Size = new System.Drawing.Size(60, 25);
-            this.cbo_num_records.TabIndex = 130;
-            this.cbo_num_records.Text = "5";
-            this.cbo_num_records.SelectedIndexChanged += new System.EventHandler(this.cbo_num_records_SelectedIndexChanged);
-            this.cbo_num_records.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbo_num_records_KeyPress);
-            // 
-            // num_max_pages
-            // 
-            this.num_max_pages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.num_max_pages.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.num_max_pages.Location = new System.Drawing.Point(646, 27);
-            this.num_max_pages.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.num_max_pages.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.num_max_pages.Name = "num_max_pages";
-            this.num_max_pages.Size = new System.Drawing.Size(46, 25);
-            this.num_max_pages.TabIndex = 126;
-            this.num_max_pages.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.num_max_pages.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
-            // label19
-            // 
-            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.label19.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label19.Location = new System.Drawing.Point(542, 32);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(32, 13);
-            this.label19.TabIndex = 74;
-            this.label19.Text = "Page";
-            // 
-            // current_page_val
-            // 
-            this.current_page_val.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.current_page_val.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.current_page_val.Location = new System.Drawing.Point(574, 27);
-            this.current_page_val.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.current_page_val.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.current_page_val.Name = "current_page_val";
-            this.current_page_val.Size = new System.Drawing.Size(46, 25);
-            this.current_page_val.TabIndex = 74;
-            this.current_page_val.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.current_page_val.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.current_page_val.ValueChanged += new System.EventHandler(this.current_page_val_ValueChanged);
+            this.button1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Font = new System.Drawing.Font("Segoe UI Semibold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.button1.Location = new System.Drawing.Point(86, 25);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(99, 25);
+            this.button1.TabIndex = 133;
+            this.button1.Text = "Load Table Data";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // lbl_error_message
             // 
@@ -1164,7 +1067,7 @@ namespace Inventory_System02
             this.chk_select_all.AutoSize = true;
             this.chk_select_all.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.chk_select_all.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.chk_select_all.Location = new System.Drawing.Point(3, 35);
+            this.chk_select_all.Location = new System.Drawing.Point(9, 30);
             this.chk_select_all.Name = "chk_select_all";
             this.chk_select_all.Size = new System.Drawing.Size(71, 17);
             this.chk_select_all.TabIndex = 123;
@@ -1197,30 +1100,6 @@ namespace Inventory_System02
             this.lbl_ProductValue.Text = "0.00";
             this.lbl_ProductValue.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.lbl_ProductValue.TextChanged += new System.EventHandler(this.lbl_ProductValue_TextChanged);
-            // 
-            // label21
-            // 
-            this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.label21.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label21.Location = new System.Drawing.Point(696, 31);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(97, 13);
-            this.label21.TabIndex = 131;
-            this.label21.Text = "Records per page";
-            // 
-            // label20
-            // 
-            this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.label20.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.label20.Location = new System.Drawing.Point(624, 32);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(18, 13);
-            this.label20.TabIndex = 125;
-            this.label20.Text = "of";
             // 
             // label18
             // 
@@ -1401,8 +1280,6 @@ namespace Inventory_System02
             ((System.ComponentModel.ISupportInitialize)(this.txt_Qty)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.num_max_pages)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.current_page_val)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1489,13 +1366,6 @@ namespace Inventory_System02
         private System.ComponentModel.BackgroundWorker LoadImageWorker;
         private System.Windows.Forms.ToolStripMenuItem loadImagesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stockLowToolStripMenuItem;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.NumericUpDown current_page_val;
-        private System.Windows.Forms.NumericUpDown num_max_pages;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.ComboBox cbo_num_records;
-        private System.Windows.Forms.Button btn_load;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.DateTimePicker dtp_warranty;
         private System.ComponentModel.BackgroundWorker dtp_warranty_worker;
@@ -1505,6 +1375,7 @@ namespace Inventory_System02
         private System.Windows.Forms.ToolStripMenuItem fUTUREWarrantyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nOWarrantyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

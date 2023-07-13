@@ -162,6 +162,7 @@ namespace Inventory_System02.Includes
                 //dtg.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 //dtg.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells;
 
+                Console.WriteLine("load_dtg");
             }
             catch (Exception ex)
             {
@@ -172,6 +173,7 @@ namespace Inventory_System02.Includes
                 da.Dispose();
                 con.Close();
             }
+            return;
         }
 
         public int GetTotalRecords(string sql)
@@ -192,6 +194,9 @@ namespace Inventory_System02.Includes
                 cmd = new SQLiteCommand(countSql, con);
                 con.Open();
                 totalRecords = Convert.ToInt32(cmd.ExecuteScalar());
+
+                Console.WriteLine("total records issue");
+                
             }
             catch (Exception ex)
             {
@@ -211,6 +216,7 @@ namespace Inventory_System02.Includes
 
             try
             {
+                Console.WriteLine("paginator issue");
                 con.Open();
 
                 // calculate the offset based on the current page and records per page
@@ -240,6 +246,7 @@ namespace Inventory_System02.Includes
                 da.Dispose();
                 con.Close();
             }
+            return;
         }
 
         public void Load_Datasource(string sql, DataSet dtg)
@@ -268,6 +275,7 @@ namespace Inventory_System02.Includes
                 da.Dispose();
                 con.Close();
             }
+            return;
         }
         public void fiil_CBO(string sql, ComboBox cbo)
         {
