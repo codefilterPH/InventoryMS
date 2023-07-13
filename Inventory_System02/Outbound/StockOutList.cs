@@ -2,6 +2,7 @@
 using Inventory_System02.Outbound;
 using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 namespace Inventory_System02
 {
@@ -21,37 +22,61 @@ namespace Inventory_System02
             JobRole = jobrole;
         }
 
-        private void StockOutList_Load(object sender, EventArgs e)
+        private async void StockOutList_Load(object sender, EventArgs e)
         {
-
+            await Task.Delay(2000);
             refreshTableToolStripMenuItem_Click(sender, e);
+        }
+        public void Calculations()
+        {
+            try
+            {
+                if (dtg_outlist.Rows.Count > 0)
+                {
+                    Calculations cal = new Calculations();
+                    cal.CalculateOverallTotals("`Stock Out`", out_qty, out_amt, lbl_exception);
+
+                    lbl_items_count.Text = dtg_outlist.Rows.Count.ToString();
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                lbl_exception.Text = ex.Message;
+            }
         }
         private void Load_Items(string sql)
         {
+            try
+            {
+                // calculate the total number of records and pages
+                int totalRecords = config.GetTotalRecords(sql);
 
-            // calculate the total number of records and pages
-            int totalRecords = config.GetTotalRecords(sql);
+                double num_records = 0;
+                double.TryParse(cbo_num_records.Text, out num_records);
 
-            double num_records = 0;
-            double.TryParse(cbo_num_records.Text, out num_records);
+                double totalPages = (int)Math.Ceiling((double)totalRecords / num_records);
 
-            double totalPages = (int)Math.Ceiling((double)totalRecords / num_records);
+                // update the maximum number
+                num_max_pages.Maximum = Convert.ToDecimal(totalPages);
+                num_max_pages.Value = Convert.ToDecimal(totalPages);
 
-            // update the maximum number
-            num_max_pages.Maximum = Convert.ToDecimal(totalPages);
-            num_max_pages.Value = Convert.ToDecimal(totalPages);
+                // get the current page number and records per page from the paginator control
 
-            // get the current page number and records per page from the paginator control
+                int currentpage = (int)current_page_val.Value;
+                int recordsperpage = (int)num_records;
 
-            int currentpage = (int)current_page_val.Value;
-            int recordsperpage = (int)num_records;
+                // build the sql query based on the search criteria
 
-            // build the sql query based on the search criteria
-
-            // load the data into the datagridview with pagination
-            config = new SQLConfig();
-            config.Load_DTG_Paginator(sql, dtg_outlist, currentpage, recordsperpage);
-            DTG_Property();
+                // load the data into the datagridview with pagination
+                config = new SQLConfig();
+                config.Load_DTG_Paginator(sql, dtg_outlist, currentpage, recordsperpage);
+                DTG_Property();
+            }
+            catch ( Exception ex)
+            {
+                lbl_exception.Text = ex.Message;
+            }
         }
 
         private void refreshTableToolStripMenuItem_Click(object sender, EventArgs e)
@@ -65,7 +90,7 @@ namespace Inventory_System02
             Load_Items(sql);
             if (config.dt.Rows.Count > 0)
             {
-                CalculateValue();
+                Calculations();
             }
             else
             {
@@ -121,32 +146,6 @@ namespace Inventory_System02
                 // Handle the exception by waiting for a short period of time and then trying the operation again
                 System.Threading.Thread.Sleep(500);
                 DTG_Property();
-            }
-        }
-
-        private void CalculateValue()
-        {
-            try
-            {
-                decimal total_val = 0;
-                int total_qty = 0;
-                for (int i = 0; i < dtg_outlist.Rows.Count; i++)
-                {
-                    int qty = 0;
-                    decimal amount = 0;
-                    int.TryParse(dtg_outlist.Rows[i].Cells[9].Value.ToString(), out qty);
-                    decimal.TryParse(dtg_outlist.Rows[i].Cells[11].Value.ToString(), out amount);
-
-                    total_qty += qty;
-                    total_val += amount;
-
-                }
-                out_qty.Text = total_qty.ToString();
-                out_amt.Text = total_val.ToString();
-            }
-            catch (InvalidOperationException ex)
-            {
-                lbl_exception.Text = "Error: " + ex.Message;
             }
         }
 
@@ -685,7 +684,7 @@ namespace Inventory_System02
             Load_Items(sql);
             if (config.dt.Rows.Count > 0)
             {
-                CalculateValue();
+                Calculations();
             }
             DTG_Property();
 

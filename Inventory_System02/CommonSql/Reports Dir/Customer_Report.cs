@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Inventory_System02.Reports_Dir
@@ -30,8 +31,9 @@ namespace Inventory_System02.Reports_Dir
             JobRole = jobrole;
         }
         bool isWorkerBusy = false;
-        private void Customer_Report_Load(object sender, EventArgs e)
+        private async void Customer_Report_Load(object sender, EventArgs e)
         {
+            await Task.Delay(2000);
             chk_Cust_ID.Checked = true;
             chk_Name.Checked = true;
             chk_Address.Checked = true;

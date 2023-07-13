@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using TextBox = System.Windows.Forms.TextBox;
 using ToolTip = System.Windows.Forms.ToolTip;
@@ -32,8 +33,9 @@ namespace Inventory_System02
             date = DateTime.Now.ToString(Includes.AppSettings.DateFormatSave);
         }
 
-        private void StockReturned_Load(object sender, EventArgs e)
+        private async void StockReturned_Load(object sender, EventArgs e)
         {
+            await Task.Delay(2000);
             cbo_srch_type.DropDownStyle = ComboBoxStyle.DropDownList;
             txt_Reasons.DropDownStyle = ComboBoxStyle.DropDownList;
         }

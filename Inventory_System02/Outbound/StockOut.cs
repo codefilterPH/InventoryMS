@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ToolTip = System.Windows.Forms.ToolTip;
 
@@ -31,8 +32,9 @@ namespace Inventory_System02
             JobRole = jobrole;
         }
 
-        private void StockOut_Load(object sender, EventArgs e)
+        private async void StockOut_Load(object sender, EventArgs e)
         {
+            await Task.Delay(2000);
             refreshTableToolStripMenuItem_Click(sender, e);
             cbo_srch_type.DropDownStyle = ComboBoxStyle.DropDownList;
         }

@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Inventory_System02.CustSupplier
@@ -41,8 +42,9 @@ namespace Inventory_System02.CustSupplier
             }
         }
 
-        private void CustSupp_Load(object sender, EventArgs e)
+        private async void CustSupp_Load(object sender, EventArgs e)
         {
+            await Task.Delay(2000);
             supplier_refresh_Click(sender, e);
             refreshToolStripMenuItem_Click(sender, e);
             if (CustSup == "Sup")

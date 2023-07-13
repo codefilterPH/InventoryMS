@@ -1,6 +1,7 @@
 ﻿using Inventory_System02.Includes;
 using Inventory_System02.Return;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Inventory_System02
@@ -25,65 +26,64 @@ namespace Inventory_System02
 
         private void refreshTableToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (dtg_return_list.Columns.Count >= 1)
+            try
             {
-                dtg_return_list.Columns.Clear();
-            }
-            this.Refresh();
+                if (dtg_return_list.Columns.Count >= 1)
+                {
+                    dtg_return_list.Columns.Clear();
+                }
+                this.Refresh();
 
-            sql = "Select * from `Stock Returned` order by `Entry Date` desc";
-            Load_Items(sql);
-            if (dtg_return_list.Columns.Count > 0)
+                sql = "Select * from `Stock Returned` order by `Entry Date` desc";
+                Load_Items(sql);
+                if (dtg_return_list.Columns.Count > 0)
+                {
+                    dtg_return_list.Columns[0].Visible = false;
+                    dtg_return_list.Columns[2].Visible = false;
+
+                    if (config.dt.Rows.Count > 0)
+                    {
+                        Calculations();
+                        DTG_Property();
+                    }
+                    else
+                    {
+                        lbl_items_count.Text = "0";
+                        out_amt.Text = "0";
+                        out_qty.Text = "0";
+                    }
+                }
+                enable_them = true;
+                SpecialFilterDisabler();
+            }
+            catch ( Exception ex)
             {
-                dtg_return_list.Columns[0].Visible = false;
-                dtg_return_list.Columns[2].Visible = false;
-
-                if (config.dt.Rows.Count > 0)
-                {
-                    CalculateValue();
-                    DTG_Property();
-                }
-                else
-                {
-                    lbl_items_count.Text = "0";
-                    out_amt.Text = "0";
-                    out_qty.Text = "0";
-                }
+                lbl_exception.Text = ex.Message;
             }
-            enable_them = true;
-            SpecialFilterDisabler();
         }
-        decimal total_val;
-        int total_qty;
-        private void CalculateValue()
+
+        public void Calculations()
         {
             try
             {
-                total_qty = 0;
-                total_val = 0;
-                for (int i = 0; i < dtg_return_list.Rows.Count; i++)
+                if (dtg_return_list.Rows.Count > 0)
                 {
-                    int qty = 0;
-                    decimal amount = 0;
+                    Calculations cal = new Calculations();
+                    cal.CalculateOverallTotals("`Stock Returned`", out_qty, out_amt, lbl_exception);
 
-                    int.TryParse(dtg_return_list.Rows[i].Cells[9].Value.ToString(), out qty);
-                    decimal.TryParse(dtg_return_list.Rows[i].Cells[11].Value.ToString(), out amount);
-
-                    total_qty += qty;
-                    total_val += amount;
-
+                    lbl_items_count.Text = dtg_return_list.Rows.Count.ToString();
+                    return;
                 }
-                out_qty.Text = total_qty.ToString();
-                out_amt.Text = total_val.ToString();
             }
-            catch (InvalidOperationException ex)
+            catch (Exception ex)
             {
-                lbl_exception.Text = "Error: " + ex.Message;
+                lbl_exception.Text = ex.Message;
             }
         }
 
-        private void Stock_Returned_Load(object sender, EventArgs e)
+        private async void Stock_Returned_Load(object sender, EventArgs e)
         {
+            await Task.Delay(2000);
             refreshTableToolStripMenuItem_Click(sender, e);
             cbo_srch_type.DropDownStyle = ComboBoxStyle.DropDownList;
         }
@@ -677,7 +677,7 @@ namespace Inventory_System02
             }
             sql = "Select * from `Stock Returned` where " + search_for + " like '%" + txt_Search.Text + "%'";
             config.Load_DTG(sql, dtg_return_list);
-            CalculateValue();
+            Calculations();
             DTG_Property();
             if (txt_Search.Text == "")
             {

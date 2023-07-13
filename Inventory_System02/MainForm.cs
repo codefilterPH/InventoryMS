@@ -2,6 +2,7 @@
 using System;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Inventory_System02
@@ -13,7 +14,7 @@ namespace Inventory_System02
         string Global_ID, Fullname, JobRole;
         usableFunction func = new usableFunction();
 
-
+        private bool allFormsLoaded = false;
 
         public MainForm(string userid, string name, string acctype, string phone, string email)
         {
@@ -53,6 +54,28 @@ namespace Inventory_System02
                 lbl_Email.Text = "";
             }
 
+        }
+
+        public async void MainForm_Load(object sender, EventArgs e)
+        {
+            Task task1 = InboundFormLoad();
+            // Wait for all forms to finish loading
+            await Task.WhenAll(task1);
+            if (allFormsLoaded)
+            {
+                btn_Stocks_Click(sender, e);
+                func.Reload_Images(employee_Profile, Global_ID, Includes.AppSettings.Employee_DIR);
+                func.Reload_Images(Company_Logo, "Company_Logo1", Includes.AppSettings.Company_DIR);
+                Load_Company_name();
+            }
+
+        }
+
+        private async Task InboundFormLoad()
+        {
+            AddStock frm = new AddStock(Global_ID, Fullname, JobRole);
+            ShowFormInContainerControl(show_panel, frm);
+            await frm.LoadFormAsync(); // Assuming AddStock class has an asynchronous method for loading
         }
 
         private void btn_Stocks_Click(object sender, EventArgs e)
@@ -96,14 +119,7 @@ namespace Inventory_System02
             }
         }
 
-        public void MainForm_Load(object sender, EventArgs e)
-        {
-            btn_Stocks_Click(sender, e);
-            func.Reload_Images(employee_Profile, Global_ID, Includes.AppSettings.Employee_DIR);
-            func.Reload_Images(Company_Logo, "Company_Logo1", Includes.AppSettings.Company_DIR);
-            Load_Company_name();
-
-        }
+     
         SQLConfig config = new SQLConfig();
         public void Load_Company_name()
         {

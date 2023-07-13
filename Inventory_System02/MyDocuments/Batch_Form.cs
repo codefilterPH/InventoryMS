@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Inventory_System02
@@ -695,9 +696,9 @@ namespace Inventory_System02
             }
         }
 
-        private void Batch_Form_Load(object sender, EventArgs e)
+        private async void Batch_Form_Load(object sender, EventArgs e)
         {
-            this.Refresh();
+            await Task.Delay(2000);
             backgroundWorker1.RunWorkerAsync();
         }
     }

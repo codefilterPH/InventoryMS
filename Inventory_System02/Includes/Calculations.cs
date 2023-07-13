@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using System.Windows.Forms;
 
 namespace Inventory_System02.Includes
 {
@@ -10,6 +12,93 @@ namespace Inventory_System02.Includes
         string sql = string.Empty;
         decimal total_amt;
         int total_qty;
+
+        public void CalculateTodayTotals(string table, Label quantity, Label amount, Label lbl_error)
+        {
+            try
+            {
+                int todayQty = 0;
+                decimal todayAmt = 0;
+
+                sql = $"Select Quantity, Total, `Entry Date` from {table}";
+                config.singleResult(sql);
+                if (config.dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in config.dt.Rows)
+                    {
+                        DateTime entryDate;
+                        if (DateTime.TryParse(row["Entry Date"].ToString(), out entryDate) && entryDate.Date == DateTime.Now.Date)
+                        {
+                            int qty = 0;
+                            decimal total = 0;
+                            int.TryParse(row["Quantity"].ToString(), out qty);
+                            decimal.TryParse(row["Total"].ToString(), out total);
+                            todayQty += qty;
+                            todayAmt += total;
+                        }
+                    }
+                }
+
+                quantity.Text = todayQty.ToString();
+                amount.Text = todayAmt.ToString();
+            }
+            catch (Exception ex)
+            {
+                lbl_error.Text = ex.Message;
+            }
+        }
+
+        public void CalculateOverallTotals(string table, Label quantity, Label amount, Label lbl_error)
+        {
+            try
+            {
+                int totalQty = 0;
+                decimal totalAmt = 0;
+
+                // fetch data from the database
+                string sql = $"Select Quantity, Total from {table}";
+                config.singleResult(sql);
+
+                // check if data exists
+                if (config.dt.Rows.Count > 0)
+                {
+                    // iterate over each row in the data
+                    foreach (DataRow row in config.dt.Rows)
+                    {
+                        try
+                        {
+                            int qty = 0;
+                            decimal total = 0;
+                            if (!int.TryParse(row["Quantity"].ToString(), out qty))
+                            {
+                                throw new Exception("Failed to parse Quantity for row " + row["Quantity"].ToString());
+                            }
+                            if (!decimal.TryParse(row["Total"].ToString(), out total))
+                            {
+                                throw new Exception("Failed to parse Total for row " + row["Total"].ToString());
+                            }
+                            totalQty += qty;
+                            totalAmt += total;
+                        }
+                        catch (Exception ex)
+                        {
+                            // You can log this exception or display it, here we just display a message
+                            MessageBox.Show($"An error occurred while processing a row: {ex.Message}");
+                        }
+                    }
+                }
+
+                quantity.Text = totalQty.ToString();
+                amount.Text = totalAmt.ToString();
+            }
+            catch (Exception ex)
+            {
+                lbl_error.Text = $"An error occurred while fetching or processing the data: {ex.Message}";
+            }
+        }
+
+
+
         public void Calculate_Todays_Entry_StockIn(string Type_Of_Process)
         {
 

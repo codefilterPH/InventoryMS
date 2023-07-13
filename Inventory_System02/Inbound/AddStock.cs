@@ -8,6 +8,7 @@ using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ZXing;
 using ToolTip = System.Windows.Forms.ToolTip;
@@ -25,7 +26,7 @@ namespace Inventory_System02
         int quantity;
         bool isWorkerBusy = false;
         bool isWarrantyBusy = false;
-        int rowcounter = 0;
+
         public AddStock(string global_id, string fullname, string jobrole)
         {
             InitializeComponent();
@@ -43,41 +44,24 @@ namespace Inventory_System02
             frm.ShowDialog();
         }
 
-        private void AddStock_Load(object sender, EventArgs e)
+        public async Task LoadFormAsync()
         {
+            // Your asynchronous loading logic goes here
+            // For example, loading data from a database or performing other async operations
 
-            config = new SQLConfig();
-            sql = string.Empty;
-            func = new usableFunction();
+            await Task.Delay(1000); // Placeholder delay to simulate an asynchronous operation
+                                    // Perform any additional initialization or data loading
 
-            sql = "Select Name from `Product Name`";
-            config.fiil_CBO(sql, txt_ItemName);
+            // You can also update any UI components if needed after the form has finished loading asynchronously
+            // For example:
+            // lbl_Status.Text = "Form loaded successfully!";
+            await LoadResources();
+        }
 
-            sql = "Select Name from Brand";
-            config.fiil_CBO(sql, cbo_brand);
-            sql = $"Select * from Stocks ORDER BY `Entry Date` DESC ";
-            Load_Items(sql);
-
-            if (!isWorkerBusy)
-            {
-                isWorkerBusy = true;
-                progressBar1.Visible = true;
-                rowcounter = config.dt.Rows.Count;
-                backgroundWorker1.RunWorkerAsync();
-            }
-
-            if (!isWarrantyBusy)
-            {
-                isWarrantyBusy = true;
-                dtp_warranty_worker.RunWorkerAsync();
-            }
-
-            LoadImageWorker.RunWorkerAsync();
-
-            func.Reload_Images(Item_Image, txt_Barcode.Text, item_image_location);
-            cbo_srch_type.DropDownStyle = ComboBoxStyle.DropDownList;
-            enable_them = true;
-            Calculator_Timer.Start();
+        private async void AddStock_Load(object sender, EventArgs e)
+        {
+            await Task.Delay(1000);
+            await LoadResources();
         }
         double totalrows = 0;
         private void DTG_Property()
@@ -169,6 +153,7 @@ namespace Inventory_System02
         private void Calculator_Timer_Tick(object sender, EventArgs e)
         {
             config = new SQLConfig();
+            LoadResources();
             Calculations();
             ProcessStockLow();
             Calculator_Timer.Stop();
@@ -179,10 +164,12 @@ namespace Inventory_System02
             try
             {
                 if (dtg_Items.Rows.Count > 0)
-                {
-                    CalculateTodayTotals();
-                    CalculateOverallTotals();
-
+                {   
+                    Calculations cal = new Calculations();
+                   
+                    cal.CalculateTodayTotals("Stocks", lbl_Today_Qty, lbl_Today_Amt, lbl_error_message);
+                    cal.CalculateOverallTotals("Stocks", lbl_TotalQty, lbl_TotalAmt, lbl_error_message);
+                    
                     lbl_items_count.Text = dtg_Items.Rows.Count.ToString();
                     return;
                 }
@@ -192,91 +179,6 @@ namespace Inventory_System02
                 lbl_error_message.Text = ex.Message;
             }
         }
-
-        private void CalculateTodayTotals()
-        {
-            try
-            {
-                int todayQty = 0;
-                decimal todayAmt = 0;
-
-                sql = "Select Quantity, Total, `Entry Date` from stocks";
-                config.singleResult(sql);
-                if (config.dt.Rows.Count > 0)
-                {
-                    foreach (DataRow row in config.dt.Rows)
-                    {
-                        DateTime entryDate;
-                        if (DateTime.TryParse(row["Entry Date"].ToString(), out entryDate) && entryDate.Date == DateTime.Now.Date)
-                        {
-                            int qty = 0;
-                            decimal total = 0;
-                            int.TryParse(row["Quantity"].ToString(), out qty);
-                            decimal.TryParse(row["Total"].ToString(), out total);
-                            todayQty += qty;
-                            todayAmt += total;
-                        }
-                    }
-                }
-
-                lbl_Today_Qty.Text = todayQty.ToString();
-                lbl_Today_Amt.Text = todayAmt.ToString();
-            }
-            catch(Exception ex)
-            {
-                lbl_error_message.Text = ex.Message;
-            }
-        }
-
-        private void CalculateOverallTotals()
-        {
-            try
-            {
-                int totalQty = 0;
-                decimal totalAmt = 0;
-
-                // fetch data from the database
-                string sql = "Select Quantity, Total from stocks";
-                config.singleResult(sql);
-
-                // check if data exists
-                if (config.dt.Rows.Count > 0)
-                {
-                    // iterate over each row in the data
-                    foreach (DataRow row in config.dt.Rows)
-                    {
-                        try
-                        {
-                            int qty = 0;
-                            decimal total = 0;
-                            if (!int.TryParse(row["Quantity"].ToString(), out qty))
-                            {
-                                throw new Exception("Failed to parse Quantity for row " + row["Quantity"].ToString());
-                            }
-                            if (!decimal.TryParse(row["Total"].ToString(), out total))
-                            {
-                                throw new Exception("Failed to parse Total for row " + row["Total"].ToString());
-                            }
-                            totalQty += qty;
-                            totalAmt += total;
-                        }
-                        catch (Exception ex)
-                        {
-                            // You can log this exception or display it, here we just display a message
-                            MessageBox.Show($"An error occurred while processing a row: {ex.Message}");
-                        }
-                    }
-                }
-
-                lbl_TotalQty.Text = totalQty.ToString();
-                lbl_TotalAmt.Text = totalAmt.ToString();
-            }
-            catch (Exception ex)
-            {
-                lbl_error_message.Text = $"An error occurred while fetching or processing the data: {ex.Message}";
-            }
-        }
-
 
         private void txt_Price_Leave(object sender, EventArgs e)
         {
@@ -486,7 +388,7 @@ namespace Inventory_System02
                     config.Execute_CUD(sql, "Unsuccessful to update item information", "Item information successfully updated!");
                     bool success;
                     success = config.CreateOrUpdateInboundWarranty(dtp_warranty.Value, txt_Barcode.Text, txt_TransRef.Text, "update");
-                    refreshToolStripMenuItem_Click(sender, e);
+                    refreshToolStripMenuItem1_Click(sender, e);
 
                 }
             }
@@ -495,22 +397,40 @@ namespace Inventory_System02
                 MessageBox.Show("Barcode is missing!", "Invalid Prompt", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-
-        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        private async Task LoadResources()
         {
-            if (dtg_Items.Columns.Count >= 1)
+            config = new SQLConfig();
+            sql = string.Empty;
+            func = new usableFunction();
+
+            sql = "Select Name from `Product Name`";
+            config.fiil_CBO(sql, txt_ItemName);
+
+            sql = "Select Name from Brand";
+            config.fiil_CBO(sql, cbo_brand);
+
+            sql = $"Select * from Stocks ORDER BY `Entry Date` DESC ";
+            Load_Items(sql);
+
+            if (!isWarrantyBusy)
             {
-                dtg_Items.Columns.Clear();
+                isWarrantyBusy = true;
+                await Task.Run(() => dtp_warranty_worker.RunWorkerAsync());
             }
 
-            AddStock_Load(sender, e);
-            SupplierChangeDisabler();
+            if (!isWorkerBusy)
+            {
+                isWorkerBusy = true;
+                await Task.Run(() => LoadImageWorker.RunWorkerAsync());
+            }
+
+            func.Reload_Images(Item_Image, txt_Barcode.Text, item_image_location);
+            cbo_srch_type.DropDownStyle = ComboBoxStyle.DropDownList;
             enable_them = true;
-            SpecialFilterDisabler();
-            chk_select_all.Checked = false;
-            EnablePaginatorControl();
-            this.Refresh();
+            Calculator_Timer.Start();
         }
+
+
         private void EnablePaginatorControl()
         {
             num_max_pages.Enabled = true;
@@ -577,7 +497,7 @@ namespace Inventory_System02
                     func.DoubleClick_Picture_Then_Replace_Existing(Item_Image, txt_Barcode.Text, item_image_location);
                     func.Reload_Images(Item_Image, txt_Barcode.Text, item_image_location);
                     btn_edit_Click(sender, e);
-                    refreshToolStripMenuItem_Click(sender, e);
+                    refreshToolStripMenuItem1_Click(sender, e);
                 }
                 else
                 {
@@ -647,7 +567,7 @@ namespace Inventory_System02
 
                 if (txt_Search.Text == "")
                 {
-                    refreshToolStripMenuItem_Click(sender, e);
+                    refreshToolStripMenuItem1_Click(sender, e);
                     return;
                 }
         
@@ -657,15 +577,6 @@ namespace Inventory_System02
                 config.Load_DTG(sql, dtg_Items);
                 DTG_Property();
                 Calculator_Timer.Start();
-
-                if (!isWorkerBusy)
-                {
-                    isWorkerBusy = true;
-                    //show progress bar
-                    rowcounter = config.dt.Rows.Count;
-                    progressBar1.Visible = true;
-                    backgroundWorker1.RunWorkerAsync();
-                }
             }
             catch (Exception ex)
             {
@@ -1103,7 +1014,7 @@ namespace Inventory_System02
 
 
                                 chk_select_all.Checked = false;
-                                refreshToolStripMenuItem_Click(sender, e);
+                                refreshToolStripMenuItem1_Click(sender, e);
                                 return;
                             }
                             else
@@ -1121,7 +1032,7 @@ namespace Inventory_System02
                                     config.Execute_Query(sql);
                                 }
                                 MessageBox.Show("Deleted from inbound stocks!", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                refreshToolStripMenuItem_Click(sender, e);
+                                refreshToolStripMenuItem1_Click(sender, e);
                                 chk_select_all.Checked = false;
                                 return;
 
@@ -1166,11 +1077,6 @@ namespace Inventory_System02
         private void txt_TransRef_SelectedIndexChanged(object sender, EventArgs e)
         {
             txt_Search.Text = txt_TransRef.Text;
-            //if ( dtg_Items.Rows.Count == 0)
-            //{
-            //    btn_searchSup.Enabled = true;
-            //    txt_SupID.Enabled = true;
-            //}
         }
         private void txt_TransRef_TextChanged(object sender, EventArgs e)
         {
@@ -1182,8 +1088,6 @@ namespace Inventory_System02
                 config.singleResult(sql);
                 if (config.dt.Rows.Count >= 1)
                 {
-                    //sql = "Select `Transaction Reference` from `Stocks` where `Transaction Reference` like '%" + txt_TransRef.Text + "%'  order by `Entry Date` limit 10";
-                    //config.New_Autocomplete(sql, txt_TransRef);
 
                     if (!string.IsNullOrWhiteSpace(txt_TransRef?.Text))
                     {
@@ -1193,10 +1097,7 @@ namespace Inventory_System02
                         {
                             txt_SupID.Text = config.dt.Rows[0]["Supplier ID"]?.ToString() ?? string.Empty;
                             cbo_srch_type.Text = "TRANS REF";
-                            //if (txt_TransRef != null)
-                            //{
-                                //txt_TransRef.TextChanged += txt_TransRef_SelectedIndexChanged;
-                            //}
+
                         }
                         else
                         {
@@ -1209,10 +1110,6 @@ namespace Inventory_System02
                         txt_Search.Text = "";
                         txt_Search_TextChanged(sender, e);
                     }
-                }
-                else
-                {
-                    txt_SupID.Text = ""; txt_Sup_Name.Text = "";
                 }
             }
             catch (SqlException ex)
@@ -1233,10 +1130,6 @@ namespace Inventory_System02
         {
             lbl_error_message.Text = "";
             timer_Error_message.Enabled = false;
-            if (progressBar1.Visible)
-            {
-                progressBar1.Visible = false;
-            }
         }
 
         private void todayToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1250,15 +1143,6 @@ namespace Inventory_System02
                 //config.Load_DTG(sql, dtg_Items);
                 Load_Items(sql);
 
-                if (!isWorkerBusy)
-                {
-                    isWorkerBusy = true;
-                    //show progress bar
-                    rowcounter = config.dt.Rows.Count;
-                    progressBar1.Visible = true;
-
-                    backgroundWorker1.RunWorkerAsync();
-                }
                 enable_them = true;
                 SpecialFilterDisabler();
                 current_page_val.Text = "0";
@@ -1274,36 +1158,6 @@ namespace Inventory_System02
                 lbl_error_message.Text = ex.Message;
                 timer_Error_message.Enabled = true;
             }
-        }
-
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            for (int i = 0; i < rowcounter; i++)
-            {
-                // Perform your background task here
-                // Report progress back to the UI thread
-                // Update the progress
-                int progress = (int)((i / (double)rowcounter) * 100);
-                backgroundWorker1.ReportProgress(progress);
-            }
-
-        }
-
-        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            // Update the UI with the progress value
-            progressBar1.Value = e.ProgressPercentage;
-        }
-
-        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            progressBar1.Value = 100;
-            lbl_error_message.Text = "Load to table progress completed.";
-            lbl_error_message.ForeColor = Color.Green;
-            timer_Error_message.Enabled = true;
-            isWorkerBusy = false;
-
-
         }
 
         private void LoadImageWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -1389,6 +1243,7 @@ namespace Inventory_System02
                 lbl_error_message.Text = e.Error.Message;
                 lbl_error_message.ForeColor = Color.Red;
                 timer_Error_message.Enabled = true;
+                isWorkerBusy = false;
             }
         }
 
@@ -1499,6 +1354,11 @@ namespace Inventory_System02
         {
             try
             {
+                if (dtg_Items == null)
+                {
+                    // Handle the null case, such as initializing the DataGridView or displaying an error message
+                    return;
+                }
                 dtg_Items.Columns.Clear();
                 // calculate the total number of records and pages
                 int totalRecords = config.GetTotalRecords(sql);
@@ -1629,6 +1489,22 @@ namespace Inventory_System02
             dtg_Items.Columns["Transaction Reference"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             enable_them = false;
             SpecialFilterDisabler();
+        }
+
+        private void refreshToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (dtg_Items.Columns.Count >= 1)
+            {
+                dtg_Items.Columns.Clear();
+            }
+
+            LoadResources();
+            SupplierChangeDisabler();
+            enable_them = true;
+            SpecialFilterDisabler();
+            chk_select_all.Checked = false;
+            EnablePaginatorControl();
+            this.Refresh();
         }
 
         private void txt_Price_Click(object sender, EventArgs e)

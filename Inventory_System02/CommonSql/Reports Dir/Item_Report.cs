@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using CheckBox = System.Windows.Forms.CheckBox;
 using DataTable = System.Data.DataTable;
@@ -42,8 +43,9 @@ namespace Inventory_System02.Reports_Dir
 
         }
         bool isWorkerBusy = false;
-        private void Item_Report_Load_1(object sender, EventArgs e)
+        private async void Item_Report_Load_1(object sender, EventArgs e)
         {
+            await Task.Delay(2000);
             chk_Cust_ID.Visible = false;
             chk_Cust_Name.Visible = false;
             chk_Cust_Address.Visible = false;
