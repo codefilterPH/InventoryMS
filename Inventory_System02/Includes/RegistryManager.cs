@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,11 +10,14 @@ namespace Inventory_System02.Includes
 {
     internal class RegistryManager
     {
-        public static void VerifyRegistryEntry()
+        public static void VerifyRegistryEntries()
         {
             string registryPath = @"SOFTWARE\codefilterPH\InventoryMS";
-            string valueName = "ImportsDir";
-            string valueData = @"\CommonSql\Imports";
+            string serverValueName = "ServerName";
+            string importDirValueName = "ImportsDir";
+
+            string serverValueData = "YourServerName"; // replace this with your actual server name
+            string importDirValueData = @"\CommonSql\Imports";
 
             RegistryKey currentUserKey = Registry.CurrentUser;
             RegistryKey softwareKey = currentUserKey.OpenSubKey(registryPath, true);
@@ -24,15 +28,35 @@ namespace Inventory_System02.Includes
                 softwareKey = currentUserKey.CreateSubKey(registryPath);
             }
 
-            // If the ImportsDir value doesn't exist or it exists but has different data then create/update it.
-            if (softwareKey.GetValue(valueName) == null || softwareKey.GetValue(valueName).ToString() != valueData)
+            // Verify the ServerName
+            if (softwareKey.GetValue(serverValueName) == null || softwareKey.GetValue(serverValueName).ToString() != serverValueData)
             {
-                softwareKey.SetValue(valueName, valueData, RegistryValueKind.String);
+                softwareKey.SetValue(serverValueName, serverValueData, RegistryValueKind.String);
             }
+
+            // Verify the ImportsDir
+            if (softwareKey.GetValue(importDirValueName) == null || softwareKey.GetValue(importDirValueName).ToString() != importDirValueData)
+            {
+                softwareKey.SetValue(importDirValueName, importDirValueData, RegistryValueKind.String);
+            }
+
+            // Construct the path
+            string path = $@"\\{serverValueData}{importDirValueData}";
+
+            // Check and create directory if it does not exist
+            CheckAndCreateDir(path);
 
             // It's a good practice to close the keys after use.
             softwareKey.Close();
             currentUserKey.Close();
+        }
+
+        public static void CheckAndCreateDir(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
         }
     }
 }

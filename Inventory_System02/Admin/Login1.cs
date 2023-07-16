@@ -95,7 +95,7 @@ namespace Inventory_System02
         string status = string.Empty;
         private void Login1_Load(object sender, EventArgs e)
         {
-            Inventory_System02.Includes.RegistryManager.VerifyRegistryEntry();
+            Inventory_System02.Includes.RegistryManager.VerifyRegistryEntries();
             bool isPdfInstalled = false;
 
             // Check if Adobe Reader is installed by looking at the registry
