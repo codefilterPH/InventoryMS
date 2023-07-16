@@ -54,6 +54,11 @@ namespace Inventory_System02.Includes
             // Save the invoice directory path as a string value
             string invoiceDir = Path.Combine(inventoryKey.GetValue("CommonPath").ToString(), "Invoice");
             inventoryKey.SetValue("InvoiceDir", invoiceDir);
+
+            // Save the output directory path as a string value
+            string importsDir = Path.Combine(inventoryKey.GetValue("CommonPath").ToString(), "Imports");
+            inventoryKey.SetValue("ImportsDir", importsDir);
+
         }
     }
 

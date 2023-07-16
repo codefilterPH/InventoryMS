@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace Inventory_System02.Includes
 {
@@ -44,6 +45,29 @@ namespace Inventory_System02.Includes
         public static string Customer_RDLC_DIR { get; set; }
         public static string Item_RDLC_DIR { get; set; }
         public static string Item_qty_RDLC_DIR { get; set; }
+        public static string Imports_Dir { get; set; }
+
+
+        public static void CreateFolderIfNotExists(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                try
+                {
+                    Directory.CreateDirectory(path);
+                    Console.WriteLine($"Folder created: {path}");
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Error creating folder: {path}");
+                    Console.WriteLine(e.Message);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Folder already exists: {path}");
+            }
+        }
 
         public static void My_path()
         {
@@ -67,18 +91,21 @@ namespace Inventory_System02.Includes
             string DocumentRegValue = null;
             string InvoiceRegValue = null;
             string ReportsRegValue = null;
+            string ImportRegValue = null;
             try
             {
                 ImageRegistryValue = (string)Registry.CurrentUser.OpenSubKey(RegistryKey).GetValue("ImageDir");
                 DocumentRegValue = (string)Registry.CurrentUser.OpenSubKey(RegistryKey).GetValue("DocumentsDir");
                 InvoiceRegValue = (string)Registry.CurrentUser.OpenSubKey(RegistryKey).GetValue("InvoiceDir");
                 ReportsRegValue = (string)Registry.CurrentUser.OpenSubKey(RegistryKey).GetValue("ReportsDir");
+                ImportRegValue = (string)Registry.CurrentUser.OpenSubKey(RegistryKey).GetValue("ImportsDir");
             }
             catch (Exception ex)
             {
                 // handle the exception
                 Console.WriteLine("Error retrieving registry value: " + ex.Message);
             }
+
 
 
             // Combine the registry value with the subfolders
@@ -149,9 +176,33 @@ namespace Inventory_System02.Includes
                 Console.WriteLine("One or both reports dir registry values are null or empty.");
             }
 
+            //Imports Form
+            string import_dir = null;
+            if (!string.IsNullOrEmpty(ServerRegistryValue) && !string.IsNullOrEmpty(ImportRegValue))
+            {
+                import_dir = $@"\\{ServerRegistryValue}{ImportRegValue}";
+            }
+            else
+            {
+                // handle the case where either value is null or empty
+                Console.WriteLine("One or both import directory registry values are null or empty.");
+            }
+
+            //transfer to string imports dir
+            if (!string.IsNullOrEmpty(import_dir))
+            {
+                CreateFolderIfNotExists(import_dir);
+                Imports_Dir = import_dir;
+            }
+            else
+            {
+                // handle the case where imageDir is null or empty
+                Console.WriteLine("Import Dir Path is null or empty.");
+            }
             //transfer to string
             if (!string.IsNullOrEmpty(item_pic))
             {
+                CreateFolderIfNotExists(item_pic);
                 Image_DIR = item_pic;
             }
             else
@@ -161,6 +212,7 @@ namespace Inventory_System02.Includes
             }
             if (!string.IsNullOrEmpty(customer_pic))
             {
+                CreateFolderIfNotExists(customer_pic);
                 Customer_DIR = customer_pic;
             }
             else
@@ -171,6 +223,7 @@ namespace Inventory_System02.Includes
 
             if (!string.IsNullOrEmpty(supplier_pic))
             {
+                CreateFolderIfNotExists(supplier_pic);
                 Supplier_DIR = supplier_pic;
             }
             else
@@ -180,6 +233,7 @@ namespace Inventory_System02.Includes
             }
             if (!string.IsNullOrEmpty(company_pic))
             {
+                CreateFolderIfNotExists(company_pic);
                 Company_DIR = company_pic;
 
             }
@@ -190,6 +244,7 @@ namespace Inventory_System02.Includes
             }
             if (!string.IsNullOrEmpty(employee_pic))
             {
+                CreateFolderIfNotExists(employee_pic);
                 Employee_DIR = employee_pic;
             }
             else
@@ -200,6 +255,7 @@ namespace Inventory_System02.Includes
             //DOCUMENT CENTER
             if (!string.IsNullOrEmpty(doc_center))
             {
+                CreateFolderIfNotExists(doc_center);
                 Doc_DIR = doc_center;
             }
             else
@@ -210,6 +266,7 @@ namespace Inventory_System02.Includes
             //Invoice Path
             if (!string.IsNullOrEmpty(invoice_dir))
             {
+                CreateFolderIfNotExists(invoice_dir);
                 Invoice_RDLC_Path = invoice_dir;
             }
             else

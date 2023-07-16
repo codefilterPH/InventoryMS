@@ -459,6 +459,7 @@ D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.cspro
 D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.AddStock.resources
 D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.Admin.Verify.resources
 D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.Analytics.dashboard.resources
+D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.Inbound.Import.resources
 D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.Batch_Form.resources
 D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.CommonSql.Reports_Dir.Item_Division.ItemByDivision_Form.resources
 D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.CommonSql.Reports_Dir.Item_Qty.Edit_QTY.resources

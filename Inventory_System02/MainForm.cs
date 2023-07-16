@@ -1,4 +1,5 @@
 ﻿using Inventory_System02.Includes;
+using Microsoft.Win32;
 using System;
 using System.Data;
 using System.Linq;
@@ -68,7 +69,6 @@ namespace Inventory_System02
                 func.Reload_Images(Company_Logo, "Company_Logo1", Includes.AppSettings.Company_DIR);
                 Load_Company_name();
             }
-
         }
 
         private async Task InboundFormLoad()

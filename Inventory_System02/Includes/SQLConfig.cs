@@ -1,10 +1,13 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ComboBox = System.Windows.Forms.ComboBox;
 using DataSet = System.Data.DataSet;
@@ -25,13 +28,19 @@ namespace Inventory_System02.Includes
         int result;
         usableFunction funct = new usableFunction();
 
-
         public void ConnectionString()
         {
-            //string a = String.Format(@"Data Source = DB\DB_QUERIES\bhms.db;Version=3;New=False;Read Only = False;Compress=True;Journal Mode=Off;providerName=System.Data.SQlite;");
-            con = new SQLiteConnection(Includes.AppSettings.Database(), true);
-
+            try
+            {
+                con = new SQLiteConnection(Includes.AppSettings.Database(), true);
+            }
+            catch (Exception ex)
+            {
+                // log or show the exception message
+                Console.WriteLine(ex.Message);
+            }
         }
+
 
 
 
@@ -138,6 +147,61 @@ namespace Inventory_System02.Includes
                 con.Close();
             }
         }
+
+        public void BulkInsert(string sqlBase, DataGridView dtg_Items, Dictionary<string, string> parameters)
+        {
+            ConnectionString();
+            con.Open();
+            int success_counter = 0; 
+
+            using (SQLiteTransaction transaction = con.BeginTransaction())
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand(con))
+                {
+                    foreach (DataGridViewRow row in dtg_Items.Rows)
+                    {
+                        if (!row.IsNewRow)
+                        {
+                            string stat_info = "Inbound from supplier " + (string.IsNullOrEmpty(parameters["txt_Sup_Name"]) ? string.Empty : parameters["txt_Sup_Name"]);
+                            string img_loc = parameters["item_image_location"] + (string.IsNullOrEmpty(parameters["Stock_ID"]) ? string.Empty : parameters["Stock_ID"]) + ".PNG";
+                            string sql = sqlBase;
+                            cmd.CommandText = sql;
+
+                            cmd.Parameters.Clear();
+                            cmd.Parameters.AddWithValue(null, DateTime.Now.ToString(Includes.AppSettings.DateFormatSave));
+                            cmd.Parameters.AddWithValue(null, string.IsNullOrEmpty(parameters["Stock_ID"]) ? string.Empty : parameters["Stock_ID"]);
+
+                            // Use an empty string as default if the value is null or empty
+                            cmd.Parameters.AddWithValue(null, row.Cells["name"].Value is null ? string.Empty : row.Cells["name"].Value.ToString());
+                            cmd.Parameters.AddWithValue(null, row.Cells["brand"].Value is null ? string.Empty : row.Cells["brand"].Value.ToString());
+                            cmd.Parameters.AddWithValue(null, row.Cells["description"].Value is null ? string.Empty : row.Cells["description"].Value.ToString());
+                            cmd.Parameters.AddWithValue(null, row.Cells["quantity"].Value is null ? "0" : row.Cells["quantity"].Value.ToString()); // Assuming a default value of "0" for Quantity
+                            cmd.Parameters.AddWithValue(null, row.Cells["price"].Value is null ? "0" : row.Cells["price"].Value.ToString()); // Assuming a default value of "0" for Price
+                            cmd.Parameters.AddWithValue(null, row.Cells["total"].Value is null ? "0" : row.Cells["total"].Value.ToString()); // Assuming a default value of "0" for Total
+                            cmd.Parameters.AddWithValue(null, img_loc);
+                            cmd.Parameters.AddWithValue(null, string.IsNullOrEmpty(parameters["txt_SupID"]) ? string.Empty : parameters["txt_SupID"]);
+                            cmd.Parameters.AddWithValue(null, string.IsNullOrEmpty(parameters["txt_Sup_Name"]) ? string.Empty : parameters["txt_Sup_Name"]);
+                            cmd.Parameters.AddWithValue(null, string.IsNullOrEmpty(parameters["Global_ID"]) ? string.Empty : parameters["Global_ID"]);
+                            cmd.Parameters.AddWithValue(null, string.IsNullOrEmpty(parameters["Fullname"]) ? string.Empty : parameters["Fullname"]);
+                            cmd.Parameters.AddWithValue(null, string.IsNullOrEmpty(parameters["JobRole"]) ? string.Empty : parameters["JobRole"]);
+                            cmd.Parameters.AddWithValue(null, string.IsNullOrEmpty(parameters["txt_TransRef"]) ? string.Empty : parameters["txt_TransRef"]);
+                            cmd.Parameters.AddWithValue(null, stat_info);
+
+                            cmd.ExecuteNonQuery();
+                            success_counter++; // Increment the counter
+                        }
+                    }
+                }
+
+                transaction.Commit();
+            }
+
+            con.Close();
+
+            MessageBox.Show(success_counter + " items successfully added to record!");
+        }
+
+
         public void Load_DTG(string sql, DataGridView dtg)
         {
             ConnectionString();
@@ -175,6 +239,38 @@ namespace Inventory_System02.Includes
             }
             return;
         }
+
+        //ASYNC DTG LOAD
+        public async Task Load_DTG_Async(string sql, DataGridView dtg)
+        {
+            DataTable data = new DataTable();
+
+            try
+            {
+                using (SQLiteConnection con = new SQLiteConnection(Includes.AppSettings.Database(), true))
+                using (SQLiteCommand cmd = new SQLiteCommand(sql, con))
+                {
+                    await con.OpenAsync();
+
+                    using (SQLiteDataReader reader = (SQLiteDataReader)await cmd.ExecuteReaderAsync())
+                    {
+                        data.Load(reader); // This will load the reader data into the DataTable and preserve the column names and types
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            dtg.Invoke((MethodInvoker)delegate
+            {
+                dtg.DataSource = data; // Set the data source of DataGridView to the DataTable
+
+                funct.ResponsiveDtg(dtg);
+            });
+        }
+
 
         public int GetTotalRecords(string sql)
         {
@@ -552,6 +648,70 @@ namespace Inventory_System02.Includes
 
             return false; // Return false if an exception occurred or the operation was not executed
         }
+
+        public void ExecuteBulkOperation(List<Dictionary<string, string>> records, string operation)
+        {
+            try
+            {
+                ConnectionString();
+                con.Open();
+                using (SQLiteTransaction transaction = con.BeginTransaction())
+                {
+                    using (SQLiteCommand cmd = new SQLiteCommand(con))
+                    {
+                        foreach (var record in records)
+                        {
+                            DateTime warranty = DateTime.Parse(record["warranty"]);
+                            string barcode_id = record["barcode_id"];
+                            string trans_ref = record["trans_ref"];
+
+                            cmd.Parameters.Clear(); // Clear parameters
+
+                            if (operation == "delete")
+                            {
+                                cmd.CommandText = "DELETE FROM Inbound_Warranty WHERE barcode_id=@barcode_id AND trans_ref=@trans_ref";
+                            }
+                            else if (operation == "update" || operation == "insert")
+                            {
+                                cmd.CommandText = "SELECT COUNT(*) FROM Inbound_Warranty WHERE barcode_id=@barcode_id AND trans_ref=@trans_ref";
+                                cmd.Parameters.AddWithValue("@barcode_id", barcode_id);
+                                cmd.Parameters.AddWithValue("@trans_ref", trans_ref);
+
+                                var recordExists = Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+                                cmd.Parameters.Clear(); // Clear parameters
+
+                                if (recordExists)
+                                {
+                                    cmd.CommandText = "UPDATE Inbound_Warranty SET warranty=@warranty WHERE barcode_id=@barcode_id AND trans_ref=@trans_ref";
+                                }
+                                else
+                                {
+                                    cmd.CommandText = "INSERT INTO Inbound_Warranty (warranty, barcode_id, trans_ref) VALUES (@warranty, @barcode_id, @trans_ref)";
+                                }
+                            }
+
+                            cmd.Parameters.AddWithValue("@warranty", warranty.ToString("yyyy-MM-dd HH:mm:ss"));
+                            cmd.Parameters.AddWithValue("@barcode_id", barcode_id);
+                            cmd.Parameters.AddWithValue("@trans_ref", trans_ref);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    transaction.Commit();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle your exception
+            }
+            finally
+            {
+                if (con.State == ConnectionState.Open)
+                {
+                    con.Close();
+                }
+            }
+        }
+
 
 
         public void DeleteAllRowsFromTable(string tableName)

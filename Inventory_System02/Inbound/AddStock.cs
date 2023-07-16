@@ -62,10 +62,10 @@ namespace Inventory_System02
         {
             try
             {
-                await Task.Delay(1000);
-                await LoadResources();
+                await Task.Delay(500);
+                LoadResources();
+                btn_load_data_Click(sender, e); 
 
-                button1_Click(sender, e);
             }
             catch ( Exception ex)
             {
@@ -162,8 +162,6 @@ namespace Inventory_System02
 
         private void Calculator_Timer_Tick(object sender, EventArgs e)
         {
-            config = new SQLConfig();
-            
             Calculations();
             ProcessStockLow();
             Calculator_Timer.Stop();
@@ -405,7 +403,7 @@ namespace Inventory_System02
                 MessageBox.Show("Barcode is missing!", "Invalid Prompt", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-        private async Task LoadResources()
+        private void LoadResources()
         {
             config = new SQLConfig();
             sql = string.Empty;
@@ -421,15 +419,15 @@ namespace Inventory_System02
             if (!isWarrantyBusy)
             {
                 isWarrantyBusy = true;
-                await Task.Run(() => dtp_warranty_worker.RunWorkerAsync());
+                dtp_warranty_worker.RunWorkerAsync();
             }
 
             if (!isWorkerBusy)
             {
                 isWorkerBusy = true;
-                await Task.Run(() => LoadImageWorker.RunWorkerAsync());
+                LoadImageWorker.RunWorkerAsync();
             }
-
+            
             func.Reload_Images(Item_Image, txt_Barcode.Text, item_image_location);
             cbo_srch_type.DropDownStyle = ComboBoxStyle.DropDownList;
             enable_them = true;
@@ -1368,22 +1366,14 @@ namespace Inventory_System02
                 dtg_Items.Columns.Clear();
             }
 
-            button1_Click(sender, e);
+            btn_load_data_Click(this, EventArgs.Empty);
+
             SupplierChangeDisabler();
             enable_them = true;
             SpecialFilterDisabler();
             chk_select_all.Checked = false;
             EnablePaginatorControl();
             this.Refresh();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-            sql = "Select * from Stocks ORDER BY `Entry Date` DESC ";
-            config.Load_DTG(sql, dtg_Items);
-            DTG_Property();
-            Calculator_Timer.Start();
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -1418,7 +1408,7 @@ namespace Inventory_System02
                 }
 
                 config = new SQLConfig();
-                sql = $"Select * from Stocks where `{search_for}` = '{txtSearch.Text}' OR `{search_for}` LIKE '%{txtSearch.Text}%' ORDER BY `Entry Date` DESC ";
+                sql = $"Select * from Stocks where `{search_for}` = '{txtSearch.Text}' OR `{search_for}` LIKE '%{txtSearch.Text}%' ORDER BY `Entry Date` DESC LIMIT 10";
                 config.Load_DTG(sql, dtg_Items);
 
                 Calculator_Timer.Start();
@@ -1435,6 +1425,25 @@ namespace Inventory_System02
         {
             func.Make_Alphanumeric_TextBox(sender, e);
         }
+
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Inbound.Import frm = new Inbound.Import(Global_ID, Fullname, JobRole);
+            frm.ShowDialog();
+        }
+
+        private async void btn_load_data_Click(object sender, EventArgs e)
+        {
+            await LoadDataAsync();
+            DTG_Property();
+            Calculator_Timer.Start();
+        }
+        public async Task LoadDataAsync()
+        {
+            sql = "Select * from Stocks ORDER BY `Entry Date` DESC LIMIT 10";
+            await config.Load_DTG_Async(sql, dtg_Items);
+        }
+
 
         private void txt_Price_Click(object sender, EventArgs e)
         {
@@ -1607,8 +1616,7 @@ namespace Inventory_System02
                     ",'" + stat_info + "' )";
                 config.Execute_CUD(sql, "Unable to Record Item!", "Item successfully added to record!");
 
-                bool success;
-                success = config.CreateOrUpdateInboundWarranty(dtp_warranty.Value, txt_Barcode.Text, txt_TransRef.Text, "insert");
+                bool success = config.CreateOrUpdateInboundWarranty(dtp_warranty.Value, txt_Barcode.Text, txt_TransRef.Text, "insert");
 
                 save_Ref = txt_TransRef.Text;
                 newItemToolStripMenuItem_Click(sender, e);
