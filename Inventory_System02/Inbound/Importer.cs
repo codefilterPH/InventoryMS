@@ -355,6 +355,7 @@ namespace Inventory_System02.Inbound
 
         private void Import_Load(object sender, EventArgs e)
         {
+
             btn_Gen_Click(sender, e);
             btn_searchSup_Click(sender, e);
         }
