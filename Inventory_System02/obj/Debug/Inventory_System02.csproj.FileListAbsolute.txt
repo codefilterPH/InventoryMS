@@ -339,6 +339,7 @@ C:\Users\eugen\source\repos\Inventory\Inventory_System02\obj\Debug\Inventory MS.
 C:\Users\eugen\source\repos\Inventory\Inventory_System02\obj\Debug\Inventory_System02.csproj.CopyComplete
 C:\Users\eugen\source\repos\Inventory\Inventory_System02\obj\Debug\Inventory MS.exe
 C:\Users\eugen\source\repos\Inventory\Inventory_System02\obj\Debug\Inventory MS.pdb
+D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\ru\Microsoft.ReportViewer.DataVisualization.resources.dll
 D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\x86\SqlServerSpatial160.dll
 D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\x64\SqlServerSpatial160.dll
 D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\CommonSql\Invoice\Invoice_In_Item.rdlc
@@ -416,7 +417,6 @@ D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\it\Microsoft.ReportViewe
 D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\ja\Microsoft.ReportViewer.DataVisualization.resources.dll
 D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\ko\Microsoft.ReportViewer.DataVisualization.resources.dll
 D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\pt\Microsoft.ReportViewer.DataVisualization.resources.dll
-D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\ru\Microsoft.ReportViewer.DataVisualization.resources.dll
 D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\zh-CHS\Microsoft.ReportViewer.DataVisualization.resources.dll
 D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\zh-CHT\Microsoft.ReportViewer.DataVisualization.resources.dll
 D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\de\Microsoft.ReportViewer.Design.resources.dll

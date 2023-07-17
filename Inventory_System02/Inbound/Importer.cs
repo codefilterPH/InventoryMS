@@ -52,6 +52,7 @@ namespace Inventory_System02.Inbound
             {
                 try
                 {
+                    Console.WriteLine(Includes.AppSettings.Imports_Dir);
                     openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                     openFileDialog.Filter = "CSV files (*.csv)|*.csv";
                     openFileDialog.FilterIndex = 2;

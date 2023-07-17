@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Win32;
 
 namespace Inventory_System02.Includes
@@ -13,10 +9,8 @@ namespace Inventory_System02.Includes
         public static void VerifyRegistryEntries()
         {
             string registryPath = @"SOFTWARE\codefilterPH\InventoryMS";
-            string serverValueName = "ServerName";
+            string serverNameValueName = "ServerName";
             string importDirValueName = "ImportsDir";
-
-            string serverValueData = "YourServerName"; // replace this with your actual server name
             string importDirValueData = @"\CommonSql\Imports";
 
             RegistryKey currentUserKey = Registry.CurrentUser;
@@ -28,11 +22,7 @@ namespace Inventory_System02.Includes
                 softwareKey = currentUserKey.CreateSubKey(registryPath);
             }
 
-            // Verify the ServerName
-            if (softwareKey.GetValue(serverValueName) == null || softwareKey.GetValue(serverValueName).ToString() != serverValueData)
-            {
-                softwareKey.SetValue(serverValueName, serverValueData, RegistryValueKind.String);
-            }
+            string serverName = (string)softwareKey.GetValue(serverNameValueName);
 
             // Verify the ImportsDir
             if (softwareKey.GetValue(importDirValueName) == null || softwareKey.GetValue(importDirValueName).ToString() != importDirValueData)
@@ -41,22 +31,17 @@ namespace Inventory_System02.Includes
             }
 
             // Construct the path
-            string path = $@"\\{serverValueData}{importDirValueData}";
+            string path = $@"\\{serverName}{importDirValueData}";
 
             // Check and create directory if it does not exist
-            CheckAndCreateDir(path);
-
-            // It's a good practice to close the keys after use.
-            softwareKey.Close();
-            currentUserKey.Close();
-        }
-
-        public static void CheckAndCreateDir(string path)
-        {
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
+
+            // It's a good practice to close the keys after use.
+            softwareKey.Close();
+            currentUserKey.Close();
         }
     }
 }
