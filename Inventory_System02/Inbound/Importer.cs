@@ -1,10 +1,12 @@
-﻿using Inventory_System02.Includes;
+﻿using CsvHelper;
+using Inventory_System02.Includes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SQLite;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -12,6 +14,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CsvHelper;
 
 
 
@@ -94,34 +97,31 @@ namespace Inventory_System02.Inbound
 
         private async Task ReadCsvFileAsync(string path)
         {
-            var dgvColumnNames = dtg_Items.Columns.Cast<DataGridViewColumn>().ToDictionary(column => column.HeaderText.ToLower().Replace(" ", "_"), column => column.Index);
+            // Converting both CSV column names and DataGridView column HeaderText to lower case
+            var dgvColumnNames = dtg_Items.Columns.Cast<DataGridViewColumn>().ToDictionary(column => column.HeaderText.ToLower(), column => column.Index);
 
             try
             {
                 using (var reader = new StreamReader(path))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
-                    var headers = (await reader.ReadLineAsync()).Split(',');
-                    var dgvIndices = headers.Select(header => {
-                        var standardizedHeader = header.ToLower().Replace("_", " ");
-                        return dgvColumnNames.TryGetValue(standardizedHeader.Replace(" ", "_"), out var index) ? index : -1;
-                    }).ToList();
-
-                    while (!reader.EndOfStream)
+                    var records = csv.GetRecords<dynamic>();
+                    foreach (var record in records)
                     {
-                        var rowValues = (await reader.ReadLineAsync()).Split(',');
-                        if (rowValues.Length == headers.Length)
+                        var recordDict = record as IDictionary<string, object>;
+                        var newRow = new DataGridViewRow();
+                        newRow.CreateCells(dtg_Items);
+
+                        foreach (var pair in recordDict)
                         {
-                            var newRow = new DataGridViewRow();
-                            newRow.CreateCells(dtg_Items);
-                            for (int i = 0; i < rowValues.Length; i++)
+                            // Converting CSV column names to lower case to match with DataGridView HeaderText
+                            var csvHeader = pair.Key.ToLower();
+                            if (dgvColumnNames.TryGetValue(csvHeader, out var index))
                             {
-                                if (dgvIndices[i] != -1)
-                                {
-                                    newRow.Cells[dgvIndices[i]].Value = rowValues[i];
-                                }
+                                newRow.Cells[index].Value = pair.Value.ToString();
                             }
-                            dtg_Items.Rows.Add(newRow);
                         }
+                        dtg_Items.Rows.Add(newRow);
                     }
                 }
             }
@@ -130,6 +130,8 @@ namespace Inventory_System02.Inbound
                 throw;
             }
         }
+
+
         private string Barcode_Generator()
         {
             try
@@ -142,25 +144,21 @@ namespace Inventory_System02.Inbound
 
                 while (hasDuplicate)
                 {
-                    gen.Item_ID();
-                    sql = "Select `Item ID` from ID_Generated";
+                    id = gen.Item_ID();
+                    sql = "SELECT COUNT(*) FROM `Stocks` WHERE `Stock ID` = '" + id + "'";
                     config.singleResult(sql);
-                    if (config.dt.Rows.Count > 0)
+                    if (Convert.ToInt32(config.dt.Rows[0][0]) > 0)
                     {
-                        id = Convert.ToString(config.dt.Rows[0]["Item ID"]);
-
-                        sql = "SELECT COUNT(*) FROM `Stocks` WHERE `Stock ID` = '" + id + "'";
-                        config.singleResult(sql);
-                        if (Convert.ToInt32(config.dt.Rows[0][0]) > 0)
-                        {
-                            gen.Item_ID();
-                        }
-                        else
-                        {
-                            hasDuplicate = false;
-                        }
+                        continue;
+                    }
+                    else
+                    {
+                       
+                        hasDuplicate = false;
+                        
                     }
                 }
+                Console.WriteLine(id);
                 return id;
             }
             catch (Exception ex)
@@ -280,10 +278,20 @@ namespace Inventory_System02.Inbound
                 return -1;
             }
 
-            // Try to count the rows in the DataGridView
+            // Try to count the non-empty rows in the DataGridView
             try
             {
-                return dtg_items.RowCount;
+                int nonEmptyRowCount = 0;
+
+                foreach (DataGridViewRow row in dtg_items.Rows)
+                {
+                    if (row.Cells.Cast<DataGridViewCell>().Any(cell => cell.Value != null && !String.IsNullOrWhiteSpace(cell.Value.ToString())))
+                    {
+                        nonEmptyRowCount++;
+                    }
+                }
+
+                return nonEmptyRowCount;
             }
             catch (Exception ex)
             {
@@ -297,7 +305,24 @@ namespace Inventory_System02.Inbound
         private void Calculator_Timer_Tick(object sender, EventArgs e)
         {
             lbl_items_count.Text = CountRows(dtg_Items).ToString();
+            foreach (DataGridViewRow row in dtg_Items.Rows)
+            {
+                // Check if the entire row is empty
+                if (row.Cells.Cast<DataGridViewCell>().All(c => c.Value == null || string.IsNullOrWhiteSpace(c.Value.ToString())))
+                {
+                    // Skip this row if it's empty
+                    continue;
+                }
+
+                var warrantyCell = row.Cells["warranty"];
+                if (warrantyCell.Value == null || string.IsNullOrWhiteSpace(warrantyCell.Value.ToString()))
+                {
+                    warrantyCell.Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                }
+            }
             Calculator_Timer.Stop();
+
+
         }
 
         private void dtg_Items_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -310,8 +335,11 @@ namespace Inventory_System02.Inbound
             if (dtg_Items.Rows.Count >= 1 )
             {
                 dtg_Items.Rows.Clear();
+                Calculator_Timer.Start();
             }
         }
+
+      
 
         private void btn_Gen_Click(object sender, EventArgs e)
         {

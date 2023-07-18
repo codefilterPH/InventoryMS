@@ -52,7 +52,7 @@ namespace Inventory_System02.Includes
             }
 
         }
-        public void Item_ID()
+        public string Item_ID()
         {
             char[] letters = "0C0D01BL9M0N2O8Q7P3ARF6S7TG8U9VEW4Z5602J00H010".ToCharArray();
             Random R = new Random();
@@ -72,6 +72,8 @@ namespace Inventory_System02.Includes
                 sql = "update `ID_Generated` set `Item ID` = '" + Id + "' where count = '1'";
                 config.Execute_Query(sql);
             }
+
+            return Id;
 
         }
         public void Customer_ID()
@@ -118,5 +120,7 @@ namespace Inventory_System02.Includes
             }
 
         }
+
+
     }
 }

@@ -625,6 +625,7 @@ namespace Inventory_System02
             timer_Error_message.Enabled = true;
             txt_ItemName.Focus();
         }
+
         private void Barcode_Generator()
         {
             try
