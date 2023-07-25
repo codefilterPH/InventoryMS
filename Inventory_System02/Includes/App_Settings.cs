@@ -341,44 +341,63 @@ namespace Inventory_System02.Includes
             }
         }
 
+        //public static string Database()
+        //{
+
+        //    string serverRegistryKey = @"SOFTWARE\codefilterPH\InventoryMS\";
+        //    string serverRegistryValue = null;
+        //    try
+        //    {
+        //        serverRegistryValue = (string)Registry.CurrentUser.OpenSubKey(serverRegistryKey).GetValue("ServerName");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Error retrieving ServerName registry value", ex);
+        //    }
+
+        //    string registryKey = @"SOFTWARE\codefilterPH\InventoryMS\";
+        //    string toolsRegistryValue = null;
+        //    try
+        //    {
+        //        toolsRegistryValue = (string)Registry.CurrentUser.OpenSubKey(registryKey).GetValue("ToolsDir");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception("Error retrieving ToolsDir registry value", ex);
+        //    }
+
+        //    string toolsPath = null;
+        //    if (!string.IsNullOrEmpty(serverRegistryValue) && !string.IsNullOrEmpty(toolsRegistryValue))
+        //    {
+        //        toolsPath = $@"\\{serverRegistryValue}{toolsRegistryValue}";
+        //    }
+        //    else
+        //    {
+        //        throw new Exception("One or both registry values are null or empty");
+        //    }
+
+        //    string connectionString = $"Data Source={toolsPath};Version=3;New=False;Read Only=False;Compress=True;Journal Mode=Off;providerName=System.Data.SQLite;";
+        //    return connectionString;
+
+        //}
         public static string Database()
         {
-
-            string serverRegistryKey = @"SOFTWARE\codefilterPH\InventoryMS\";
-            string serverRegistryValue = null;
-            try
-            {
-                serverRegistryValue = (string)Registry.CurrentUser.OpenSubKey(serverRegistryKey).GetValue("ServerName");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error retrieving ServerName registry value", ex);
-            }
-
+            // Registry key path
             string registryKey = @"SOFTWARE\codefilterPH\InventoryMS\";
-            string toolsRegistryValue = null;
-            try
-            {
-                toolsRegistryValue = (string)Registry.CurrentUser.OpenSubKey(registryKey).GetValue("ToolsDir");
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error retrieving ToolsDir registry value", ex);
-            }
 
-            string toolsPath = null;
-            if (!string.IsNullOrEmpty(serverRegistryValue) && !string.IsNullOrEmpty(toolsRegistryValue))
-            {
-                toolsPath = $@"\\{serverRegistryValue}{toolsRegistryValue}";
-            }
-            else
-            {
-                throw new Exception("One or both registry values are null or empty");
-            }
+            // Fetch 'ServerName' value from the registry
+            string serverName = (string)Registry.CurrentUser.OpenSubKey(registryKey).GetValue("ServerName");
 
-            string connectionString = $"Data Source={toolsPath};Version=3;New=False;Read Only=False;Compress=True;Journal Mode=Off;providerName=System.Data.SQLite;";
+            // Fetch 'ToolsDir' value from the registry
+            string toolsDir = (string)Registry.CurrentUser.OpenSubKey(registryKey).GetValue("ToolsDir");
+
+            // Construct the path to the database
+            string dbPath = $@"\\{serverName}{toolsDir}";
+
+            // Construct the connection string
+            string connectionString = $"Data Source={dbPath};Version=3;New=False;Read Only=False;Compress=True;Journal Mode=Off;providerName=System.Data.SQLite;";
+
             return connectionString;
-
         }
     }
 }

@@ -172,8 +172,8 @@ namespace Inventory_System02
 
                     for (int i = 0; i < dtg_AddedStocks.Rows.Count; i++)
                     {
-                        int.TryParse(dtg_AddedStocks.Rows[i].Cells[4].Value.ToString(), out qty);
-                        decimal.TryParse(dtg_AddedStocks.Rows[i].Cells[5].Value.ToString(), out price);
+                        int.TryParse(dtg_AddedStocks.Rows[i].Cells["Quantity"].Value.ToString(), out qty);
+                        decimal.TryParse(dtg_AddedStocks.Rows[i].Cells["Price"].Value.ToString(), out price);
 
                         totalQty += qty;
                         totalAmt += qty * price;
@@ -228,9 +228,9 @@ namespace Inventory_System02
                             // Check if item is already added to dtg_AddedStocks
                             foreach (DataGridViewRow addedRow in dtg_AddedStocks.Rows)
                             {
-                                if (addedRow.Cells[0].Value.ToString() == rw.Cells[2].Value.ToString())
+                                if (addedRow.Cells["StockID"].Value.ToString() == rw.Cells["Stock ID"].Value.ToString())
                                 {
-                                    MessageBox.Show("This " + rw.Cells[3].Value.ToString() + " is already added to the table \n\nWarning!", "Warning Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    MessageBox.Show("This " + rw.Cells["Item Name"].Value.ToString() + " is already added to the table \n\nWarning!", "Warning Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     found = true;
                                     continue; // Skip adding the duplicate item and continue with the next item
                                 }
@@ -238,12 +238,12 @@ namespace Inventory_System02
                             if (!found && rw.Cells[6].Value.ToString() != "0")
                             {
                                 dtg_AddedStocks.Rows.Add(
-                                    rw.Cells[2].Value.ToString(),
-                                    rw.Cells[3].Value.ToString(),
-                                    rw.Cells[4].Value.ToString(),
-                                    rw.Cells[5].Value.ToString(),
-                                    rw.Cells[6].Value.ToString(),
-                                    rw.Cells[7].Value.ToString(),
+                                    rw.Cells["Stock ID"].Value.ToString(),
+                                    rw.Cells["Item Name"].Value.ToString(),
+                                    rw.Cells["Brand"].Value.ToString(),
+                                    rw.Cells["Description"].Value.ToString(),
+                                    rw.Cells["Quantity"].Value.ToString(),
+                                    rw.Cells["Price"].Value.ToString(),
                                     Convert.ToString(Convert.ToDouble(rw.Cells[6].Value) * Convert.ToDouble(rw.Cells[7].Value))
                                 );
                                 Update_Qty_Stocks();
@@ -251,9 +251,9 @@ namespace Inventory_System02
                                 chk_all.Checked = false;
                                 btn_edit.Focus();
                             }
-                            else if (!found && rw.Cells[6].Value.ToString() == "0")
+                            else if (!found && rw.Cells["Quantity"].Value.ToString() == "0")
                             {
-                                MessageBox.Show("Cannot add " + rw.Cells[3].Value.ToString() + " because \'quantity\' is zero.", "Error Prompt", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                                MessageBox.Show("Cannot add " + rw.Cells["Item Name"].Value.ToString() + " because \'quantity\' is zero.", "Error Prompt", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                             }
                         }
                     }
@@ -358,7 +358,7 @@ namespace Inventory_System02
                 {
                     search_for = "`Transaction Reference`";
                 }
-                sql = "Select * from Stocks where " + search_for + " like '%" + txt_Search.Text + "%' ORDER BY `Entry Date` DESC";
+                sql = "Select * from Stocks where " + search_for + " like '%" + txt_Search.Text + "%' ORDER BY `Entry Date` DESC LIMIT 10";
                 config.Load_DTG(sql, dtg_Stocks);
                 DTG_Property();
                 if (dtg_AddedStocks.Rows.Count > 0)
@@ -573,47 +573,47 @@ namespace Inventory_System02
                         for (int i = 0; i < dtg_AddedStocks.Rows.Count; i++)
                         {
                             //verify if the item is already added below cell 2 is item id of the stock table
-                            if (rw.Cells[2].Value.ToString() == dtg_AddedStocks.Rows[i].Cells[0].Value.ToString())
+                            if (rw.Cells["Stock ID"].Value.ToString() == dtg_AddedStocks.Rows[i].Cells["StockID"].Value.ToString())
                             {
                                 //if added get the quantity based on every item row id only
                                 DataSet ds = new DataSet();
-                                sql = "Select Quantity from `Stocks` where `Stock ID` = '" + dtg_AddedStocks.Rows[i].Cells[0].Value.ToString() + "' ";
+                                sql = "Select Quantity from `Stocks` where `Stock ID` = '" + dtg_AddedStocks.Rows[i].Cells["StockID"].Value.ToString() + "' ";
                                 config.Load_Datasource(sql, ds);
                                 //if there are any of item found
                                 if (config.dt.Rows.Count > 0)
                                 {
                                     //assign the result from the stock table
-                                    rw.Cells[6].Value = ds.Tables[0].Rows[0]["Quantity"];
+                                    rw.Cells["Quantity"].Value = ds.Tables[0].Rows[0]["Quantity"];
                                     //check the quantity if its greater or equal to added stocks
-                                    if (Convert.ToInt32(rw.Cells[6].Value) >= Convert.ToInt32(dtg_AddedStocks.Rows[i].Cells[4].Value))
+                                    if (Convert.ToInt32(rw.Cells["Quantity"].Value) >= Convert.ToInt32(dtg_AddedStocks.Rows[i].Cells["Quantity"].Value))
                                     {
                                         //Change the value of the current inbound stocks minus the added stocks
-                                        rw.Cells[6].Value = Convert.ToInt32(rw.Cells[6].Value) - Convert.ToInt32(dtg_AddedStocks.Rows[i].Cells[4].Value);
+                                        rw.Cells["Quantity"].Value = Convert.ToInt32(rw.Cells["Quantity"].Value) - Convert.ToInt32(dtg_AddedStocks.Rows[i].Cells["Quantity"].Value);
                                         //Calculate the current total inbound value times the new qty
-                                        rw.Cells[8].Value = Convert.ToDecimal(rw.Cells[6].Value) * Convert.ToDecimal(rw.Cells[7].Value);
+                                        rw.Cells["Total"].Value = Convert.ToDecimal(rw.Cells["Quantity"].Value) * Convert.ToDecimal(rw.Cells["Price"].Value);
                                         //Calculate the total (qty of added stocks * the price )
-                                        dtg_AddedStocks.Rows[i].Cells[6].Value = 0;
-                                        dtg_AddedStocks.Rows[i].Cells[6].Value = Convert.ToDecimal(dtg_AddedStocks.Rows[i].Cells[4].Value) *
-                                            Convert.ToDecimal(dtg_AddedStocks.Rows[i].Cells[5].Value);
+                                        dtg_AddedStocks.Rows[i].Cells["Total"].Value = 0;
+                                        dtg_AddedStocks.Rows[i].Cells["Total"].Value = Convert.ToDecimal(dtg_AddedStocks.Rows[i].Cells["Quantity"].Value) *
+                                            Convert.ToDecimal(dtg_AddedStocks.Rows[i].Cells["pprice"].Value);
 
                                     }
                                     else
                                     {
                                         MessageBox.Show("Quantity is more than Stocks, Invalid Quantity!", "Warning Message", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                        if (Convert.ToInt32(rw.Cells[6].Value) == 0)
+                                        if (Convert.ToInt32(rw.Cells["Quantity"].Value) == 0)
                                         {
-                                            dtg_AddedStocks.Rows[i].Cells[4].Value = 0;
-                                            rw.Cells[6].Value = ds.Tables[0].Rows[0]["Quantity"];
+                                            dtg_AddedStocks.Rows[i].Cells["Quantity"].Value = 0;
+                                            rw.Cells["Quantity"].Value = ds.Tables[0].Rows[0]["Quantity"];
                                         }
-                                        else if (Convert.ToInt32(rw.Cells[6].Value) >= 1)
+                                        else if (Convert.ToInt32(rw.Cells["Quantity"].Value) >= 1)
                                         {
-                                            dtg_AddedStocks.Rows[i].Cells[4].Value = 1;
-                                            rw.Cells[6].Value = Convert.ToInt32(ds.Tables[0].Rows[0]["Quantity"]) - 1;
+                                            dtg_AddedStocks.Rows[i].Cells["Quantity"].Value = 1;
+                                            rw.Cells["Quantity"].Value = Convert.ToInt32(ds.Tables[0].Rows[0]["Quantity"]) - 1;
                                         }
                                         return;
                                     }
 
-                                    if (Convert.ToDouble(dtg_AddedStocks.Rows[i].Cells[4].Value) == 0)
+                                    if (Convert.ToDouble(dtg_AddedStocks.Rows[i].Cells["Quantity"].Value) == 0)
                                     {
                                         func.Error_Message1 = "Quantiy is zero";
                                         func.Error_Message();
@@ -624,9 +624,9 @@ namespace Inventory_System02
                                     else
                                     {
                                         //Calculate the total (qty of added stocks * the price )
-                                        dtg_AddedStocks.Rows[i].Cells[6].Value = 0;
-                                        dtg_AddedStocks.Rows[i].Cells[6].Value = Convert.ToDecimal(dtg_AddedStocks.Rows[i].Cells[4].Value) *
-                                            Convert.ToDecimal(dtg_AddedStocks.Rows[i].Cells[5].Value);
+                                        dtg_AddedStocks.Rows[i].Cells["Total"].Value = 0;
+                                        dtg_AddedStocks.Rows[i].Cells["Total"].Value = Convert.ToDecimal(dtg_AddedStocks.Rows[i].Cells["Quantity"].Value) *
+                                            Convert.ToDecimal(dtg_AddedStocks.Rows[i].Cells["pprice"].Value);
                                         btn_Saved.Enabled = true;
 
                                     }

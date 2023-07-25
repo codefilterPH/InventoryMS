@@ -168,63 +168,78 @@ namespace Inventory_System02.Inbound
             return null;
         }
 
-
+        private void ErrorPrinter(string text)
+        {
+            MessageBox.Show($"{text} is missing!");
+        }
         private void btn_save_Click(object sender, EventArgs e)
         {
-            SQLConfig config = new SQLConfig();
-            string sqlBase = "Insert into Stocks (`Entry Date`, `Stock ID`, `Item Name`, `Brand`, `Description`, `Quantity`, `Price`, `Total`, `Image Path`, `Supplier ID`, `Supplier Name`, `User ID`, `Warehouse Staff Name`, `Job Role`, `Transaction Reference`, `Status`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-            Dictionary<string, string> parameters = new Dictionary<string, string>();
-            List<Dictionary<string, string>> records = new List<Dictionary<string, string>>();
-
-            parameters.Add("item_image_location", Includes.AppSettings.Image_DIR + "DONOTDELETE_SUBIMAGE");
-            parameters.Add("txt_Sup_Name", txt_Sup_Name.Text);
-            parameters.Add("txt_SupID", txt_SupID.Text);
-            parameters.Add("Global_ID", Global_ID);
-            parameters.Add("Fullname", Fullname);
-            parameters.Add("JobRole", JobRole);
-            parameters.Add("txt_TransRef", txt_TransRef.Text);
-
-            for (int i = 0; i < dtg_Items.Rows.Count; i++)
+            if (string.IsNullOrEmpty(txt_SupID.Text))
             {
-                if (!dtg_Items.Rows[i].IsNewRow)
-                {
-                    string barcode = Barcode_Generator();
-                    parameters["Stock_ID"] = barcode;
-                   
-
-                    Dictionary<string, string> record = new Dictionary<string, string>();
-
-                    // Date Handling
-                    DateTime warrantyDate;
-                    string warrantyValue = dtg_Items.Rows[i].Cells["warranty"].Value?.ToString() ?? string.Empty;
-
-
-                    // If warranty is null or empty, use current date, else parse the date entered by the user.
-                    if (string.IsNullOrEmpty(warrantyValue))
-                    {
-                        warrantyDate = DateTime.Now;
-                    }
-                    else if (!DateTime.TryParse(warrantyValue, out warrantyDate)) // if parsing fails
-                    {
-                        warrantyDate = DateTime.Now; // fallback to current date or handle it differently
-                    }
-
-                    // Format date to "yyyy-MM-dd HH:mm:ss"
-                    string warranty = warrantyDate.ToString(Includes.AppSettings.DateFormatSave);
-
-                    record["warranty"] = warranty;
-                    record["barcode_id"] = barcode;
-                    record["trans_ref"] = txt_TransRef.Text;
-                    records.Add(record);
-                }
+                ErrorPrinter("Supplier ID");
+                txt_SupID.Focus();
+                return;
             }
-            config.BulkInsert(sqlBase, dtg_Items, parameters);
-            parameters.Clear();
-            config.ExecuteBulkOperation(records, "insert");  // change "update" to the desired action
+            else if (string.IsNullOrEmpty(txt_Sup_Name.Text))
+            {
+                ErrorPrinter("Supplier Name");
+                txt_Sup_Name.Focus();
+                return;
+            }
+            else if (string.IsNullOrEmpty(txt_TransRef.Text))
+            {
+                ErrorPrinter("Transaction Reference");
+                txt_TransRef.Focus();
+                return;
+            }
+            else
+            {
+
+                SQLConfig config = new SQLConfig();
+                string sqlBase = "Insert into Stocks (`Entry Date`, `Stock ID`, `Item Name`, `Brand`, `Description`, `Quantity`, `Price`, `Total`, `Image Path`, `Supplier ID`, `Supplier Name`, `User ID`, `Warehouse Staff Name`, `Job Role`, `Transaction Reference`, `Status`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                Dictionary<string, string> parameters = new Dictionary<string, string>();
+
+                parameters.Add("item_image_location", Includes.AppSettings.Image_DIR + "DONOTDELETE_SUBIMAGE");
+                parameters.Add("txt_Sup_Name", txt_Sup_Name.Text);
+                parameters.Add("txt_SupID", txt_SupID.Text);
+                parameters.Add("Global_ID", Global_ID);
+                parameters.Add("Fullname", Fullname);
+                parameters.Add("JobRole", JobRole);
+                parameters.Add("txt_TransRef", txt_TransRef.Text);
+
+                int totalRowsAffected = 0;
+                for (int i = 0; i < dtg_Items.Rows.Count; i++)
+                {
+                    if (!dtg_Items.Rows[i].IsNewRow)
+                    {
+                        string barcode = Barcode_Generator();
+                        parameters["Stock_ID"] = barcode;
+
+                        totalRowsAffected += config.InsertSingleRow(sqlBase, dtg_Items.Rows[i], parameters);
+                    }
+                }
+                StatusSavingReporter(totalRowsAffected);
+
+                parameters.Clear();
+
+            }
         }
-
-
+        private void StatusSavingReporter(int operations)
+        {
+            if (operations <= 0)
+            {
+                MessageBox.Show("No operations were executed!");
+            }
+            else if (operations == 1)
+            {
+                MessageBox.Show("1 operation successfully executed!");
+            }
+            else
+            {
+                MessageBox.Show($"{operations / 2} operations successfully executed!");
+            }
+        }
 
         private void btn_searchSup_Click(object sender, EventArgs e)
         {

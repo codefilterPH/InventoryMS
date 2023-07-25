@@ -393,6 +393,7 @@ namespace Inventory_System02.Includes
         string appPath, filepath;
         public void DoubleClick_Picture_Then_Replace_Existing(PictureBox pic, string ID, string Brand)
         {
+            Console.WriteLine(ID);
             if (ID == null || ID == "")
             {
                 Error_Message1 = "ID";

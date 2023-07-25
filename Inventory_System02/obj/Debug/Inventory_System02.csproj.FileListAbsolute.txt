@@ -339,6 +339,8 @@ C:\Users\eugen\source\repos\Inventory\Inventory_System02\obj\Debug\Inventory MS.
 C:\Users\eugen\source\repos\Inventory\Inventory_System02\obj\Debug\Inventory_System02.csproj.CopyComplete
 C:\Users\eugen\source\repos\Inventory\Inventory_System02\obj\Debug\Inventory MS.exe
 C:\Users\eugen\source\repos\Inventory\Inventory_System02\obj\Debug\Inventory MS.pdb
+D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\es\Microsoft.ReportViewer.WinForms.resources.dll
+D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.Settings.resources
 D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\x86\SqlServerSpatial160.dll
 D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\x64\SqlServerSpatial160.dll
 D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\CommonSql\Invoice\Invoice_In_Item.rdlc
@@ -438,7 +440,6 @@ D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\ru\Microsoft.ReportViewe
 D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\zh-CHS\Microsoft.ReportViewer.Design.resources.dll
 D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\zh-CHT\Microsoft.ReportViewer.Design.resources.dll
 D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\de\Microsoft.ReportViewer.WinForms.resources.dll
-D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\es\Microsoft.ReportViewer.WinForms.resources.dll
 D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\fr\Microsoft.ReportViewer.WinForms.resources.dll
 D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\it\Microsoft.ReportViewer.WinForms.resources.dll
 D:\InventoryMS\InventoryMS\Inventory_System02\bin\Debug\ja\Microsoft.ReportViewer.WinForms.resources.dll
@@ -494,7 +495,6 @@ D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.Stock
 D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.StockOutList.resources
 D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.Profiles.Employees.resources
 D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.Properties.Resources.resources
-D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.Settings.resources
 D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.StockOut.resources
 D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.StockReturned.resources
 D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.csproj.GenerateResource.cache

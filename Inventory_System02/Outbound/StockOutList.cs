@@ -620,79 +620,85 @@ namespace Inventory_System02
         string search_for = string.Empty;
         private void txt_Search_TextChanged(object sender, EventArgs e)
         {
-            if (cbo_srch_type.Text == "DATE")
+            try
             {
-                search_for = "`Entry Date`";
-            }
-            else if (cbo_srch_type.Text == "ID")
-            {
-                search_for = "`Stock ID`";
-            }
-            else if (cbo_srch_type.Text == "NAME")
-            {
-                search_for = "`Item Name`";
-            }
-            else if (cbo_srch_type.Text == "BRAND")
-            {
-                search_for = "`Brand`";
-            }
-            else if (cbo_srch_type.Text == "DESCRIPTION")
-            {
-                search_for = "`Description`";
-            }
-            else if (cbo_srch_type.Text == "QUANTITY")
-            {
-                search_for = "`Quantity`";
-            }
-            else if (cbo_srch_type.Text == "PRICE")
-            {
-                search_for = "`Price`";
-            }
-            else if (cbo_srch_type.Text == "TOTAL")
-            {
-                search_for = "`Total`";
-            }
-            else if (cbo_srch_type.Text == "DIVISION")
-            {
-                search_for = "`Customer Name`";
-            }
-            else if (cbo_srch_type.Text == "ADDRESS")
-            {
-                search_for = "`Customer Address`";
-            }
-            else if (cbo_srch_type.Text == "STAFF NAME")
-            {
-                search_for = "`Warehouse Staff Name`";
-            }
-            else if (cbo_srch_type.Text == "JOB")
-            {
-                search_for = "`Job Role`";
-            }
-            else if (cbo_srch_type.Text == "WARRANTY DUE DATE")
-            {
-                search_for = "`Warranty Due Date`";
-            }
-            else if (cbo_srch_type.Text == "TRANS REF")
-            {
-                search_for = "`Transaction Reference`";
-            }
-            else
-            {
-                search_for = "`Customer Name`";
-            }
-            sql = "Select * from `Stock Out` where " + search_for + " like '%" + txt_Search.Text + "%' ORDER BY `Entry Date` DESC";
-            Load_Items(sql);
-            if (config.dt.Rows.Count > 0)
-            {
-                Calculations();
-            }
-            DTG_Property();
+                if (cbo_srch_type.Text == "DATE")
+                {
+                    search_for = "`Entry Date`";
+                }
+                else if (cbo_srch_type.Text == "ID")
+                {
+                    search_for = "`Stock ID`";
+                }
+                else if (cbo_srch_type.Text == "NAME")
+                {
+                    search_for = "`Item Name`";
+                }
+                else if (cbo_srch_type.Text == "BRAND")
+                {
+                    search_for = "`Brand`";
+                }
+                else if (cbo_srch_type.Text == "DESCRIPTION")
+                {
+                    search_for = "`Description`";
+                }
+                else if (cbo_srch_type.Text == "QUANTITY")
+                {
+                    search_for = "`Quantity`";
+                }
+                else if (cbo_srch_type.Text == "PRICE")
+                {
+                    search_for = "`Price`";
+                }
+                else if (cbo_srch_type.Text == "TOTAL")
+                {
+                    search_for = "`Total`";
+                }
+                else if (cbo_srch_type.Text == "DIVISION")
+                {
+                    search_for = "`Customer Name`";
+                }
+                else if (cbo_srch_type.Text == "ADDRESS")
+                {
+                    search_for = "`Customer Address`";
+                }
+                else if (cbo_srch_type.Text == "STAFF NAME")
+                {
+                    search_for = "`Warehouse Staff Name`";
+                }
+                else if (cbo_srch_type.Text == "JOB")
+                {
+                    search_for = "`Job Role`";
+                }
+                else if (cbo_srch_type.Text == "WARRANTY DUE DATE")
+                {
+                    search_for = "`Warranty Due Date`";
+                }
+                else if (cbo_srch_type.Text == "TRANS REF")
+                {
+                    search_for = "`Transaction Reference`";
+                }
+                else
+                {
+                    search_for = "`Customer Name`";
+                }
+                sql = "Select * from `Stock Out` where " + search_for + " like '%" + txt_Search.Text + "%' ORDER BY `Entry Date` DESC";
+                Load_Items(sql);
+                if (config.dt.Rows.Count > 0)
+                {
+                    Calculations();
+                }
+                DTG_Property();
 
-            if (txt_Search.Text == "")
-            {
-                refreshTableToolStripMenuItem_Click(sender, e);
+                if (txt_Search.Text == "")
+                {
+                    refreshTableToolStripMenuItem_Click(sender, e);
+                }
             }
-
+            catch (Exception ex)
+            {
+                lbl_exception.Text = $"An error occurred: {ex.Message}";
+            }
         }
     }
 }
