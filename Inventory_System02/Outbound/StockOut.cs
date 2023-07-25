@@ -173,7 +173,7 @@ namespace Inventory_System02
                     for (int i = 0; i < dtg_AddedStocks.Rows.Count; i++)
                     {
                         int.TryParse(dtg_AddedStocks.Rows[i].Cells["Quantity"].Value.ToString(), out qty);
-                        decimal.TryParse(dtg_AddedStocks.Rows[i].Cells["Price"].Value.ToString(), out price);
+                        decimal.TryParse(dtg_AddedStocks.Rows[i].Cells["pprice"].Value.ToString(), out price);
 
                         totalQty += qty;
                         totalAmt += qty * price;
