@@ -793,7 +793,7 @@ namespace Inventory_System02
                     .Select(row => new Items_DataSet
                     {
                         Item_Name = row.Cells["ItemName"].Value.ToString(),
-                        Description = row.Cells["ItemName"].Value.ToString(),
+                        Description = row.Cells["Description"].Value.ToString(),
                         Brand = row.Cells["Brand"].Value.ToString(),
                         Quantity = row.Cells["Quantity"].Value.ToString(),
                         Price = row.Cells["pprice"].Value.ToString(),
@@ -1030,12 +1030,12 @@ namespace Inventory_System02
                     Generate_Trans();
                     foreach (DataGridViewRow rw in dtg_Stocks.Rows)
                     {
-                        sql = "Select Quantity, Total, Status from Stocks where `Stock ID` = '" + rw.Cells[2].Value + "' ";
+                        sql = "Select Quantity, Total, Status from Stocks where `Stock ID` = '" + rw.Cells["Stock ID"].Value + "' ";
                         config.singleResult(sql);
                         if (config.dt.Rows.Count == 1)
                         {
                             string info = "Item was altered an outbound was made! ref " + Gen_Trans;
-                            sql = "Update Stocks set Quantity = '" + Convert.ToInt32(rw.Cells[6].Value) + "', Total ='" + Convert.ToDecimal(rw.Cells[8].Value) + "', Status = '" + info + "' where `Stock ID` = '" + rw.Cells[2].Value + "' ";
+                            sql = "Update Stocks set Quantity = '" + Convert.ToInt32(rw.Cells["Quantity"].Value) + "', Total ='" + Convert.ToDecimal(rw.Cells["Total"].Value) + "', Status = '" + info + "' where `Stock ID` = '" + rw.Cells["Stock ID"].Value + "' ";
                             config.Execute_Query(sql);
                         }
                     }
@@ -1064,13 +1064,13 @@ namespace Inventory_System02
                             ",'" + cbo_CustID.Text + "' " +
                             ",'" + txt_Cust_Name.Text + "' " +
                             ",'" + txt_Cust_SAddress.Text + "' " +
-                            ",'" + stock_out_row.Cells[0].Value.ToString() + "' " +
-                            ",'" + stock_out_row.Cells[1].Value.ToString() + "' " +
-                            ",'" + stock_out_row.Cells[2].Value.ToString() + "' " +
-                            ",'" + stock_out_row.Cells[3].Value.ToString() + "' " +
-                            ",'" + Convert.ToInt32(stock_out_row.Cells[4].Value) + "' " +
-                            ",'" + Convert.ToDecimal(stock_out_row.Cells[5].Value) + "' " +
-                            ",'" + Convert.ToDecimal(stock_out_row.Cells[6].Value) + "' " +
+                            ",'" + stock_out_row.Cells["StockID"].Value.ToString() + "' " +
+                            ",'" + stock_out_row.Cells["ItemName"].Value.ToString() + "' " +
+                            ",'" + stock_out_row.Cells["Brand"].Value.ToString() + "' " +
+                            ",'" + stock_out_row.Cells["Description"].Value.ToString() + "' " +
+                            ",'" + Convert.ToInt32(stock_out_row.Cells["Quantity"].Value) + "' " +
+                            ",'" + Convert.ToDecimal(stock_out_row.Cells["pprice"].Value) + "' " +
+                            ",'" + Convert.ToDecimal(stock_out_row.Cells["Total"].Value) + "' " +
                             ",'" + Gen_Trans + "' " +
                             ",'" + Global_ID + "' " +
                             ",'" + Fullname + "' " +
