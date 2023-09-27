@@ -96,6 +96,8 @@ namespace Inventory_System02
             this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bworker_return = new System.ComponentModel.BackgroundWorker();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.lbl_error_message = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cust_Image)).BeginInit();
             this.panel2.SuspendLayout();
@@ -104,6 +106,7 @@ namespace Inventory_System02
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtg_Return)).BeginInit();
             this.menuStrip2.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -276,6 +279,7 @@ namespace Inventory_System02
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.btn_view);
             this.panel2.Controls.Add(this.label16);
             this.panel2.Controls.Add(this.cbo_srch_type);
@@ -820,6 +824,26 @@ namespace Inventory_System02
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
             // 
+            // panel4
+            // 
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.Controls.Add(this.lbl_error_message);
+            this.panel4.Location = new System.Drawing.Point(81, 31);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(427, 16);
+            this.panel4.TabIndex = 103;
+            // 
+            // lbl_error_message
+            // 
+            this.lbl_error_message.AutoSize = true;
+            this.lbl_error_message.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_error_message.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_error_message.Location = new System.Drawing.Point(0, 0);
+            this.lbl_error_message.Name = "lbl_error_message";
+            this.lbl_error_message.Size = new System.Drawing.Size(0, 13);
+            this.lbl_error_message.TabIndex = 102;
+            // 
             // StockReturned
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -854,6 +878,8 @@ namespace Inventory_System02
             ((System.ComponentModel.ISupportInitialize)(this.dtg_Return)).EndInit();
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -916,5 +942,7 @@ namespace Inventory_System02
         private System.Windows.Forms.DataGridViewTextBoxColumn price111;
         private System.Windows.Forms.DataGridViewTextBoxColumn amoun11;
         private System.Windows.Forms.ToolStripMenuItem previewToolStripMenuItem;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label lbl_error_message;
     }
 }

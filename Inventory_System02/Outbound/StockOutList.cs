@@ -24,7 +24,7 @@ namespace Inventory_System02
 
         private async void StockOutList_Load(object sender, EventArgs e)
         {
-            await Task.Delay(2000);
+            await Task.Delay(500);
             refreshTableToolStripMenuItem_Click(sender, e);
         }
         public void Calculations()

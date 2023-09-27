@@ -119,7 +119,7 @@ namespace Inventory_System02.Profiles
 
         private async void Employees_Load(object sender, EventArgs e)
         {
-            await Task.Delay(2000);
+            await Task.Delay(500);
             func.Reload_Images(pictureBox1, "DONOTDELETE_SUBIMAGE", Includes.AppSettings.Employee_DIR);
             reloadTableToolStripMenuItem_Click(sender, e);
             txt_Job_role.DropDownStyle = ComboBoxStyle.DropDownList;

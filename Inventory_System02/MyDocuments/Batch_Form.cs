@@ -698,7 +698,7 @@ namespace Inventory_System02
 
         private async void Batch_Form_Load(object sender, EventArgs e)
         {
-            await Task.Delay(2000);
+            await Task.Delay(500);
             backgroundWorker1.RunWorkerAsync();
         }
     }

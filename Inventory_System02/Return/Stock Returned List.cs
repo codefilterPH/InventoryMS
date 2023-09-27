@@ -83,7 +83,7 @@ namespace Inventory_System02
 
         private async void Stock_Returned_Load(object sender, EventArgs e)
         {
-            await Task.Delay(2000);
+            await Task.Delay(500);
             refreshTableToolStripMenuItem_Click(sender, e);
             cbo_srch_type.DropDownStyle = ComboBoxStyle.DropDownList;
         }

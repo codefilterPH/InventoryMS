@@ -35,7 +35,7 @@ namespace Inventory_System02
 
         private async void StockReturned_Load(object sender, EventArgs e)
         {
-            await Task.Delay(2000);
+            await Task.Delay(500);
             cbo_srch_type.DropDownStyle = ComboBoxStyle.DropDownList;
             txt_Reasons.DropDownStyle = ComboBoxStyle.DropDownList;
         }
@@ -693,37 +693,63 @@ namespace Inventory_System02
 
         private void btn_sup_delete_Click(object sender, EventArgs e)
         {
-            if (dtg_Return.SelectedRows.Count > 0)
+            try
             {
-                foreach (DataGridViewRow item in this.dtg_Return.SelectedRows)
+                if (dtg_Return.SelectedRows.Count > 0)
                 {
-                    dtg_Return.Rows.RemoveAt(item.Index);
+                    List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
-                    // recalculate main items
-                    for (int i = 0; i < dtg_Items.Rows.Count; i++)
+                    foreach (DataGridViewRow item in dtg_Return.SelectedRows)
                     {
-                        if (item.Cells[0].Value.ToString() == dtg_Items.Rows[i].Cells["Stock ID"].Value.ToString())
+                        refreshToolStripMenuItem.Enabled = false;
+
+                        // Find the corresponding row in dtg_Stocks
+                        foreach (DataGridViewRow stockRow in dtg_Items.Rows)
                         {
-                            dtg_Items.Rows[i].Cells["Quantity"].Value = item.Cells[4].Value.ToString();
-                            dtg_Items.Rows[i].Cells["Total"].Value = Convert.ToDecimal(dtg_Items.Rows[i].Cells["Quantity"].Value) * Convert.ToDecimal(dtg_Items.Rows[i].Cells["Price"].Value);
+                            if (item.Cells["StockID"].Value.ToString() == stockRow.Cells["Stock ID"].Value.ToString())
+                            {
+                                // Sum the quantities
+                                decimal currentQuantity = Convert.ToDecimal(stockRow.Cells["Quantity"].Value);
+                                decimal addedQuantity = Convert.ToDecimal(item.Cells["Quantity"].Value);
+                                decimal newQuantity = currentQuantity + addedQuantity;
+
+                                stockRow.Cells["Quantity"].Value = newQuantity;
+                                stockRow.Cells["Total"].Value = newQuantity * Convert.ToDecimal(stockRow.Cells["Price"].Value);
+
+                                rowsToRemove.Add(item);
+                                break;
+                            }
                         }
                     }
+
+                    // Remove selected rows from dtg_AddedStocks
+                    foreach (DataGridViewRow row in rowsToRemove)
+                    {
+                        dtg_Return.Rows.Remove(row);
+                    }
+
                     Update_Qty_Stocks();
-                    chk_all2.Checked = false;
                     dtg_Return.ClearSelection();
                 }
-            }
-            else if (dtg_Return.Rows.Count >= 1)
-            {
-                dtg_Return.CurrentRow.Selected = true;
-            }
+                else if (dtg_Return.Rows.Count >= 1)
+                {
+                    dtg_Return.CurrentRow.Selected = true;
+                }
 
-            if (dtg_Return.Rows.Count <= 0)
+                if (dtg_Return.Rows.Count <= 0)
+                {
+                    txt_TransRefOut_TextChanged(sender, e);
+                    refreshToolStripMenuItem.Enabled = true;
+                    refreshToolStripMenuItem_Click(sender, e);
+                }
+
+                chk_all2.Checked = false;
+            }
+            catch (Exception ex)
             {
-                txt_TransRefOut_TextChanged(sender, e);
+                lbl_error_message.Text = "An error occurred: " + ex.Message;
             }
             TOTALS();
-
         }
         private void Update_Qty_Stocks()
         {
