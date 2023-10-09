@@ -58,6 +58,8 @@ namespace Inventory_System02
             this.label1 = new System.Windows.Forms.Label();
             this.txt_Search = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.lbl_error_message = new System.Windows.Forms.Label();
             this.btn_view = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.cbo_srch_type = new System.Windows.Forms.ComboBox();
@@ -96,17 +98,15 @@ namespace Inventory_System02
             this.previewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bworker_return = new System.ComponentModel.BackgroundWorker();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.lbl_error_message = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cust_Image)).BeginInit();
             this.panel2.SuspendLayout();
+            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtg_Items)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtg_Return)).BeginInit();
             this.menuStrip2.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -293,6 +293,26 @@ namespace Inventory_System02
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(786, 168);
             this.panel2.TabIndex = 1;
+            // 
+            // panel4
+            // 
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.Controls.Add(this.lbl_error_message);
+            this.panel4.Location = new System.Drawing.Point(81, 31);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(427, 16);
+            this.panel4.TabIndex = 103;
+            // 
+            // lbl_error_message
+            // 
+            this.lbl_error_message.AutoSize = true;
+            this.lbl_error_message.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbl_error_message.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_error_message.Location = new System.Drawing.Point(0, 0);
+            this.lbl_error_message.Name = "lbl_error_message";
+            this.lbl_error_message.Size = new System.Drawing.Size(0, 13);
+            this.lbl_error_message.TabIndex = 102;
             // 
             // btn_view
             // 
@@ -824,26 +844,6 @@ namespace Inventory_System02
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
             // 
-            // panel4
-            // 
-            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel4.Controls.Add(this.lbl_error_message);
-            this.panel4.Location = new System.Drawing.Point(81, 31);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(427, 16);
-            this.panel4.TabIndex = 103;
-            // 
-            // lbl_error_message
-            // 
-            this.lbl_error_message.AutoSize = true;
-            this.lbl_error_message.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbl_error_message.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_error_message.Location = new System.Drawing.Point(0, 0);
-            this.lbl_error_message.Name = "lbl_error_message";
-            this.lbl_error_message.Size = new System.Drawing.Size(0, 13);
-            this.lbl_error_message.TabIndex = 102;
-            // 
             // StockReturned
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -870,6 +870,8 @@ namespace Inventory_System02
             ((System.ComponentModel.ISupportInitialize)(this.cust_Image)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtg_Items)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -878,8 +880,6 @@ namespace Inventory_System02
             ((System.ComponentModel.ISupportInitialize)(this.dtg_Return)).EndInit();
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

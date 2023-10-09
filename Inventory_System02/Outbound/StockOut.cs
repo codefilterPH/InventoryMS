@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ToolTip = System.Windows.Forms.ToolTip;
+using Inventory_System02.Logging;
 
 namespace Inventory_System02
 {
@@ -34,6 +35,7 @@ namespace Inventory_System02
 
         private async void StockOut_Load(object sender, EventArgs e)
         {
+           
             await Task.Delay(500);
             refreshTableToolStripMenuItem_Click(sender, e);
             cbo_srch_type.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -53,6 +55,7 @@ namespace Inventory_System02
             }
             catch (Exception ex)
             {
+                Logger.Instance.LogError("An error occurred in stock out button cust gen click: " + ex.ToString());
                 lbl_error_message.Text = "An error occurred: " + ex.Message;
             }
 
@@ -65,8 +68,8 @@ namespace Inventory_System02
             {
                 isWorkerBusy = true;
                 PreloadWorker.RunWorkerAsync();
+ 
             }
-
         }
 
         private void DTG_Property()
@@ -151,9 +154,10 @@ namespace Inventory_System02
 
                 }
             }
-            catch (InvalidOperationException)
+            catch (InvalidOperationException ex)
             {
                 // Handle the exception by waiting for a short period of time and then trying the operation again
+                Logger.Instance.LogError("An error occurred in stock out dtg property: " + ex.ToString());
                 System.Threading.Thread.Sleep(500);
                 DTG_Property();
             }
@@ -210,6 +214,7 @@ namespace Inventory_System02
             }
             catch (Exception ex)
             {
+                Logger.Instance.LogError("An error occurred in stock out totals: " + ex.ToString());
                 lbl_error_message.Text = "Error: " + ex.Message;
             }
         }
@@ -269,6 +274,7 @@ namespace Inventory_System02
             }
             catch (Exception ex)
             {
+                Logger.Instance.LogError("An error occurred in stock out add button for supplier: " + ex.ToString());
                 lbl_error_message.Text = "An error occured: " + ex.Message;
             }
 
@@ -328,6 +334,7 @@ namespace Inventory_System02
             }
             catch (Exception ex)
             {
+                Logger.Instance.LogError("An error occurred in stock out removing items: " + ex.ToString());
                 lbl_error_message.Text = "An error occurred: " + ex.Message;
             }
         }
@@ -388,11 +395,12 @@ namespace Inventory_System02
 
                 if (txt_Search.Text == "")
                 {
-                    refreshTableToolStripMenuItem_Click(sender, e);
+                    refreshTableToolStripMenuItem.Enabled = true;
                 }
             }
             catch (Exception ex)
             {
+                Logger.Instance.LogError("An error occurred in stock out searching query: " + ex.ToString());
                 lbl_error_message.Text = "An error occured: " + ex.Message;
             }
         }
@@ -482,6 +490,7 @@ namespace Inventory_System02
             }
             catch (Exception ex)
             {
+                Logger.Instance.LogError("An error occurred in stock out editing currently added stocks for outbound: " + ex.ToString());
                 lbl_error_message.Text = "An error occured: " + ex.Message;
             }
         }
@@ -664,6 +673,7 @@ namespace Inventory_System02
             }
             catch (InvalidOperationException ex)
             {
+                Logger.Instance.LogError("An error occurred in stock out apply updates on inventory after outbound: " + ex.ToString());
                 lbl_error_message.Text = "An invalid operation exception occured: " + ex.Message;
             }
             catch (Exception ex)
@@ -702,6 +712,7 @@ namespace Inventory_System02
             }
             catch (Exception ex)
             {
+                Logger.Instance.LogError("An error occurred in stock out enabling all disabled containers or panels: " + ex.ToString());
                 lbl_error_message.Text = "An error occured from enable all: " + ex.Message;
             }
         }
@@ -716,6 +727,7 @@ namespace Inventory_System02
             }
             catch (Exception ex)
             {
+                Logger.Instance.LogError("An error occurred in stock out opening list of outbound: " + ex.ToString());
                 lbl_error_message.Text = "An error occured: " + ex.Message;
             }
         }
@@ -868,6 +880,7 @@ namespace Inventory_System02
             }
             catch (Exception ex)
             {
+                Logger.Instance.LogError("An error occurred in stock out doing preview to outbound items: " + ex.ToString());
                 lbl_error_message.Text = "An exception error occured: " + ex.Message;
             }
         }
@@ -934,6 +947,11 @@ namespace Inventory_System02
                             this.Invoke(new MethodInvoker(delegate { rw.DefaultCellStyle.ForeColor = Color.Red; }));
                         }
                     }
+                }
+
+                if (dtg_AddedStocks.Rows.Count > 0)
+                {
+                    dtg_AddedStocks.Rows.Clear();
                 }
                 TOTALS();
             }
@@ -1152,6 +1170,7 @@ namespace Inventory_System02
             }
             catch (Exception ex)
             {
+                Logger.Instance.LogError("An error occurred in stock out doing outbound: " + ex.ToString());
                 lbl_error_message.Text = "An error occured: " + ex.Message;
             }
         }

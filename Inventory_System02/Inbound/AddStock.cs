@@ -23,6 +23,7 @@ namespace Inventory_System02
         usableFunction func;
         Calculations cal = new Calculations();
         ID_Generator gen = new ID_Generator();
+
         string sql, Item_ID1, Global_ID, Fullname, JobRole, item_image_location = string.Empty, img_loc = string.Empty;
         int quantity;
         bool isWorkerBusy = false;
@@ -115,10 +116,11 @@ namespace Inventory_System02
                         break; // Break out of the while loop since we don't need further attempts
                     }
                 }
-                catch (InvalidOperationException)
+                catch (InvalidOperationException ex)
                 {
                     attempts++;
                     // Handle the exception by waiting for a short period of time and then trying the operation again
+
                     System.Threading.Thread.Sleep(500);
                     DTG_Property();
                 }

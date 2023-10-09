@@ -296,7 +296,7 @@ namespace Inventory_System02
 
             if (txt_Search.Text == "")
             {
-                refreshToolStripMenuItem_Click(sender, e);
+                refreshToolStripMenuItem.Enabled = true;
             }
         }
 
@@ -438,6 +438,19 @@ namespace Inventory_System02
         {
             this.Refresh();
             func.clearTxt(panel1);
+
+            //if (formLoaded)
+            //{
+
+            //    if (dtg_Return.Rows.Count > 0)
+            //    {
+            //        dtg_Return.Rows.Clear();
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("There are no rows to clear.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //}
         }
 
         private void btn_view_Click(object sender, EventArgs e)
