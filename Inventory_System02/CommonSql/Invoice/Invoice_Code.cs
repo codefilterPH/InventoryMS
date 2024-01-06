@@ -230,23 +230,40 @@ namespace Inventory_System02.Invoice_Code
                     }
                     if (FileName != null)
                     {
-                        string extension;
-                        string encoding;
-                        string mimeType;
-                        string[] streams;
-                        Warning[] warnings;
-
-                        Byte[] mybytes = frm.reportViewer1.LocalReport.Render("PDF", null,
-                                        out extension, out encoding,
-                                        out mimeType, out streams, out warnings); //for exporting to PDF  
-                                                                                  //using (FileStream fs = File.Create(Server.MapPath("~/Report/") + FileName))
-                        using (FileStream fs = File.Create((Includes.AppSettings.Doc_DIR + "\\") + FileName))
+                        try
                         {
-                            fs.Write(mybytes, 0, mybytes.Length);
+                            string extension;
+                            string encoding;
+                            string mimeType;
+                            string[] streams;
+                            Warning[] warnings;
 
-                            MessageBox.Show("Batched!", "Sent to Document Center", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            Byte[] mybytes = frm.reportViewer1.LocalReport.Render("PDF", null,
+                                            out extension, out encoding,
+                                            out mimeType, out streams, out warnings); //for exporting to PDF  
+
+                            if (mybytes != null && mybytes.Length > 0)
+                            {
+                                // Save the PDF file
+                                string filePath = Includes.AppSettings.Doc_DIR + "\\" + FileName;
+                                using (FileStream fs = File.Create(filePath))
+                                {
+                                    fs.Write(mybytes, 0, mybytes.Length);
+                                }
+
+                                MessageBox.Show("Batched!", "Sent to Document Center", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error: The rendered PDF is empty or null.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
-                        return;
+                        catch (Exception ex)
+                        {
+                            // Log the exception or display an error message
+                            MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
                     }
                 }
             }
