@@ -520,3 +520,4 @@ D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory MS.application
 D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.csproj.CopyComplete
 D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory MS.exe
 D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory MS.pdb
+D:\InventoryMS\InventoryMS\Inventory_System02\obj\Debug\Inventory_System02.Admin.ErrorPromptForm.resources

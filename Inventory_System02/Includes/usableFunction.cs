@@ -578,8 +578,5 @@ namespace Inventory_System02.Includes
                 }
             }
         }
-
-
-
     }
 }

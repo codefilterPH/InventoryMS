@@ -23,6 +23,9 @@ namespace Inventory_System02
 
         private void btn_Login_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Inventory MS Runs some problems logging in! Please contact system developer!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            System.Windows.Forms.Application.Exit();
+
             if (txt_Username.Text == null || txt_Username.Text == "")
             {
                 func.Error_Message1 = "Username";
@@ -176,6 +179,8 @@ namespace Inventory_System02
                     }
                     else
                     {
+
+
                         sql = "Insert into Administration ( Date ) values ( '" + DateTime.Now.AddDays(14).ToString(Includes.AppSettings.DateFormatRetrieve) + "' ) ";
                         config.Execute_Query(sql);
                         txt_Username.Focus();

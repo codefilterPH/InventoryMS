@@ -158,6 +158,47 @@ namespace Inventory_System02.Includes
                 con.Close();
             }
         }
+        public string ExecuteQueryAndReturnStringWithParameters(string sql, Dictionary<string, object> parameters)
+        {
+            string resultString = string.Empty;
+
+            try
+            {
+                using (con = new SQLiteConnection(Includes.AppSettings.Database()))
+                {
+                    con.Open();
+
+                    using (cmd = new SQLiteCommand())
+                    {
+                        cmd.Connection = con;
+                        cmd.CommandText = sql;
+
+                        // Add parameters if provided
+                        if (parameters != null)
+                        {
+                            foreach (var parameter in parameters)
+                            {
+                                cmd.Parameters.AddWithValue(parameter.Key, parameter.Value);
+                            }
+                        }
+
+                        // Execute the query and return the result as a string
+                        resultString = cmd.ExecuteScalar()?.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return resultString;
+        }
+
 
         public int InsertSingleRow(string sqlBase, DataGridViewRow row, Dictionary<string, string> parameters)
         {

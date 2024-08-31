@@ -1065,9 +1065,13 @@ namespace Inventory_System02
                     MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     Gen_Trans = string.Empty;
+
                     Generate_Trans();
                     foreach (DataGridViewRow rw in dtg_Stocks.Rows)
-                    {
+                    {   
+                      
+                        Console.WriteLine($"THIS IS THE SELECTED ITEM: {rw.Cells["Stock ID"].Value?.ToString()}");
+
                         sql = "Select Quantity, Total, Status from Stocks where `Stock ID` = '" + rw.Cells["Stock ID"].Value + "' ";
                         config.singleResult(sql);
                         if (config.dt.Rows.Count == 1)
